@@ -1,0 +1,5 @@
+.wrapper-navbar {
+  margin-right: 5rem;
+  display: flex;
+  justify-content: flex-end;
+}
