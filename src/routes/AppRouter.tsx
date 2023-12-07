@@ -2,39 +2,32 @@ import { memo } from 'react';
 import { useRoutes, type RouteObject } from 'react-router-dom';
 
 import WelcomePage from '../pages/WelcomePage';
-import AuthenticationPage from '../pages/AuthenticationPage';
-import GraphiQLPage from '../pages/GraphiQLPage';
+import MainPage from '../pages/MainPage';
+import SignInPage from '../pages/SignInPage';
+import SignUpPage from '../pages/SignUpPage';
 import Page404 from '../pages/Page404';
 
-const paths = {
-  root: {
-    path: '/',
-  },
-  welcome: {
-    path: 'welcome ',
-  },
-  authentication: {
-    path: '/sign',
-  },
-  graphiql: {
-    path: '/graphiQL',
-  },
-};
+enum RouteParths {
+  WELCOME = '/',
+  MAIN = '/main',
+  SIGNIN = '/sing-in',
+  SIGNUP = '/sign-up',
+  PAGE404 = '*',
+}
 
 const allRoutes: RouteObject = {
-  path: paths.root.path,
+  path: RouteParths.WELCOME,
   children: [
-    { path: paths.root.path, element: <WelcomePage /> },
-    { path: paths.authentication.path, element: <AuthenticationPage /> },
-    { path: paths.graphiql.path, element: <GraphiQLPage /> },
-    { path: '*', element: <Page404 /> },
+    { path: RouteParths.WELCOME, element: <WelcomePage /> },
+    { path: RouteParths.MAIN, element: <MainPage /> },
+    { path: RouteParths.SIGNIN, element: <SignInPage /> },
+    { path: RouteParths.SIGNUP, element: <SignUpPage /> },
+    { path: RouteParths.PAGE404, element: <Page404 /> },
   ],
 };
 
 const AppRouter = memo(() => {
   return useRoutes([allRoutes]);
 });
-
-AppRouter.displayName = 'AppRouter';
 
 export default AppRouter;
