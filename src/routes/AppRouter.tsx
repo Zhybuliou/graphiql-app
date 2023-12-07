@@ -1,14 +1,28 @@
-import { Route, Routes, Navigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Suspense } from 'react';
 import { privateRoutes, publicRoutes } from './routes';
 import RouteParths from '../types/enums/routeParths';
+import SkeletonPage from '../components/skeletons/SkeletonPage';
+import Fallback from '../components/fallback/Fallback';
 
 function AppRouter() {
   const user = false;
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
-    <ErrorBoundary fallback={<p>Something went wrong</p>}>
-      <Suspense fallback={<p>Loading...</p>}>
+    <ErrorBoundary
+      FallbackComponent={Fallback}
+      onReset={() => navigate(RouteParths.WELCOME)}
+      resetKeys={[location]}
+    >
+      <Suspense fallback={<SkeletonPage />}>
         {user ? (
           <Routes>
             {privateRoutes.map(({ path, Page }) => (

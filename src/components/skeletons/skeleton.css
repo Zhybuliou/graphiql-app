@@ -1,0 +1,36 @@
+.skeleton {
+  background-color: rgb(145, 145, 145);
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+.skeleton.width-100 {
+  width: 100%;
+}
+
+.skeleton.width-50 {
+  width: 50%;
+}
+
+.skeleton.width-15 {
+  width: 15%;
+}
+
+.skeleton.center {
+  margin: 0 auto;
+}
+
+.skeleton.title {
+  height: 2rem;
+}
+
+/* animation */
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
