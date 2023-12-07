@@ -1,16 +1,18 @@
 import { BrowserRouter } from 'react-router-dom';
+
 import Navbar from './components/Navbar/Navbar';
-import Dashboard from './components/Dashboard/Dashboard';
 import AppRouter from './routes/AppRouter';
 
 import './App.css';
+import { LocaleProvider } from './context/local';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Dashboard />
-      <AppRouter />
-    </BrowserRouter>
+    <LocaleProvider>
+      <BrowserRouter>
+        <Navbar />
+        <AppRouter />
+      </BrowserRouter>
+    </LocaleProvider>
   );
 }
