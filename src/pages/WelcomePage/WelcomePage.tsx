@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 import RouteParths from '../../types/enums/routeParths';
 import './WelcomePage.css';
+import Local from '../../components/Local/Local';
 
 function WelcomePage() {
   const user = false;
@@ -15,6 +16,7 @@ function WelcomePage() {
         </NavLink>
       ) : (
         <div className="authentication-wrapper">
+          <Local />
           <NavLink to={RouteParths.SIGNIN}>
             <button type="button">Sign in</button>
           </NavLink>
