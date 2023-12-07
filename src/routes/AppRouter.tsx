@@ -1,12 +1,15 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../firebase/firebase';
 import { privateRoutes, publicRoutes } from './routes';
 import RoutePaths from '../types/enums/routePaths';
 
 function AppRouter() {
-  const user = false;
+  const [user] = useAuthState(auth);
+
   return user ? (
     <Routes>
-      {privateRoutes.map(({ path, Page }) => (
+      {[...privateRoutes, ...publicRoutes].map(({ path, Page }) => (
         <Route key={path} path={path} element={<Page />} />
       ))}
     </Routes>

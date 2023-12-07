@@ -1,33 +1,25 @@
 .register {
-  height: 100vh;
-  width: 100vw;
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 .register__container {
   display: flex;
   flex-direction: column;
   text-align: center;
   background-color: #dcdcdc;
-  padding: 30px;
+  padding: 3rem;
+  border-radius: 0.5rem;
 }
 .register__textBox {
-  padding: 10px;
-  font-size: 18px;
-  margin-bottom: 10px;
+  padding: 1rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
-.register__btn {
-  padding: 10px;
-  font-size: 18px;
-  margin-bottom: 10px;
-  border: none;
-  color: white;
-  background-color: black;
-}
+
 .register__google {
   background-color: #4285f4;
 }
 .register div {
-  margin-top: 7px;
+  margin-top: 0.7rem;
 }

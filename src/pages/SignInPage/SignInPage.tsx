@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, logInWithEmailAndPassword } from '../../firebase/firebase';
+import RoutePaths from '../../types/enums/routePaths';
 import './SignInPage.css';
 
 function SignInPage() {
@@ -13,11 +14,12 @@ function SignInPage() {
     if (loading) {
       return;
     }
-    if (user) navigate('/main');
+    if (user) navigate(RoutePaths.MAIN);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, loading]);
   return (
     <div className="login">
+      <h1>Sign In, please</h1>
       <div className="login__container">
         <input
           type="text"
@@ -42,7 +44,7 @@ function SignInPage() {
         </button>
 
         <div>
-          Dont have an account? <Link to="/register">Register</Link> now.
+          Dont have an account? <Link to={RoutePaths.SIGNUP}>Sign up</Link> now.
         </div>
       </div>
     </div>

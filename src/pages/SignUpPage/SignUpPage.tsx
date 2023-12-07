@@ -25,6 +25,7 @@ function SignUpPage() {
   }, [user, loading]);
   return (
     <div className="register">
+      <h1>Sign Up, please</h1>
       <div className="register__container">
         <input
           type="text"
@@ -51,7 +52,8 @@ function SignUpPage() {
           Register
         </button>
         <div>
-          Already have an account? <Link to="/">Login</Link> now.
+          Already have an account? <Link to={RoutePaths.SIGNIN}>Sign in</Link>{' '}
+          now.
         </div>
       </div>
     </div>

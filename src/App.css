@@ -16,3 +16,8 @@ button {
   border: none;
   border-radius: 0.5rem;
 }
+
+button:disabled {
+  background-color: rgba(112, 116, 116, 0.5);
+  pointer-events: none;
+}
