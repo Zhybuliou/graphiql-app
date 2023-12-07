@@ -2,5 +2,13 @@
   "en": "en",
   "ru": "ru",
   "heading": "Hello",
-  "mainPage": "Main page"
+  "homePage": "Home",
+  "signUp": "Sign up",
+  "signIn": "Sign in",
+  "logOut": "Logout",
+  "signInPlease": "Sign In, please",
+  "eMailAddress": "E-mail Address",
+  "password": "Password",
+  "login": "Login",
+  "haveAccount": "Dont have an account? "
 }

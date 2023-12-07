@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, logInWithEmailAndPassword } from '../../firebase/firebase';
 import RoutePaths from '../../types/enums/routePaths';
+import { useLocale } from '../../context/local';
 import './SignInPage.css';
 
 function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, loading] = useAuthState(auth);
+  const { state } = useLocale();
   const navigate = useNavigate();
   useEffect(() => {
     if (loading) {
@@ -19,32 +21,33 @@ function SignInPage() {
   }, [user, loading]);
   return (
     <div className="login">
-      <h1>Sign In, please</h1>
+      <h1>{state.strings.signInPlease}</h1>
       <div className="login__container">
         <input
           type="text"
           className="login__textBox"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
+          placeholder={state.strings.eMailAddress}
         />
         <input
           type="password"
           className="login__textBox"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
+          placeholder={state.strings.password}
         />
         <button
           type="button"
           className="login__btn"
           onClick={() => logInWithEmailAndPassword(email, password)}
         >
-          Login
+          {state.strings.login}
         </button>
 
         <div>
-          Dont have an account? <Link to={RoutePaths.SIGNUP}>Sign up</Link> now.
+          {state.strings.haveAccount}
+          <Link to={RoutePaths.SIGNUP}>{state.strings.signUp}</Link>
         </div>
       </div>
     </div>

@@ -2,5 +2,13 @@
   "en": "aнгл",
   "ru": "рус",
   "heading": "Привет",
-  "mainPage": "Главная"
+  "homePage": "Домой",
+  "signUp": "Регистрация",
+  "signIn": "Войти",
+  "signInPlease": "Войдите, пожалуйста",
+  "logOut": "Выйти",
+  "eMailAddress": "Адрес электронной почты",
+  "password": "Пароль",
+  "login": "Авторизоваться",
+  "haveAccount": "Нет аккаунта? "
 }

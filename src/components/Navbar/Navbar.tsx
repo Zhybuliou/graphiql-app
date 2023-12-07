@@ -17,10 +17,10 @@ function Navbar() {
       {!user ? (
         <>
           <NavLink to={RoutePaths.SIGNIN}>
-            <button type="button">Sign in</button>
+            <button type="button">{state.strings.signIn}</button>
           </NavLink>
           <NavLink to={RoutePaths.SIGNUP}>
-            <button type="button">Sign up</button>
+            <button type="button">{state.strings.signUp}</button>
           </NavLink>
         </>
       ) : null}
@@ -31,10 +31,10 @@ function Navbar() {
         className="dashboard__btn"
         onClick={logout}
       >
-        Logout
+        {state.strings.logOut}
       </button>
       <NavLink to={RoutePaths.WELCOME}>
-        <button type="button">{state.strings.mainPage}</button>
+        <button type="button">{state.strings.homePage}</button>
       </NavLink>
     </div>
   );
