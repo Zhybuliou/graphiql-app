@@ -1,3 +1,18 @@
 #root {
   color: rgb(9, 9, 9);
 }
+
+.page-wrapper {
+  margin: auto;
+  text-align: center;
+}
+
+button {
+  padding: 0.5rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  background-color: #08a8a8;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+}
