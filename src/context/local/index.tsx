@@ -7,17 +7,17 @@ import {
 } from 'react';
 import { LOCALE_STRINGS, REGIONS } from './constants';
 
-const initialState = {
+const localLangState = {
   strings: LOCALE_STRINGS[REGIONS.EN],
 };
-type InitialState = {
+type LocalLangState = {
   strings: {
     [key: string]: string;
   };
 };
 
 const reducer = (
-  state: InitialState,
+  state: LocalLangState,
   action: { type: string; payload: { region: string } }
 ) => {
   switch (action.type) {
@@ -37,7 +37,7 @@ const reducer = (
 };
 
 type Context = {
-  state: InitialState;
+  state: LocalLangState;
   dispatch: React.Dispatch<{
     type: string;
     payload: {
@@ -47,7 +47,7 @@ type Context = {
 };
 const LocaleContext = createContext<Context>({} as Context);
 export function LocaleProvider({ children }: { children: ReactElement }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, localLangState);
   const memoContext = useMemo(() => ({ state, dispatch }), [state, dispatch]);
   return (
     <LocaleContext.Provider value={memoContext}>

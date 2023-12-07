@@ -1,4 +1,5 @@
 import { useLocale } from '../../context/local';
+import { REGIONS } from '../../context/local/constants';
 import './Local.css';
 
 export default function Local() {
@@ -7,7 +8,7 @@ export default function Local() {
   const handleRegionChange = (
     event: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
-    const check = event.currentTarget.checked ? 'RU' : 'EN';
+    const check = event.currentTarget.checked ? REGIONS.RU : REGIONS.EN;
     const action = {
       type: 'CHANGE_LOCALE',
       payload: {
