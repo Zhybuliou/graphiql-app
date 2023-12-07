@@ -1,9 +1,14 @@
+import { NavLink } from 'react-router-dom';
+
+import RouteParths from '../../types/enums/routeParths';
 import './navbar.css';
 
 function Navbar() {
   return (
     <div className="wrapper-navbar">
-      <h2>Navbar</h2>
+      <NavLink to={RouteParths.WELCOME}>
+        <button type="button">Main page</button>
+      </NavLink>
     </div>
   );
 }
