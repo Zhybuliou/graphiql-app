@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { privateRoutes, publicRoutes } from './routes';
-import RouteParths from '../types/enums/routeParths';
+import RoutePaths from '../types/enums/routePaths';
 
 function AppRouter() {
   const user = false;
@@ -16,8 +16,8 @@ function AppRouter() {
         <Route key={path} path={path} element={<Page />} />
       ))}
       <Route
-        path={RouteParths.MAIN}
-        element={<Navigate replace to={RouteParths.WELCOME} />}
+        path={RoutePaths.MAIN}
+        element={<Navigate replace to={RoutePaths.WELCOME} />}
       />
     </Routes>
   );

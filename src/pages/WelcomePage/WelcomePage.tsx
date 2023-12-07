@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import RouteParths from '../../types/enums/routeParths';
+import RoutePaths from '../../types/enums/routePaths';
 import './WelcomePage.css';
 
 function WelcomePage() {
@@ -10,15 +10,15 @@ function WelcomePage() {
     <div className="page-wrapper welcome">
       <h1>Welcome page</h1>
       {user ? (
-        <NavLink to={RouteParths.MAIN}>
+        <NavLink to={RoutePaths.MAIN}>
           <button type="button">Main page</button>
         </NavLink>
       ) : (
         <div className="authentication-wrapper">
-          <NavLink to={RouteParths.SIGNIN}>
+          <NavLink to={RoutePaths.SIGNIN}>
             <button type="button">Sign in</button>
           </NavLink>
-          <NavLink to={RouteParths.SIGNUP}>
+          <NavLink to={RoutePaths.SIGNUP}>
             <button type="button">Sign up</button>
           </NavLink>
         </div>

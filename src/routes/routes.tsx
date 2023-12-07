@@ -1,40 +1,40 @@
 import WelcomePage from '../pages/WelcomePage/WelcomePage';
 import MainPage from '../pages/MainPage';
-import SignInPage from '../pages/SignInPage';
-import SignUpPage from '../pages/SignUpPage';
+import SignInPage from '../pages/SignInPage/SignInPage';
+import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import Page404 from '../pages/Page404';
 
-import RouteParths from '../types/enums/routeParths';
+import RoutePaths from '../types/enums/routePaths';
 
 export const publicRoutes = [
   {
-    path: RouteParths.WELCOME,
+    path: RoutePaths.WELCOME,
     Page: WelcomePage,
   },
 
   {
-    path: RouteParths.SIGNIN,
+    path: RoutePaths.SIGNIN,
     Page: SignInPage,
   },
 
   {
-    path: RouteParths.SIGNUP,
+    path: RoutePaths.SIGNUP,
     Page: SignUpPage,
   },
 
   {
-    path: RouteParths.PAGE404,
+    path: RoutePaths.PAGE404,
     Page: Page404,
   },
 ];
 
 export const privateRoutes = [
   {
-    path: RouteParths.MAIN,
+    path: RoutePaths.MAIN,
     Page: MainPage,
   },
   {
-    path: RouteParths.PAGE404,
+    path: RoutePaths.PAGE404,
     Page: Page404,
   },
 ];
