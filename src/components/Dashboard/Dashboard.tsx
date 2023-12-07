@@ -9,6 +9,7 @@ import './Dashboard.css';
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState('');
+
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
@@ -22,6 +23,7 @@ function Dashboard() {
   useEffect(() => {
     if (loading) return;
     if (user) fetchUserName();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, loading]);
 
