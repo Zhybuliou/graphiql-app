@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/Navbar/Navbar';
 import AppRouter from './routes/AppRouter';
 
-import './App.css';
 import { LocaleProvider } from './context/local';
 
 export default function App() {

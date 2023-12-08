@@ -1,11 +1,13 @@
 import { useLocale } from '../context/local';
 
+import PageWrapper from '../components/ui/pageWrapper/PageWrapper';
+
 function MainPage() {
   const { state } = useLocale();
   return (
-    <div className="page-wrapper">
+    <PageWrapper>
       <h1>{state.strings.mainPage}</h1>
-    </div>
+    </PageWrapper>
   );
 }
 

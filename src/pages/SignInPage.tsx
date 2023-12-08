@@ -1,11 +1,11 @@
 import PageWrapper from '../components/ui/pageWrapper/PageWrapper';
 
-function Page404() {
+function SignInPage() {
   return (
     <PageWrapper>
-      <h1>Not Found</h1>
+      <h1>Sign in page</h1>
     </PageWrapper>
   );
 }
 
-export default Page404;
+export default SignInPage;
