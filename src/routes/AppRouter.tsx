@@ -9,7 +9,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { Suspense } from 'react';
 import { UseUser } from '../firebase/firebase';
 import { privateRoutes, publicRoutes } from './routes';
-import RouteParths from '../types/enums/routePaths';
+import RoutePaths from '../types/enums/routePaths';
 import SkeletonPage from '../components/skeletons/SkeletonPage';
 import Fallback from '../components/fallback/Fallback';
 
@@ -20,7 +20,7 @@ function AppRouter() {
   return (
     <ErrorBoundary
       FallbackComponent={Fallback}
-      onReset={() => navigate(RouteParths.WELCOME)}
+      onReset={() => navigate(RoutePaths.WELCOME)}
       resetKeys={[location]}
     >
       <Suspense fallback={<SkeletonPage />}>
@@ -36,8 +36,8 @@ function AppRouter() {
               <Route key={path} path={path} element={<Page />} />
             ))}
             <Route
-              path={RouteParths.MAIN}
-              element={<Navigate replace to={RouteParths.WELCOME} />}
+              path={RoutePaths.MAIN}
+              element={<Navigate replace to={RoutePaths.WELCOME} />}
             />
           </Routes>
         )}
