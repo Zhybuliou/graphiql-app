@@ -9,6 +9,7 @@
   text-align: center;
   background-color: #dcdcdc;
   padding: 3rem;
+  border-radius: 0.5rem;
 }
 .login__textBox {
   padding: 1rem;
