@@ -2,10 +2,13 @@ import { NavLink } from 'react-router-dom';
 
 import { logout, useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
+
 import RoutePaths from '../../types/enums/routePaths';
 import Local from '../Local/Local';
 
 import './navbar.css';
+
+import Button from '../ui/button/Button';
 
 function Navbar() {
   const { state } = useLocale();
@@ -14,7 +17,7 @@ function Navbar() {
   return (
     <div className="wrapper-navbar">
       <Local />
-      {!user ? (
+      {!user && (
         <>
           <NavLink to={RoutePaths.SIGNIN}>
             <button type="button">{state.strings.signIn}</button>
@@ -23,18 +26,12 @@ function Navbar() {
             <button type="button">{state.strings.signUp}</button>
           </NavLink>
         </>
-      ) : null}
-
-      <button
-        disabled={Boolean(!user)}
-        type="button"
-        className="dashboard__btn"
-        onClick={logout}
-      >
+      )}
+      <Button type="button" disabled onClick={logout}>
         {state.strings.logOut}
-      </button>
+      </Button>
       <NavLink to={RoutePaths.WELCOME}>
-        <button type="button">{state.strings.homePage}</button>
+        <Button type="button"> {state.strings.mainPage}</Button>
       </NavLink>
     </div>
   );
