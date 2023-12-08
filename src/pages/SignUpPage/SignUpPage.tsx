@@ -1,19 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import { auth, registerWithEmailAndPassword } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 import RoutePaths from '../../types/enums/routePaths';
+import IForm from '../../types/interfaces/IFrorm';
+import validationSchema from '../../utils/validationSchema';
 import './SignUpPage.css';
 
 function SignUpPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const { state } = useLocale();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [user, loading, error] = useAuthState(auth);
-  const register = () => {
+  const [user, loading] = useAuthState(auth);
+
+  const registerUser = (name: string, email: string, password: string) => {
     if (!name) return;
     registerWithEmailAndPassword(name, email, password);
   };
@@ -25,39 +27,65 @@ function SignUpPage() {
     if (user) navigate(RoutePaths.SIGNIN);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, loading]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<IForm>({
+    resolver: yupResolver(validationSchema),
+    mode: 'onChange',
+  });
+
+  const onSubmit: SubmitHandler<IForm> = (data) => {
+    registerUser(data.name, data.email, data.password);
+  };
+
   return (
     <div className="register">
       <h1>{state.strings.signUpPlease}</h1>
-      <div className="register__container">
+      <form onSubmit={handleSubmit(onSubmit)} className="register__container">
         <input
           type="text"
-          className="register__textBox"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          {...register('name')}
+          className={`form-control ${errors.name ? 'is-invalid' : ''}`}
           placeholder={state.strings.name}
         />
+        <div className="invalid-feedback">{errors.name?.message}</div>
         <input
           type="text"
-          className="register__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          {...register('email')}
+          className={`form-control ${errors.email ? 'is-invalid' : ''}`}
           placeholder={state.strings.eMailAddress}
         />
+        <div className="invalid-feedback">{errors.email?.message}</div>
         <input
           type="password"
-          className="register__textBox"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          {...register('password')}
+          className={`form-control ${errors.password ? 'is-invalid' : ''}`}
           placeholder={state.strings.password}
         />
-        <button type="button" className="register__btn" onClick={register}>
+        <div className="invalid-feedback">{errors.password?.message}</div>
+
+        <input
+          type="password"
+          {...register('confirmPassword')}
+          className={`form-control ${
+            errors.confirmPassword ? 'is-invalid' : ''
+          }`}
+          placeholder={state.strings.confirmPassword}
+        />
+        <div className="invalid-feedback">
+          {errors.confirmPassword?.message}
+        </div>
+        <button type="submit" className="register__btn" disabled={!isValid}>
           {state.strings.signUp}
         </button>
-        <div>
+        <div className="about-account">
           {state.strings.haveAccount}
           <Link to={RoutePaths.SIGNIN}>{state.strings.signIn}</Link>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

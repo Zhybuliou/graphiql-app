@@ -4,6 +4,7 @@
   flex-direction: column;
 }
 .register__container {
+  width: 22rem;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -11,15 +12,23 @@
   padding: 3rem;
   border-radius: 0.5rem;
 }
-.register__textBox {
+.register input {
   padding: 1rem;
   font-size: 1rem;
-  margin-bottom: 1rem;
 }
 
-.register__google {
-  background-color: #4285f4;
-}
 .register div {
-  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
+.invalid-feedback {
+  line-height: 1.2rem;
+  background: #08a8a8;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.about-account {
+  margin: 0.5rem;
+  font-size: 1.1rem;
 }

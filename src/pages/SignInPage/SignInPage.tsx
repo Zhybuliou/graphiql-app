@@ -9,7 +9,7 @@ import './SignInPage.css';
 function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, loading] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
   const { state } = useLocale();
   const navigate = useNavigate();
   useEffect(() => {
@@ -18,7 +18,7 @@ function SignInPage() {
     }
     if (user) navigate(RoutePaths.MAIN);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, loading]);
+  }, [user, loading, error]);
   return (
     <div className="login">
       <h1>{state.strings.signInPlease}</h1>
@@ -45,7 +45,7 @@ function SignInPage() {
           {state.strings.login}
         </button>
 
-        <div>
+        <div className="about-account">
           {state.strings.dontHaveAccount}
           <Link to={RoutePaths.SIGNUP}>{state.strings.register}</Link>
         </div>

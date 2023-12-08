@@ -14,6 +14,7 @@
   "signUpPlease": "Sign Up, please",
   "eMailAddress": "E-mail Address",
   "password": "Password",
+  "confirmPassword": "Confirm password",
   "login": "Login",
   "name": "Name",
   "haveAccount": "Already have an account? ",

@@ -14,6 +14,7 @@
   "logOut": "Выйти",
   "eMailAddress": "Адрес электронной почты",
   "password": "Пароль",
+  "confirmPassword": "Подтвердите пароль",
   "login": "Вход",
   "name": "Имя",
   "dontHaveAccount": "Нет аккаунта? ",

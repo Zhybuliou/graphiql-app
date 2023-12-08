@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-alert */
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -26,7 +26,7 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    console.error(err);
+    if (err instanceof Error) alert(err.message);
   }
 };
 const registerWithEmailAndPassword = async (
@@ -44,7 +44,7 @@ const registerWithEmailAndPassword = async (
       email,
     });
   } catch (err) {
-    console.error(err);
+    if (err instanceof Error) alert(err.message);
   }
 };
 
