@@ -1,15 +1,15 @@
 import { NavLink } from 'react-router-dom';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, logout } from '../../firebase/firebase';
 
+import { logout, UseUser } from '../../firebase/firebase';
+import { useLocale } from '../../context/local';
 import RoutePaths from '../../types/enums/routePaths';
 import Local from '../Local/Local';
-import { useLocale } from '../../context/local';
+
 import './navbar.css';
 
 function Navbar() {
   const { state } = useLocale();
-  const [user] = useAuthState(auth);
+  const user = UseUser();
 
   return (
     <div className="wrapper-navbar">

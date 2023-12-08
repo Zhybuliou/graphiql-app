@@ -4,9 +4,9 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
   signOut,
 } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -47,15 +47,14 @@ const registerWithEmailAndPassword = async (
     console.error(err);
   }
 };
-const sendPasswordReset = async (email: string) => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-  } catch (error) {
-    console.error(error);
-  }
-};
+
 const logout = () => {
   signOut(auth);
+};
+
+const UseUser = () => {
+  const [user] = useAuthState(auth);
+  return user;
 };
 
 export {
@@ -63,6 +62,6 @@ export {
   db,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
-  sendPasswordReset,
   logout,
+  UseUser,
 };
