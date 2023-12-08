@@ -1,40 +1,35 @@
-import WelcomePage from '../pages/WelcomePage/WelcomePage';
-import MainPage from '../pages/MainPage';
-import SignInPage from '../pages/SignInPage';
-import SignUpPage from '../pages/SignUpPage';
-import Page404 from '../pages/Page404';
-
+import { lazy } from 'react';
 import RouteParths from '../types/enums/routeParths';
 
 export const publicRoutes = [
   {
     path: RouteParths.WELCOME,
-    Page: WelcomePage,
+    Page: lazy(() => import('../pages/WelcomePage/WelcomePage')),
   },
 
   {
     path: RouteParths.SIGNIN,
-    Page: SignInPage,
+    Page: lazy(() => import('../pages/SignInPage')),
   },
 
   {
     path: RouteParths.SIGNUP,
-    Page: SignUpPage,
+    Page: lazy(() => import('../pages/SignUpPage')),
   },
 
   {
     path: RouteParths.PAGE404,
-    Page: Page404,
+    Page: lazy(() => import('../pages/Page404')),
   },
 ];
 
 export const privateRoutes = [
   {
     path: RouteParths.MAIN,
-    Page: MainPage,
+    Page: lazy(() => import('../pages/MainPage')),
   },
   {
     path: RouteParths.PAGE404,
-    Page: Page404,
+    Page: lazy(() => import('../pages/Page404')),
   },
 ];
