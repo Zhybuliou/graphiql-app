@@ -5,10 +5,14 @@
   "homePage": "Домой",
   "signUp": "Регистрация",
   "signIn": "Войти",
-  "signInPlease": "Войдите, пожалуйста",
+  "signInPlease": "Войдите, пожалуйста.",
+  "signUpPlease": "Зарегистрируйтесь, пожалуйста.",
   "logOut": "Выйти",
   "eMailAddress": "Адрес электронной почты",
   "password": "Пароль",
-  "login": "Авторизоваться",
-  "haveAccount": "Нет аккаунта? "
+  "login": "Вход",
+  "name": "Имя",
+  "dontHaveAccount": "Нет аккаунта? ",
+  "haveAccount": "Уже есть аккаунт? ",
+  "register": "Зарегистрироваться"
 }

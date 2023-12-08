@@ -46,8 +46,8 @@ function SignInPage() {
         </button>
 
         <div>
-          {state.strings.haveAccount}
-          <Link to={RoutePaths.SIGNUP}>{state.strings.signUp}</Link>
+          {state.strings.dontHaveAccount}
+          <Link to={RoutePaths.SIGNUP}>{state.strings.register}</Link>
         </div>
       </div>
     </div>

@@ -7,8 +7,12 @@
   "signIn": "Sign in",
   "logOut": "Logout",
   "signInPlease": "Sign In, please",
+  "signUpPlease": "Sign Up, please",
   "eMailAddress": "E-mail Address",
   "password": "Password",
   "login": "Login",
-  "haveAccount": "Dont have an account? "
+  "name": "Name",
+  "haveAccount": "Already have an account? ",
+  "dontHaveAccount": "Dont have an account? ",
+  "register": "Register"
 }

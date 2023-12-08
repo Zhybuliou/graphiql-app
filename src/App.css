@@ -21,3 +21,12 @@ button:disabled {
   background-color: rgba(112, 116, 116, 0.5);
   pointer-events: none;
 }
+
+button:hover {
+  background-color: #087676;
+}
+
+button:active {
+  transform: scale(1.2);
+  transition: all 0.4s;
+}
