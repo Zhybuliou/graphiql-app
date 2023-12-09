@@ -1,35 +1,35 @@
 import { lazy } from 'react';
-import RouteParths from '../types/enums/routeParths';
+import RoutePaths from '../types/enums/routePaths';
 
 export const publicRoutes = [
   {
-    path: RouteParths.WELCOME,
-    Page: lazy(() => import('../pages/WelcomePage/WelcomePage')),
+    path: RoutePaths.WELCOME,
+    Page: lazy(() => import('../pages/welcomePage/WelcomePage')),
   },
 
   {
-    path: RouteParths.SIGNIN,
-    Page: lazy(() => import('../pages/SignInPage')),
+    path: RoutePaths.SIGNIN,
+    Page: lazy(() => import('../pages/signInPage/SignInPage')),
   },
 
   {
-    path: RouteParths.SIGNUP,
-    Page: lazy(() => import('../pages/SignUpPage')),
+    path: RoutePaths.SIGNUP,
+    Page: lazy(() => import('../pages/signUpPage/SignUpPage')),
   },
 
   {
-    path: RouteParths.PAGE404,
+    path: RoutePaths.PAGE404,
     Page: lazy(() => import('../pages/Page404')),
   },
 ];
 
 export const privateRoutes = [
   {
-    path: RouteParths.MAIN,
+    path: RoutePaths.MAIN,
     Page: lazy(() => import('../pages/MainPage')),
   },
   {
-    path: RouteParths.PAGE404,
+    path: RoutePaths.PAGE404,
     Page: lazy(() => import('../pages/Page404')),
   },
 ];

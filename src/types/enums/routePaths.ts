@@ -1,4 +1,4 @@
-enum RouteParths {
+enum RoutePaths {
   WELCOME = '/',
   MAIN = '/main',
   SIGNIN = '/sign-in',
@@ -6,4 +6,4 @@ enum RouteParths {
   PAGE404 = '*',
 }
 
-export default RouteParths;
+export default RoutePaths;

@@ -2,5 +2,22 @@
   "en": "aнгл",
   "ru": "рус",
   "heading": "Привет",
-  "mainPage": "Главная"
+  "homePage": "Домой",
+  "welcomePage": "Cтраница приветствия",
+  "mainPage": "Главная страница - GraphiQL",
+  "goMainPage": "Перейти на страницу - GraphiQL",
+  "welcomePageTitle": "Общая информация о разработчиках, проекте и курсе.",
+  "signUp": "Регистрация",
+  "signIn": "Войти",
+  "signInPlease": "Войдите, пожалуйста.",
+  "signUpPlease": "Зарегистрируйтесь, пожалуйста.",
+  "logOut": "Выйти",
+  "eMailAddress": "Адрес электронной почты",
+  "password": "Пароль",
+  "confirmPassword": "Подтвердите пароль",
+  "login": "Вход",
+  "name": "Имя",
+  "dontHaveAccount": "Нет аккаунта? ",
+  "haveAccount": "Уже есть аккаунт? ",
+  "register": "Зарегистрироваться"
 }

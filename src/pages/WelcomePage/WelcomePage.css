@@ -1,7 +1,28 @@
-.authentication-wrapper {
+.welcome h1 {
+  margin-bottom: 1rem;
+}
+
+.about-wrapper {
+  margin: auto;
+  margin-top: 1rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
-  padding-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  background-color: #08a8a8;
+  max-width: 35rem;
+}
+
+.about-wrapper h2 {
+  padding: 0.5rem;
+  color: #fff;
+}
+
+.about-wrapper p {
+  font-size: 1.2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: #fff;
 }

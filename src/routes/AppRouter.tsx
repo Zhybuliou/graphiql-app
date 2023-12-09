@@ -7,25 +7,26 @@ import {
 } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Suspense } from 'react';
+import { useUser } from '../firebase/firebase';
 import { privateRoutes, publicRoutes } from './routes';
-import RouteParths from '../types/enums/routeParths';
+import RoutePaths from '../types/enums/routePaths';
 import SkeletonPage from '../components/skeletons/SkeletonPage';
 import Fallback from '../components/fallback/Fallback';
 
 function AppRouter() {
-  const user = false;
+  const user = useUser();
   const navigate = useNavigate();
   const location = useLocation();
   return (
     <ErrorBoundary
       FallbackComponent={Fallback}
-      onReset={() => navigate(RouteParths.WELCOME)}
+      onReset={() => navigate(RoutePaths.WELCOME)}
       resetKeys={[location]}
     >
       <Suspense fallback={<SkeletonPage />}>
         {user ? (
           <Routes>
-            {privateRoutes.map(({ path, Page }) => (
+            {[...privateRoutes, ...publicRoutes].map(({ path, Page }) => (
               <Route key={path} path={path} element={<Page />} />
             ))}
           </Routes>
@@ -35,8 +36,8 @@ function AppRouter() {
               <Route key={path} path={path} element={<Page />} />
             ))}
             <Route
-              path={RouteParths.MAIN}
-              element={<Navigate replace to={RouteParths.WELCOME} />}
+              path={RoutePaths.MAIN}
+              element={<Navigate replace to={RoutePaths.WELCOME} />}
             />
           </Routes>
         )}
