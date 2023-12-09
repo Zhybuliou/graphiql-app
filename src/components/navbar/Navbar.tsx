@@ -4,7 +4,7 @@ import { logout, useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 
 import RoutePaths from '../../types/enums/routePaths';
-import Local from '../Local/Local';
+import Local from '../local/Local';
 
 import './navbar.css';
 
