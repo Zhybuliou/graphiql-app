@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { logout, useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
@@ -15,22 +15,23 @@ function Navbar() {
   return (
     <div className="flex justify-end gap-1 p-2">
       <LocalToggle />
-      {!user && (
+      {!user ? (
         <>
-          <NavLink to={RoutePaths.SIGNIN}>
-            <button type="button">{state.strings.signIn}</button>
-          </NavLink>
-          <NavLink to={RoutePaths.SIGNUP}>
-            <button type="button">{state.strings.signUp}</button>
-          </NavLink>
+          <Link to={RoutePaths.SIGNIN}>
+            <Button type="button">{state.strings.signIn}</Button>
+          </Link>
+          <Link to={RoutePaths.SIGNUP}>
+            <Button type="button">{state.strings.signUp}</Button>
+          </Link>
         </>
+      ) : (
+        <Button type="button" onClick={logout}>
+          {state.strings.logOut}
+        </Button>
       )}
-      <Button type="button" disabled onClick={logout}>
-        {state.strings.logOut}
-      </Button>
-      <NavLink to={RoutePaths.WELCOME}>
+      <Link to={RoutePaths.WELCOME}>
         <Button type="button"> {state.strings.mainPage}</Button>
-      </NavLink>
+      </Link>
     </div>
   );
 }
