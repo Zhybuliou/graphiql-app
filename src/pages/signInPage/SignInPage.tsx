@@ -5,7 +5,9 @@ import { toast } from 'react-toastify';
 import { auth, logInWithEmailAndPassword } from '../../firebase/firebase';
 import RoutePaths from '../../types/enums/routePaths';
 import { useLocale } from '../../context/local';
-import './SignInPage.css';
+import PageWrapper from '../../components/ui/pageWrapper/PageWrapper';
+import FormWrapper from '../../components/ui/FormWrapper';
+import Button from '../../components/ui/button/Button';
 
 function SignInPage() {
   const [email, setEmail] = useState('');
@@ -34,37 +36,34 @@ function SignInPage() {
   };
 
   return (
-    <div className="login">
+    <PageWrapper>
       <h1>{state.strings.signInPlease}</h1>
-      <div className="login__container">
+      <FormWrapper>
         <input
           type="text"
-          className="login__textBox"
+          className="p-4 text-base mb-4"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={state.strings.eMailAddress}
         />
         <input
           type="password"
-          className="login__textBox"
+          className="p-4 text-base mb-4"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder={state.strings.password}
         />
-        <button
-          type="button"
-          className="login__btn"
-          onClick={() => handleSubmit()}
-        >
+        <Button type="button" onClick={handleSubmit}>
           {state.strings.login}
-        </button>
-
-        <div className="about-account">
+        </Button>
+        <div className="mt-2">
           {state.strings.dontHaveAccount}
-          <Link to={RoutePaths.SIGNUP}>{state.strings.register}</Link>
+          <Link className="text-blue-600" to={RoutePaths.SIGNUP}>
+            {state.strings.register}
+          </Link>
         </div>
-      </div>
-    </div>
+      </FormWrapper>
+    </PageWrapper>
   );
 }
 export default SignInPage;

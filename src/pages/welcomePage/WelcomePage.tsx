@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
@@ -16,9 +16,9 @@ function WelcomePage() {
       <div className="welcome">
         <h1>{state.strings.welcomePage}</h1>
         {user ? (
-          <NavLink to={RoutePaths.MAIN}>
+          <Link to={RoutePaths.MAIN}>
             <Button type="button">{state.strings.goMainPage}</Button>
-          </NavLink>
+          </Link>
         ) : null}
         <div className="about-wrapper">
           <h2>{state.strings.welcomePageTitle}</h2>

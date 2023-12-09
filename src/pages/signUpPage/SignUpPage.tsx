@@ -10,6 +10,8 @@ import RoutePaths from '../../types/enums/routePaths';
 import IForm from '../../types/interfaces/IForm';
 import validationSchema from '../../utils/validationSchema';
 import './SignUpPage.css';
+import PageWrapper from '../../components/ui/pageWrapper/PageWrapper';
+import FormWrapper from '../../components/ui/FormWrapper';
 
 function SignUpPage() {
   const { state } = useLocale();
@@ -42,51 +44,51 @@ function SignUpPage() {
   };
 
   return (
-    <div className="register">
+    <PageWrapper>
       <h1>{state.strings.signUpPlease}</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="register__container">
-        <input
-          type="text"
-          {...register('name')}
-          className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-          placeholder={state.strings.name}
-        />
-        <div className="invalid-feedback">{errors.name?.message}</div>
-        <input
-          type="text"
-          {...register('email')}
-          className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-          placeholder={state.strings.eMailAddress}
-        />
-        <div className="invalid-feedback">{errors.email?.message}</div>
-        <input
-          type="password"
-          {...register('password')}
-          className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-          placeholder={state.strings.password}
-        />
-        <div className="invalid-feedback">{errors.password?.message}</div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormWrapper>
+          <input
+            type="text"
+            {...register('name')}
+            className="p-4 text-base mb-4"
+            placeholder={state.strings.name}
+          />
+          <div className="invalid-feedback">{errors.name?.message}</div>
+          <input
+            type="text"
+            {...register('email')}
+            className="p-4 text-base mb-4"
+            placeholder={state.strings.eMailAddress}
+          />
+          <div className="invalid-feedback">{errors.email?.message}</div>
+          <input
+            type="password"
+            {...register('password')}
+            className="p-4 text-base mb-4"
+            placeholder={state.strings.password}
+          />
+          <div className="invalid-feedback">{errors.password?.message}</div>
 
-        <input
-          type="password"
-          {...register('confirmPassword')}
-          className={`form-control ${
-            errors.confirmPassword ? 'is-invalid' : ''
-          }`}
-          placeholder={state.strings.confirmPassword}
-        />
-        <div className="invalid-feedback">
-          {errors.confirmPassword?.message}
-        </div>
-        <button type="submit" className="register__btn" disabled={!isValid}>
-          {state.strings.signUp}
-        </button>
-        <div className="about-account">
-          {state.strings.haveAccount}
-          <Link to={RoutePaths.SIGNIN}>{state.strings.signIn}</Link>
-        </div>
+          <input
+            type="password"
+            {...register('confirmPassword')}
+            className="p-4 text-base mb-4"
+            placeholder={state.strings.confirmPassword}
+          />
+          <div className="invalid-feedback">
+            {errors.confirmPassword?.message}
+          </div>
+          <button type="submit" className="register__btn" disabled={!isValid}>
+            {state.strings.signUp}
+          </button>
+          <div className="about-account">
+            {state.strings.haveAccount}
+            <Link to={RoutePaths.SIGNIN}>{state.strings.signIn}</Link>
+          </div>
+        </FormWrapper>
       </form>
-    </div>
+    </PageWrapper>
   );
 }
 export default SignUpPage;
