@@ -4,7 +4,7 @@ import { logout, useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 
 import RoutePaths from '../../types/enums/routePaths';
-import Local from '../local/Local';
+import LocalToggle from '../local/LocalToggle';
 
 import './navbar.css';
 
@@ -16,7 +16,7 @@ function Navbar() {
 
   return (
     <div className="wrapper-navbar">
-      <Local />
+      <LocalToggle />
       {!user && (
         <>
           <NavLink to={RoutePaths.SIGNIN}>
