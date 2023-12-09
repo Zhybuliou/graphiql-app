@@ -51,7 +51,7 @@ const logout = () => {
   signOut(auth);
 };
 
-const UseUser = () => {
+const useUser = () => {
   const [user] = useAuthState(auth);
   return user;
 };
@@ -62,5 +62,5 @@ export {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   logout,
-  UseUser,
+  useUser,
 };

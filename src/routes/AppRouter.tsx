@@ -7,14 +7,14 @@ import {
 } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Suspense } from 'react';
-import { UseUser } from '../firebase/firebase';
+import { useUser } from '../firebase/firebase';
 import { privateRoutes, publicRoutes } from './routes';
 import RoutePaths from '../types/enums/routePaths';
 import SkeletonPage from '../components/skeletons/SkeletonPage';
 import Fallback from '../components/fallback/Fallback';
 
 function AppRouter() {
-  const user = UseUser();
+  const user = useUser();
   const navigate = useNavigate();
   const location = useLocation();
   return (
