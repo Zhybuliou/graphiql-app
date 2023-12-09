@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import { logout, UseUser } from '../../firebase/firebase';
+import { logout, useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 import RoutePaths from '../../types/enums/routePaths';
 import Local from '../Local/Local';
@@ -9,7 +9,7 @@ import './navbar.css';
 
 function Navbar() {
   const { state } = useLocale();
-  const user = UseUser();
+  const user = useUser();
 
   return (
     <div className="wrapper-navbar">

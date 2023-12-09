@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
 
-import { UseUser } from '../../firebase/firebase';
+import { useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 import RoutePaths from '../../types/enums/routePaths';
 import './WelcomePage.css';
 
 function WelcomePage() {
   const { state } = useLocale();
-  const user = UseUser();
+  const user = useUser();
 
   return (
     <div className="page-wrapper welcome">
