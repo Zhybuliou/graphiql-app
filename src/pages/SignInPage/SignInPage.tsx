@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
 import { auth, logInWithEmailAndPassword } from '../../firebase/firebase';
 import RoutePaths from '../../types/enums/routePaths';
 import { useLocale } from '../../context/local';
@@ -11,7 +12,7 @@ function SignInPage() {
   const [password, setPassword] = useState('');
   const [user, loading] = useAuthState(auth);
 
-  const { state, dispatch } = useLocale();
+  const { state } = useLocale();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,13 +24,9 @@ function SignInPage() {
   }, [user, loading]);
 
   const onError = (err: Error) => {
-    const action = {
-      type: 'SET_ERROR',
-      payload: {
-        value: err.message,
-      },
-    };
-    dispatch(action);
+    toast.error(err.message, {
+      position: toast.POSITION.TOP_LEFT,
+    });
   };
 
   const handleSubmit = (): void => {

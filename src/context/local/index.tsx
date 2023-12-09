@@ -7,33 +7,29 @@ import {
 } from 'react';
 import { LOCALE_STRINGS, REGIONS } from './constants';
 
-const localState = {
+const localLangState = {
   strings: LOCALE_STRINGS[REGIONS.EN],
-  errorMsg: '',
 };
-type LocalState = {
+type LocalLangState = {
   strings: {
     [key: string]: string;
   };
-  errorMsg: string;
 };
 
 const reducer = (
-  state: LocalState,
-  action: { type: string; payload: { value: string } }
+  state: LocalLangState,
+  action: { type: string; payload: { region: string } }
 ) => {
   switch (action.type) {
     case 'CHANGE_LOCALE': {
-      return { ...state, strings: LOCALE_STRINGS[action.payload.value] };
+      return {
+        strings: LOCALE_STRINGS[action.payload.region],
+      };
     }
     case 'RESET_LOCALE': {
-      return { ...state, strings: LOCALE_STRINGS[REGIONS.EN] };
-    }
-    case 'SET_ERROR': {
-      return { ...state, errorMsg: action.payload.value };
-    }
-    case 'CLEAR_ERROR': {
-      return { ...state, errorMsg: '' };
+      return {
+        strings: LOCALE_STRINGS[REGIONS.EN],
+      };
     }
     default:
       return state;
@@ -41,17 +37,17 @@ const reducer = (
 };
 
 type Context = {
-  state: LocalState;
+  state: LocalLangState;
   dispatch: React.Dispatch<{
     type: string;
     payload: {
-      value: string;
+      region: string;
     };
   }>;
 };
 const LocaleContext = createContext<Context>({} as Context);
 export function LocaleProvider({ children }: { children: ReactElement }) {
-  const [state, dispatch] = useReducer(reducer, localState);
+  const [state, dispatch] = useReducer(reducer, localLangState);
   const memoContext = useMemo(() => ({ state, dispatch }), [state, dispatch]);
   return (
     <LocaleContext.Provider value={memoContext}>
