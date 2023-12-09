@@ -6,8 +6,6 @@ import { useLocale } from '../../context/local';
 import RoutePaths from '../../types/enums/routePaths';
 import LocalToggle from '../local/LocalToggle';
 
-import './navbar.css';
-
 import Button from '../ui/button/Button';
 
 function Navbar() {
@@ -15,7 +13,7 @@ function Navbar() {
   const user = useUser();
 
   return (
-    <div className="wrapper-navbar">
+    <div className="flex justify-end gap-1 p-2">
       <LocalToggle />
       {!user && (
         <>
