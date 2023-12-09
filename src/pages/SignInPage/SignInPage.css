@@ -24,3 +24,10 @@
 .login div {
   margin-top: 0.7rem;
 }
+
+.error-msg__active {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border: 0.3rem solid #08a8a8;
+  border-radius: 0.5rem;
+}

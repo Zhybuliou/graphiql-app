@@ -9,16 +9,29 @@ import './SignInPage.css';
 function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, loading, error] = useAuthState(auth);
+  const [error, setError] = useState('');
+  const [user, loading] = useAuthState(auth);
+
   const { state } = useLocale();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (loading) {
       return;
     }
     if (user) navigate(RoutePaths.MAIN);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, loading, error]);
+  }, [user, loading]);
+
+  const onError = (err: Error) => {
+    setError(err.message);
+  };
+
+  const handleSubmit = (): void => {
+    logInWithEmailAndPassword(email, password).catch(onError);
+  };
+
+  const isError = error ? 'error-msg__active' : 'error-msg';
   return (
     <div className="login">
       <h1>{state.strings.signInPlease}</h1>
@@ -40,7 +53,7 @@ function SignInPage() {
         <button
           type="button"
           className="login__btn"
-          onClick={() => logInWithEmailAndPassword(email, password)}
+          onClick={() => handleSubmit()}
         >
           {state.strings.login}
         </button>
@@ -50,6 +63,7 @@ function SignInPage() {
           <Link to={RoutePaths.SIGNUP}>{state.strings.register}</Link>
         </div>
       </div>
+      <div className={isError}>{error}</div>
     </div>
   );
 }
