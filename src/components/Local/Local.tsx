@@ -12,7 +12,7 @@ export default function Local() {
     const action = {
       type: 'CHANGE_LOCALE',
       payload: {
-        region: check,
+        value: check,
       },
     };
     dispatch(action);

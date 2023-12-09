@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { logout, UseUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 import RoutePaths from '../../types/enums/routePaths';
-import Local from '../local/Local';
+import Local from '../Local/Local';
 
 import './navbar.css';
 

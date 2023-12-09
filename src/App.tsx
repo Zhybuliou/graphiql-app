@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 
-import Navbar from './components/navbar/Navbar';
+import Navbar from './components/Navbar/Navbar';
+import Error from './components/error/Error';
 import AppRouter from './routes/AppRouter';
 
 import './App.css';
@@ -12,6 +13,7 @@ export default function App() {
       <BrowserRouter>
         <Navbar />
         <AppRouter />
+        <Error />
       </BrowserRouter>
     </LocaleProvider>
   );

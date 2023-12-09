@@ -9,10 +9,9 @@ import './SignInPage.css';
 function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [user, loading] = useAuthState(auth);
 
-  const { state } = useLocale();
+  const { state, dispatch } = useLocale();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,14 +23,19 @@ function SignInPage() {
   }, [user, loading]);
 
   const onError = (err: Error) => {
-    setError(err.message);
+    const action = {
+      type: 'SET_ERROR',
+      payload: {
+        value: err.message,
+      },
+    };
+    dispatch(action);
   };
 
   const handleSubmit = (): void => {
     logInWithEmailAndPassword(email, password).catch(onError);
   };
 
-  const isError = error ? 'error-msg__active' : 'error-msg';
   return (
     <div className="login">
       <h1>{state.strings.signInPlease}</h1>
@@ -63,7 +67,6 @@ function SignInPage() {
           <Link to={RoutePaths.SIGNUP}>{state.strings.register}</Link>
         </div>
       </div>
-      <div className={isError}>{error}</div>
     </div>
   );
 }
