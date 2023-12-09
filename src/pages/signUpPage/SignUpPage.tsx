@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { auth, registerWithEmailAndPassword } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 import RoutePaths from '../../types/enums/routePaths';
-import IForm from '../../types/interfaces/IFrorm';
+import IForm from '../../types/interfaces/IForm';
 import validationSchema from '../../utils/validationSchema';
 import './SignUpPage.css';
 
