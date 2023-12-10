@@ -1,19 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { auth, logInWithEmailAndPassword } from '../firebase/firebase';
 import RoutePaths from '../types/enums/routePaths';
 import { useLocale } from '../context/local';
 import PageWrapper from '../components/ui/PageWrapper';
 import FormWrapper from '../components/ui/FormWrapper';
 import Button from '../components/ui/Button';
+import FormInput from '../components/ui/FormInput';
+import { signInValidationSchemes } from '../utils/validationSchemes';
+import ISignInForm from '../types/interfaces/ISignInForm';
 
 function SignInPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [user, loading] = useAuthState(auth);
-
   const { state } = useLocale();
   const navigate = useNavigate();
 
@@ -31,36 +33,49 @@ function SignInPage() {
     });
   };
 
-  const handleSubmit = (): void => {
+  const logInUser: SubmitHandler<ISignInForm> = ({ email, password }): void => {
     logInWithEmailAndPassword(email, password).catch(onError);
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ISignInForm>({
+    resolver: yupResolver(signInValidationSchemes),
+    mode: 'onChange',
+  });
 
   return (
     <PageWrapper>
       <h1>{state.strings.signInPlease}</h1>
-      <FormWrapper>
-        <input
-          type="text"
-          className="p-4 text-base mb-4"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder={state.strings.eMailAddress}
-        />
-        <input
-          type="password"
-          className="p-4 text-base mb-4"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder={state.strings.password}
-        />
-        <Button type="button" onClick={handleSubmit}>
-          {state.strings.login}
-        </Button>
-        <div className="mt-2">
-          {state.strings.dontHaveAccount}
-          <Link to={RoutePaths.SIGNUP}>{state.strings.register}</Link>
-        </div>
-      </FormWrapper>
+      <form onSubmit={handleSubmit(logInUser)}>
+        <FormWrapper>
+          <FormInput
+            type="text"
+            name="email"
+            register={register}
+            placeholder={state.strings.eMailAddress}
+            error={errors.email?.message}
+            required
+          />
+          <FormInput
+            type="password"
+            name="password"
+            register={register}
+            placeholder={state.strings.password}
+            error={errors.password?.message}
+            required
+          />
+          <Button type="submit" disabled={!isValid}>
+            {state.strings.login}
+          </Button>
+          <div className="mt-2">
+            {state.strings.dontHaveAccount}
+            <Link to={RoutePaths.SIGNUP}>{state.strings.register}</Link>
+          </div>
+        </FormWrapper>
+      </form>
     </PageWrapper>
   );
 }

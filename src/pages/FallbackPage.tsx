@@ -13,7 +13,7 @@ function FallbackPage({ error, resetErrorBoundary }: FallbackProps) {
       <h1>Something went wrong</h1>
       <pre className="mb-4 p-4 text-red-700 bg-gray-200">{error.message}</pre>
       <Button type="button" onClick={resetErrorBoundary}>
-        Try again
+        Go to Main
       </Button>
     </PageWrapper>
   );

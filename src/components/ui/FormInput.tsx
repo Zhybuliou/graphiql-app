@@ -1,26 +1,25 @@
-import { Path, UseFormRegister } from 'react-hook-form';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import React from 'react';
-import ISignUpForm from '../../types/interfaces/ISignUpForm';
 
-type FormInputProps = {
+type FormInputProps<T extends FieldValues> = {
   type: React.HTMLInputTypeAttribute;
-  name: Path<ISignUpForm>;
-  register: UseFormRegister<ISignUpForm>;
+  name: Path<T>;
+  register: UseFormRegister<T>;
   required: boolean;
   placeholder: string;
   error: string | undefined;
 };
 
-function FormInput({
+function FormInput<T extends FieldValues>({
   type,
   name,
   register,
   required,
   placeholder,
   error = '',
-}: FormInputProps) {
+}: FormInputProps<T>) {
   return (
-    <label htmlFor={name} className="relative w-72 mb-6">
+    <label htmlFor={name} className="relative w-80 mb-6">
       <input
         type={type}
         id={name}

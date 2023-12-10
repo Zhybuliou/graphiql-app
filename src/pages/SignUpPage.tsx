@@ -8,7 +8,7 @@ import { auth, registerWithEmailAndPassword } from '../firebase/firebase';
 import { useLocale } from '../context/local';
 import RoutePaths from '../types/enums/routePaths';
 import ISignUpForm from '../types/interfaces/ISignUpForm';
-import validationSchema from '../utils/validationSchema';
+import { signUpValidationSchemes } from '../utils/validationSchemes';
 import PageWrapper from '../components/ui/PageWrapper';
 import FormWrapper from '../components/ui/FormWrapper';
 import FormInput from '../components/ui/FormInput';
@@ -17,11 +17,6 @@ import Button from '../components/ui/Button';
 function SignUpPage() {
   const { state } = useLocale();
   const [user, loading] = useAuthState(auth);
-
-  const registerUser = (name: string, email: string, password: string) => {
-    if (!name) return;
-    registerWithEmailAndPassword(name, email, password);
-  };
 
   const navigate = useNavigate();
 
@@ -36,18 +31,22 @@ function SignUpPage() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<ISignUpForm>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(signUpValidationSchemes),
     mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<ISignUpForm> = (data) => {
-    registerUser(data.name, data.email, data.password);
+  const registerUser: SubmitHandler<ISignUpForm> = ({
+    name,
+    email,
+    password,
+  }) => {
+    registerWithEmailAndPassword(name, email, password);
   };
 
   return (
     <PageWrapper>
       <h1>{state.strings.signUpPlease}</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(registerUser)}>
         <FormWrapper>
           <FormInput
             type="text"
