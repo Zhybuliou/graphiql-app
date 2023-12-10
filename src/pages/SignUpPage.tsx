@@ -9,10 +9,10 @@ import { useLocale } from '../context/local';
 import RoutePaths from '../types/enums/routePaths';
 import ISignUpForm from '../types/interfaces/ISignUpForm';
 import validationSchema from '../utils/validationSchema';
-import PageWrapper from '../components/ui/pageWrapper/PageWrapper';
+import PageWrapper from '../components/ui/PageWrapper';
 import FormWrapper from '../components/ui/FormWrapper';
 import FormInput from '../components/ui/FormInput';
-import Button from '../components/ui/button/Button';
+import Button from '../components/ui/Button';
 
 function SignUpPage() {
   const { state } = useLocale();

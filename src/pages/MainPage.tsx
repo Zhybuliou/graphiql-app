@@ -1,6 +1,6 @@
 import { useLocale } from '../context/local';
 
-import PageWrapper from '../components/ui/pageWrapper/PageWrapper';
+import PageWrapper from '../components/ui/PageWrapper';
 
 function MainPage() {
   const { state } = useLocale();

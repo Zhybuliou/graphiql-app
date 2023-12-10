@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import React from 'react';
-import { PropsWithChildren } from '../../../types/utilityTypes';
+import { PropsWithChildren } from '../../types/utilityTypes';
 
 function Button({
   children,

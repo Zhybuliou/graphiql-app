@@ -1,6 +1,6 @@
 import React from 'react';
-import PageWrapper from '../components/ui/pageWrapper/PageWrapper';
-import Button from '../components/ui/button/Button';
+import PageWrapper from '../components/ui/PageWrapper';
+import Button from '../components/ui/Button';
 
 type FallbackProps = {
   error: Error;

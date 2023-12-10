@@ -6,7 +6,7 @@ import { useLocale } from '../../context/local';
 import RoutePaths from '../../types/enums/routePaths';
 import LocalToggle from '../local/LocalToggle';
 
-import Button from '../ui/button/Button';
+import Button from '../ui/Button';
 
 function Navbar() {
   const { state } = useLocale();

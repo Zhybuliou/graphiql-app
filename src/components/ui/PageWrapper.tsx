@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropsWithChildren } from '../../../types/utilityTypes';
+import { PropsWithChildren } from '../../types/utilityTypes';
 
 function PageWrapper({ children }: PropsWithChildren) {
   return (

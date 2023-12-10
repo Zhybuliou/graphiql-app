@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 import { auth, logInWithEmailAndPassword } from '../firebase/firebase';
 import RoutePaths from '../types/enums/routePaths';
 import { useLocale } from '../context/local';
-import PageWrapper from '../components/ui/pageWrapper/PageWrapper';
+import PageWrapper from '../components/ui/PageWrapper';
 import FormWrapper from '../components/ui/FormWrapper';
-import Button from '../components/ui/button/Button';
+import Button from '../components/ui/Button';
 
 function SignInPage() {
   const [email, setEmail] = useState('');
