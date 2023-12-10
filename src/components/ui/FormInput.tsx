@@ -27,7 +27,11 @@ function FormInput<T extends FieldValues>({
         {...register(name, { required })}
         placeholder={placeholder}
       />
-      {error && <div className="absolute -bottom-5 text-red-700">{error}</div>}
+      {error && (
+        <div className="absolute -bottom-5 text-red-700 select-none">
+          {error}
+        </div>
+      )}
     </label>
   );
 }

@@ -11,7 +11,7 @@ import PageWrapper from '../components/ui/PageWrapper';
 import FormWrapper from '../components/ui/FormWrapper';
 import Button from '../components/ui/Button';
 import FormInput from '../components/ui/FormInput';
-import { signInValidationSchemes } from '../utils/validationSchemes';
+import { signInValidationSchema } from '../utils/validationSchemes';
 import ISignInForm from '../types/interfaces/ISignInForm';
 
 function SignInPage() {
@@ -42,7 +42,7 @@ function SignInPage() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<ISignInForm>({
-    resolver: yupResolver(signInValidationSchemes),
+    resolver: yupResolver(signInValidationSchema),
     mode: 'onChange',
   });
 

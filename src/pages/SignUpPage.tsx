@@ -8,7 +8,7 @@ import { auth, registerWithEmailAndPassword } from '../firebase/firebase';
 import { useLocale } from '../context/local';
 import RoutePaths from '../types/enums/routePaths';
 import ISignUpForm from '../types/interfaces/ISignUpForm';
-import { signUpValidationSchemes } from '../utils/validationSchemes';
+import { signUpValidationSchema } from '../utils/validationSchemes';
 import PageWrapper from '../components/ui/PageWrapper';
 import FormWrapper from '../components/ui/FormWrapper';
 import FormInput from '../components/ui/FormInput';
@@ -31,7 +31,7 @@ function SignUpPage() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<ISignUpForm>({
-    resolver: yupResolver(signUpValidationSchemes),
+    resolver: yupResolver(signUpValidationSchema),
     mode: 'onChange',
   });
 
