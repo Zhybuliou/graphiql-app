@@ -1,8 +1,10 @@
+import PageWrapper from '../components/ui/PageWrapper';
+
 function Page404() {
   return (
-    <div className="page-wrapper">
+    <PageWrapper>
       <h1>Not Found</h1>
-    </div>
+    </PageWrapper>
   );
 }
 

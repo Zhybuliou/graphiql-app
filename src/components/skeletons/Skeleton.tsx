@@ -1,11 +1,8 @@
-import './skeleton.css';
-
-type SkeletonProps = {
-  classes: string;
-};
-
-function Skeleton({ classes }: SkeletonProps) {
-  const classNames = `skeleton ${classes} animate-pulse`;
-  return <div className={classNames} />;
+function Skeleton({ classes }: { classes: string }) {
+  return (
+    <div
+      className={`h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 animate-pulse ${classes}`}
+    />
+  );
 }
 export default Skeleton;

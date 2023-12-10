@@ -1,12 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html {
-  font-size: 10pt;
-}
-
-body {
-  box-sizing: border-box;
+@layer base {
+  h1 {
+    @apply text-3xl font-bold mb-5;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  a {
+    @apply text-blue-600;
+  }
 }
