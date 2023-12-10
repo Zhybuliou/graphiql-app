@@ -58,9 +58,7 @@ function SignInPage() {
         </Button>
         <div className="mt-2">
           {state.strings.dontHaveAccount}
-          <Link className="text-blue-600" to={RoutePaths.SIGNUP}>
-            {state.strings.register}
-          </Link>
+          <Link to={RoutePaths.SIGNUP}>{state.strings.register}</Link>
         </div>
       </FormWrapper>
     </PageWrapper>

@@ -6,4 +6,10 @@
   h1 {
     @apply text-3xl font-bold mb-5;
   }
+  h2 {
+    @apply text-xl;
+  }
+  a {
+    @apply text-blue-600;
+  }
 }

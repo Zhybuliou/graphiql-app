@@ -7,11 +7,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { auth, registerWithEmailAndPassword } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 import RoutePaths from '../../types/enums/routePaths';
-import IForm from '../../types/interfaces/IForm';
+import ISignUpForm from '../../types/interfaces/ISignUpForm';
 import validationSchema from '../../utils/validationSchema';
-import './SignUpPage.css';
 import PageWrapper from '../../components/ui/pageWrapper/PageWrapper';
 import FormWrapper from '../../components/ui/FormWrapper';
+import FormInput from '../../components/ui/FormInput';
+import Button from '../../components/ui/button/Button';
 
 function SignUpPage() {
   const { state } = useLocale();
@@ -34,12 +35,12 @@ function SignUpPage() {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<IForm>({
+  } = useForm<ISignUpForm>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<IForm> = (data) => {
+  const onSubmit: SubmitHandler<ISignUpForm> = (data) => {
     registerUser(data.name, data.email, data.password);
   };
 
@@ -48,41 +49,42 @@ function SignUpPage() {
       <h1>{state.strings.signUpPlease}</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormWrapper>
-          <input
+          <FormInput
             type="text"
-            {...register('name')}
-            className="p-4 text-base mb-4"
+            name="name"
+            register={register}
             placeholder={state.strings.name}
+            error={errors.name?.message}
+            required
           />
-          <div className="invalid-feedback">{errors.name?.message}</div>
-          <input
+          <FormInput
             type="text"
-            {...register('email')}
-            className="p-4 text-base mb-4"
+            name="email"
+            register={register}
             placeholder={state.strings.eMailAddress}
+            error={errors.email?.message}
+            required
           />
-          <div className="invalid-feedback">{errors.email?.message}</div>
-          <input
+          <FormInput
             type="password"
-            {...register('password')}
-            className="p-4 text-base mb-4"
+            name="password"
+            register={register}
             placeholder={state.strings.password}
+            error={errors.password?.message}
+            required
           />
-          <div className="invalid-feedback">{errors.password?.message}</div>
-
-          <input
+          <FormInput
             type="password"
-            {...register('confirmPassword')}
-            className="p-4 text-base mb-4"
+            name="confirmPassword"
+            register={register}
             placeholder={state.strings.confirmPassword}
+            error={errors.confirmPassword?.message}
+            required
           />
-          <div className="invalid-feedback">
-            {errors.confirmPassword?.message}
-          </div>
-          <button type="submit" className="register__btn" disabled={!isValid}>
+          <Button type="submit" disabled={!isValid}>
             {state.strings.signUp}
-          </button>
-          <div className="about-account">
+          </Button>
+          <div className="mt-4">
             {state.strings.haveAccount}
             <Link to={RoutePaths.SIGNIN}>{state.strings.signIn}</Link>
           </div>
