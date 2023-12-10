@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import { useUser } from '../../firebase/firebase';
-import { useLocale } from '../../context/local';
-import RoutePaths from '../../types/enums/routePaths';
-import './WelcomePage.css';
-import PageWrapper from '../../components/ui/pageWrapper/PageWrapper';
-import Button from '../../components/ui/button/Button';
+import { useUser } from '../firebase/firebase';
+import { useLocale } from '../context/local';
+import RoutePaths from '../types/enums/routePaths';
+import PageWrapper from '../components/ui/pageWrapper/PageWrapper';
+import Button from '../components/ui/button/Button';
 
 function WelcomePage() {
   const { state } = useLocale();

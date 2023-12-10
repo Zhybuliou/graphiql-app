@@ -11,7 +11,7 @@ import { useUser } from '../firebase/firebase';
 import { privateRoutes, publicRoutes } from './routes';
 import RoutePaths from '../types/enums/routePaths';
 import SkeletonPage from '../components/skeletons/SkeletonPage';
-import Fallback from '../components/fallback/Fallback';
+import FallbackPage from '../pages/FallbackPage';
 
 function AppRouter() {
   const user = useUser();
@@ -19,7 +19,7 @@ function AppRouter() {
   const location = useLocation();
   return (
     <ErrorBoundary
-      FallbackComponent={Fallback}
+      FallbackComponent={FallbackPage}
       onReset={() => navigate(RoutePaths.WELCOME)}
       resetKeys={[location]}
     >

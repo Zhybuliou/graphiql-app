@@ -4,15 +4,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { auth, registerWithEmailAndPassword } from '../../firebase/firebase';
-import { useLocale } from '../../context/local';
-import RoutePaths from '../../types/enums/routePaths';
-import ISignUpForm from '../../types/interfaces/ISignUpForm';
-import validationSchema from '../../utils/validationSchema';
-import PageWrapper from '../../components/ui/pageWrapper/PageWrapper';
-import FormWrapper from '../../components/ui/FormWrapper';
-import FormInput from '../../components/ui/FormInput';
-import Button from '../../components/ui/button/Button';
+import { auth, registerWithEmailAndPassword } from '../firebase/firebase';
+import { useLocale } from '../context/local';
+import RoutePaths from '../types/enums/routePaths';
+import ISignUpForm from '../types/interfaces/ISignUpForm';
+import validationSchema from '../utils/validationSchema';
+import PageWrapper from '../components/ui/pageWrapper/PageWrapper';
+import FormWrapper from '../components/ui/FormWrapper';
+import FormInput from '../components/ui/FormInput';
+import Button from '../components/ui/button/Button';
 
 function SignUpPage() {
   const { state } = useLocale();

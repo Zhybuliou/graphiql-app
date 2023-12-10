@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
-import { auth, logInWithEmailAndPassword } from '../../firebase/firebase';
-import RoutePaths from '../../types/enums/routePaths';
-import { useLocale } from '../../context/local';
-import PageWrapper from '../../components/ui/pageWrapper/PageWrapper';
-import FormWrapper from '../../components/ui/FormWrapper';
-import Button from '../../components/ui/button/Button';
+import { auth, logInWithEmailAndPassword } from '../firebase/firebase';
+import RoutePaths from '../types/enums/routePaths';
+import { useLocale } from '../context/local';
+import PageWrapper from '../components/ui/pageWrapper/PageWrapper';
+import FormWrapper from '../components/ui/FormWrapper';
+import Button from '../components/ui/button/Button';
 
 function SignInPage() {
   const [email, setEmail] = useState('');
