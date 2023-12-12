@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 
 import React, { useState } from 'react';
+import { buildClientSchema, GraphQLSchema } from 'graphql';
+import { GraphQLObjectType } from 'graphql/type/definition';
 import Button from '../ui/Button';
 import SCHEMA_QUERY from './schemaQuery';
 
@@ -8,11 +10,11 @@ const API_URL = 'https://rickandmortyapi.com/graphql';
 
 function Schema() {
   const [apiUrl, setApiUrl] = useState<string>(API_URL);
-  const [apiResponse, setApiResponse] = useState<string>('');
   const [apiRequest, setApiRequest] = useState<string>(SCHEMA_QUERY);
+  const [clientSchema, setClientSchema] = useState<GraphQLSchema | null>(null);
 
   async function makeRequest(query: string) {
-    const response = await fetch(API_URL, {
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -20,8 +22,14 @@ function Schema() {
       },
       body: JSON.stringify({ query }),
     });
-    const data = await response.json();
-    setApiResponse(JSON.stringify(data, null, 2));
+    const schema = await response.json();
+    setClientSchema(buildClientSchema(schema.data));
+  }
+
+  function getEndpoints() {
+    const query = clientSchema?.getTypeMap().Query as GraphQLObjectType;
+    const mapOfEndpoints = query.getFields();
+    return Object.keys(mapOfEndpoints).join('\n');
   }
 
   return (
@@ -40,14 +48,15 @@ function Schema() {
         onChange={(event) => setApiRequest(event.target.value)}
       />
       <Button type="button" onClick={() => makeRequest(apiRequest)}>
-        Send request
+        Get Endpoints
       </Button>
-      <textarea
-        key="apiResponse"
-        rows={10}
-        className="border-2 border-black"
-        defaultValue={apiResponse}
-      />
+      {clientSchema && (
+        <textarea
+          className="border-2 border-black"
+          rows={10}
+          defaultValue={getEndpoints()}
+        />
+      )}
     </div>
   );
 }
