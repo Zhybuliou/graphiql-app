@@ -1,8 +1,13 @@
 /* eslint-disable no-console */
 
 import React, { useState } from 'react';
-import { buildClientSchema, GraphQLSchema } from 'graphql';
-import { GraphQLObjectType } from 'graphql/type/definition';
+import {
+  buildClientSchema,
+  // GraphQLList,
+  // GraphQLObjectType,
+  GraphQLSchema,
+  printSchema,
+} from 'graphql';
 import Button from '../ui/Button';
 import SCHEMA_QUERY from './schemaQuery';
 
@@ -23,13 +28,28 @@ function Schema() {
       body: JSON.stringify({ query }),
     });
     const schema = await response.json();
+    console.log(schema.data);
     setClientSchema(buildClientSchema(schema.data));
   }
 
   function getEndpoints() {
-    const query = clientSchema?.getTypeMap().Query as GraphQLObjectType;
-    const mapOfEndpoints = query.getFields();
-    return Object.keys(mapOfEndpoints).join('\n');
+    if (!clientSchema) return '';
+    return printSchema(clientSchema);
+
+    // const query = clientSchema.getQueryType();
+    // if (!query) return '';
+    // const mapOfEndpoints = query.getFields();
+    // return Object.values(mapOfEndpoints).map((endpoint) => {
+    //   const { name, description, type } = endpoint;
+    //   let typeName = 'NO_TYPE!!!';
+    //   if (type instanceof GraphQLObjectType) {
+    //     typeName = type.name;
+    //   }
+    //   if (type instanceof GraphQLList) {
+    //     typeName = type.ofType.toString();
+    //   }
+    //   return `${name} : ${typeName} === ${description}\n`;
+    // });
   }
 
   return (
@@ -48,13 +68,14 @@ function Schema() {
         onChange={(event) => setApiRequest(event.target.value)}
       />
       <Button type="button" onClick={() => makeRequest(apiRequest)}>
-        Get Endpoints
+        Get Schema
       </Button>
       {clientSchema && (
         <textarea
           className="border-2 border-black"
           rows={10}
           defaultValue={getEndpoints()}
+          readOnly
         />
       )}
     </div>
