@@ -5,6 +5,8 @@ import { useLocale } from '../context/local';
 import RoutePaths from '../types/enums/routePaths';
 import PageWrapper from '../components/ui/PageWrapper';
 import Button from '../components/ui/Button';
+import GraphQLTest from '../components/graphQLTest/GraphQLTest';
+import GraphQLParams from '../components/graphQLParams/GraphQLParams';
 
 function WelcomePage() {
   const { state } = useLocale();
@@ -27,6 +29,8 @@ function WelcomePage() {
           impedit.
         </p>
       </div>
+      <GraphQLTest />
+      <GraphQLParams />
     </PageWrapper>
   );
 }
