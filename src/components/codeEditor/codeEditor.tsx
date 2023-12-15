@@ -1,7 +1,7 @@
 import CodeMirror, { EditorState, EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import { useState } from 'react';
-import ParamsEditor from '../paramsEditor/paramsEditor';
+import ParamsEditor from '../paramsEditor/ParamsEditor';
 
 export default function CodeEditor() {
   const [value, setValue] = useState(`query {
@@ -25,6 +25,11 @@ export default function CodeEditor() {
   );
   const [output, setOutput] = useState('');
   const [error, setError] = useState(false);
+  const [variables, setVariables] = useState('');
+
+  const updateVariables = (data: string) => {
+    setVariables(data);
+  };
 
   const helpR = async (query: string, url: string) => {
     const result = await fetch(url, {
@@ -32,7 +37,7 @@ export default function CodeEditor() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, variables }),
     })
       .then((res) => res.json())
       .catch(() => setError(true));
@@ -135,7 +140,7 @@ export default function CodeEditor() {
           />
         </div>
       </div>
-      <ParamsEditor />
+      <ParamsEditor updateVariables={updateVariables} />
     </div>
   );
 }

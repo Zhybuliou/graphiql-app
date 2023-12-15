@@ -3,11 +3,23 @@ import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import Button from '../ui/Button';
 
-function ParamsEditor() {
+interface IParamsEditorProps {
+  updateVariables: (data: string) => void;
+}
+
+function ParamsEditor(props: IParamsEditorProps) {
   const [isOpenVariables, setVariablesOpen] = useState(false);
   const [variables, setVariables] = useState('');
   const [isOpenHeaders, setHeadersOpen] = useState(false);
   const [headers, setHeaders] = useState('');
+
+  const { updateVariables } = props;
+
+  const handleVariables = (event: string) => {
+    setVariables(event);
+    updateVariables(JSON.parse(event));
+  };
+
   return (
     <div>
       <div className="flex bg-indigo-900 p-4 text-white">
@@ -49,7 +61,7 @@ function ParamsEditor() {
             }}
             value={variables}
             extensions={[graphql(), EditorView.lineWrapping]}
-            onChange={(event) => setVariables(event)}
+            onChange={(event) => handleVariables(event)}
             basicSetup={{
               highlightActiveLine: true,
               autocompletion: true,
@@ -61,13 +73,13 @@ function ParamsEditor() {
               closeBrackets: true,
               lintKeymap: true,
             }}
-            width="500px"
-            minHeight="200px"
+            width="auto"
+            minHeight="80px"
           />
         </div>
       )}
       {isOpenHeaders && (
-        <div className="bg-pink-400 p-2">
+        <div className="bg-emerald-400 p-2">
           <CodeMirror
             style={{
               textAlign: 'start',
@@ -89,8 +101,8 @@ function ParamsEditor() {
               closeBrackets: true,
               lintKeymap: true,
             }}
-            width="500px"
-            minHeight="200px"
+            width="auto"
+            minHeight="80px"
           />
         </div>
       )}
