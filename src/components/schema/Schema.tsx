@@ -1,18 +1,33 @@
-import React from 'react';
-import { GraphQLSchema } from 'graphql';
+import React, { useState } from 'react';
+import { GraphQLField, GraphQLSchema } from 'graphql';
 
 import Queries from './Queries';
+import TypeExplorer from './TypeExplorer';
 
 type SchemaProps = {
   clientSchema: GraphQLSchema | null;
 };
 
 function Schema({ clientSchema }: SchemaProps) {
+  const [openTypes, setOpenTypes] = useState<
+    GraphQLField<unknown, unknown, unknown>[]
+  >([]);
+
   if (!clientSchema) return null;
 
   return (
-    <div className="fixed w-80 h-full right-0 bg-white shadow">
-      <Queries clientSchema={clientSchema} />
+    <div className="absolute flex h-full right-0 bg-white shadow">
+      <Queries clientSchema={clientSchema} setOpenTypes={setOpenTypes} />
+      {openTypes.map((type, index) => {
+        return (
+          <TypeExplorer
+            key={`${type.toString()}`}
+            field={type}
+            index={index}
+            setOpenTypes={setOpenTypes}
+          />
+        );
+      })}
     </div>
   );
 }

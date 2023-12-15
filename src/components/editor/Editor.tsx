@@ -23,7 +23,6 @@ function Editor({ clientSchema, setClientSchema }: EditorProps) {
   const [apiUrl, setApiUrl] = useState<string>(API_URL);
   const [apiRequest, setApiRequest] = useState<string>(SCHEMA_QUERY);
   const [result, setResult] = useState<string>('');
-  // const [clientSchema, setClientSchema] = useState<GraphQLSchema | null>(null);
 
   async function makeRequest(query: string) {
     const response = await fetch(apiUrl, {
