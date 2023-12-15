@@ -13,7 +13,7 @@ function Navbar() {
   const user = useUser();
 
   return (
-    <div className="flex justify-end gap-1 p-2">
+    <div className="flex justify-end gap-1 p-2 shadow">
       <LocalToggle />
       {!user ? (
         <>

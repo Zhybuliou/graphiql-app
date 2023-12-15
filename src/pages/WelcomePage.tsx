@@ -1,18 +1,22 @@
 import { Link } from 'react-router-dom';
 
+import { useState } from 'react';
+import { GraphQLSchema } from 'graphql';
 import { useUser } from '../firebase/firebase';
 import { useLocale } from '../context/local';
 import RoutePaths from '../types/enums/routePaths';
 import PageWrapper from '../components/ui/PageWrapper';
 import Button from '../components/ui/Button';
+import Editor from '../components/editor/Editor';
 import Schema from '../components/schema/Schema';
 
 function WelcomePage() {
   const { state } = useLocale();
   const user = useUser();
+  const [clientSchema, setClientSchema] = useState<GraphQLSchema | null>(null);
 
   return (
-    <PageWrapper>
+    <PageWrapper classNames="relative">
       <h1>{state.strings.welcomePage}</h1>
       {user && (
         <Link to={RoutePaths.MAIN}>
@@ -28,7 +32,8 @@ function WelcomePage() {
           impedit.
         </p>
       </div>
-      <Schema />
+      <Editor clientSchema={clientSchema} setClientSchema={setClientSchema} />
+      <Schema clientSchema={clientSchema} />
     </PageWrapper>
   );
 }

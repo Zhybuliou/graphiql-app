@@ -39,6 +39,9 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     'react/jsx-uses-react': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions':'off',
+    'jsx-a11y/click-events-have-key-events':'off'
+
   },
   settings: {
     react: {
