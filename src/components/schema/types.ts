@@ -1,5 +1,7 @@
-import { GraphQLField, GraphQLInputType } from 'graphql';
+import { GraphQLNamedType } from 'graphql';
 
-export type TypeToExplorer =
-  | GraphQLField<unknown, unknown, unknown>
-  | GraphQLInputType;
+export type TypeToExplorer = {
+  name: string;
+  description: string;
+  type: GraphQLNamedType;
+};

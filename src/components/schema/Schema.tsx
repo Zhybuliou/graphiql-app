@@ -3,10 +3,9 @@
 import React, { useState } from 'react';
 import { GraphQLSchema } from 'graphql';
 
-import { isInputType } from 'graphql/type';
-import Queries from './Queries';
+import QueriesTab from './QueriesTab';
 import { TypeToExplorer } from './types';
-import TypeExplorer from './TypeExplorer';
+import TypeTab from './TypeTab/TypeTab';
 
 type SchemaProps = {
   clientSchema: GraphQLSchema | null;
@@ -19,17 +18,14 @@ function Schema({ clientSchema }: SchemaProps) {
 
   return (
     <div className="absolute flex h-full right-0 bg-white shadow">
-      <Queries clientSchema={clientSchema} setOpenTypes={setOpenTypes} />
+      <QueriesTab clientSchema={clientSchema} setOpenTypes={setOpenTypes} />
 
-      {openTypes.map((typeToExplorer, index) => {
-        const key = isInputType(typeToExplorer)
-          ? typeToExplorer.toString()
-          : typeToExplorer.name;
+      {openTypes.map((type, index) => {
         return (
-          <TypeExplorer
-            key={`${key}${index}`}
-            typeToExplorer={typeToExplorer}
-            typeIndex={index}
+          <TypeTab
+            key={`${type.name}${index}`}
+            typeToExplorer={type}
+            tabIndex={index}
             setOpenTypes={setOpenTypes}
             clientSchema={clientSchema}
           />
