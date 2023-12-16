@@ -1,13 +1,12 @@
 import React from 'react';
-import { GraphQLSchema, GraphQLField } from 'graphql';
+import { GraphQLSchema } from 'graphql';
 import ListItem from '../ui/ListItem';
 import EndpointDescription from '../endpointDescription/EndpointDescription';
+import { TypeToExplorer } from './types';
 
 type SchemaProps = {
   clientSchema: GraphQLSchema;
-  setOpenTypes: React.Dispatch<
-    React.SetStateAction<GraphQLField<unknown, unknown, unknown>[]>
-  >;
+  setOpenTypes: React.Dispatch<React.SetStateAction<TypeToExplorer[]>>;
 };
 
 function Queries({ clientSchema, setOpenTypes }: SchemaProps) {

@@ -1,24 +1,49 @@
 import React from 'react';
-import { GraphQLField } from 'graphql';
+import { isInputType } from 'graphql/type';
+import { GraphQLSchema } from 'graphql';
 import TypeHeader from './TypeHeader';
-import TypeFields from './TypeFields';
+import TypeDetails from './TypeDetails';
 import TypeArguments from './TypeArguments';
+import { TypeToExplorer } from './types';
 
 type TypeExplorerProps = {
-  field: GraphQLField<unknown, unknown, unknown>;
-  index: number;
-  setOpenTypes: React.Dispatch<
-    React.SetStateAction<GraphQLField<unknown, unknown, unknown>[]>
-  >;
+  typeToExplorer: TypeToExplorer;
+  typeIndex: number;
+  setOpenTypes: React.Dispatch<React.SetStateAction<TypeToExplorer[]>>;
+  clientSchema: GraphQLSchema;
 };
 
-function TypeExplorer({ field, index, setOpenTypes }: TypeExplorerProps) {
+function TypeExplorer({
+  typeToExplorer,
+  typeIndex,
+  setOpenTypes,
+  clientSchema,
+}: TypeExplorerProps) {
+  if (isInputType(typeToExplorer)) {
+    return (
+      <div className="w-80 p-2">
+        <p>isInputType</p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-80 p-2">
-      <TypeHeader field={field} />
-      <p className="my-7">{field.description}</p>
-      <TypeFields field={field} index={index} setOpenTypes={setOpenTypes} />
-      <TypeArguments field={field} index={index} setOpenTypes={setOpenTypes} />
+      <TypeHeader typeToExplorer={typeToExplorer} />
+
+      <p className="my-7">{typeToExplorer.description}</p>
+
+      <TypeDetails
+        typeToExplorer={typeToExplorer}
+        typeIndex={typeIndex}
+        setOpenTypes={setOpenTypes}
+        clientSchema={clientSchema}
+      />
+      <TypeArguments
+        typeToExplorer={typeToExplorer}
+        typeIndex={typeIndex}
+        setOpenTypes={setOpenTypes}
+      />
     </div>
   );
 }
