@@ -42,15 +42,13 @@ export default function TabDetails({
   }
 
   return (
-    <TabDetailsWrapper typeName={typeToExplorer.name}>
+    <TabDetailsWrapper typeName={pureType.toString()}>
       <ul>
         {fields.map((field) => {
+          const { name, type } = field;
           return (
-            <ListItem
-              onClick={() => handleAddNewType(field)}
-              key={`${field.name}`}
-            >
-              <FieldInfo name={field.name} type={field.type.toString()} />
+            <ListItem onClick={() => handleAddNewType(field)} key={name}>
+              <FieldInfo name={name} type={type.toString()} />
             </ListItem>
           );
         })}

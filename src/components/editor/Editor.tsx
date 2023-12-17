@@ -1,12 +1,8 @@
-/* eslint-disable no-console */
-
 import React, { useEffect, useState } from 'react';
 import {
   buildClientSchema,
   getIntrospectionQuery,
-  GraphQLField,
   GraphQLSchema,
-  isObjectType,
   printType,
 } from 'graphql';
 
@@ -21,7 +17,9 @@ type EditorProps = {
 
 function Editor({ clientSchema, setClientSchema }: EditorProps) {
   const [apiUrl, setApiUrl] = useState<string>(API_URL);
-  const [apiRequest, setApiRequest] = useState<string>(getIntrospectionQuery());
+  const [apiRequest, setApiRequest] = useState<string>(() =>
+    getIntrospectionQuery()
+  );
   const [result, setResult] = useState<string>('');
 
   async function makeRequest(query: string) {
@@ -47,35 +45,8 @@ function Editor({ clientSchema, setClientSchema }: EditorProps) {
       setResult('!query');
       return;
     }
-    setResult(() => printType(query));
+    setResult(printType(query));
   }, [clientSchema]);
-
-  function getTypeInfo(name: string, typeName: string) {
-    if (!clientSchema) return '!clientSchema';
-    const type = clientSchema.getType(typeName);
-    if (!type) return '!type';
-    return `${name} :: ${type.name} `;
-  }
-
-  function handleGetTypeInfo(field: GraphQLField<unknown, unknown>) {
-    if (!isObjectType(field.type)) {
-      setResult('!isObjectType(field.type)');
-      return;
-    }
-
-    const fieldsInside = field.type.getFields();
-    const res = Object.values(fieldsInside)
-      .map((fieldInside) =>
-        getTypeInfo(fieldInside.name, fieldInside.type.toString())
-      )
-      .join('\n');
-
-    setResult(
-      `${field.name}( \n  \n ${
-        field.description
-      } \n ${field.type.toString()}\n${res}`
-    );
-  }
 
   return (
     <div className="flex flex-col w-full gap-3">
@@ -95,22 +66,6 @@ function Editor({ clientSchema, setClientSchema }: EditorProps) {
       <Button type="button" onClick={() => makeRequest(apiRequest)}>
         Get Schema
       </Button>
-      {clientSchema && (
-        <div>
-          {Object.values(clientSchema.getQueryType()!.getFields()).map(
-            (endpoint) => {
-              return (
-                <Button
-                  key={endpoint.name}
-                  onClick={() => handleGetTypeInfo(endpoint)}
-                >
-                  {`${endpoint.name}(...): ${endpoint.type.toString()}`}
-                </Button>
-              );
-            }
-          )}
-        </div>
-      )}
       {clientSchema && (
         <textarea
           className="border-2 border-black"

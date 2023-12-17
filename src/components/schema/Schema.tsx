@@ -20,11 +20,11 @@ function Schema({ clientSchema }: SchemaProps) {
     <div className="absolute flex h-full right-0 bg-white shadow">
       <QueriesTab clientSchema={clientSchema} setOpenTypes={setOpenedTypes} />
 
-      {openedTypes.map((type, index) => {
+      {openedTypes.map((typeToExplorer, index) => {
         return (
           <TypeTab
-            key={`${type.name}${index}`}
-            typeToExplorer={type}
+            key={`${typeToExplorer.name}${index}`}
+            typeToExplorer={typeToExplorer}
             tabIndex={index}
             setOpenTypes={setOpenedTypes}
           />
