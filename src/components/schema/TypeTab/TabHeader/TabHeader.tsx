@@ -9,7 +9,7 @@ type TabHeaderProps = {
 };
 
 function TabHeader({ typeToExplorer }: TabHeaderProps) {
-  const typeHeaderWithoutArgs = (
+  const tabHeaderWithoutArgs = (
     <TypeInfo
       name={typeToExplorer.name}
       type={typeToExplorer.type.toString()}
@@ -17,15 +17,15 @@ function TabHeader({ typeToExplorer }: TabHeaderProps) {
   );
 
   if (isScalarFieldType(typeToExplorer)) {
-    return typeHeaderWithoutArgs;
+    return tabHeaderWithoutArgs;
   }
 
   if (!isOutputFieldType(typeToExplorer)) {
-    return typeHeaderWithoutArgs;
+    return tabHeaderWithoutArgs;
   }
 
   if (typeToExplorer.args.length === 0) {
-    return typeHeaderWithoutArgs;
+    return tabHeaderWithoutArgs;
   }
 
   return (

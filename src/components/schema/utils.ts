@@ -11,9 +11,12 @@ export function getPureType(typeToExplorer: TypeToExplorer) {
   const typeWithoutNonNull = isNonNullType(typeToExplorer.type)
     ? typeToExplorer.type.ofType
     : typeToExplorer.type;
-  return isListType(typeWithoutNonNull)
+  const typeWithoutList = isListType(typeWithoutNonNull)
     ? typeWithoutNonNull.ofType
     : typeWithoutNonNull;
+  return isNonNullType(typeWithoutList)
+    ? typeWithoutList.ofType
+    : typeWithoutList;
 }
 
 export function isOutputFieldType(

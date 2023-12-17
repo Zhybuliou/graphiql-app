@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   buildClientSchema,
+  getIntrospectionQuery,
   GraphQLField,
   GraphQLSchema,
   isObjectType,
@@ -10,7 +11,6 @@ import {
 } from 'graphql';
 
 import Button from '../ui/Button';
-import SCHEMA_QUERY from './schemaQuery';
 
 const API_URL = 'https://rickandmortyapi.com/graphql';
 
@@ -21,7 +21,7 @@ type EditorProps = {
 
 function Editor({ clientSchema, setClientSchema }: EditorProps) {
   const [apiUrl, setApiUrl] = useState<string>(API_URL);
-  const [apiRequest, setApiRequest] = useState<string>(SCHEMA_QUERY);
+  const [apiRequest, setApiRequest] = useState<string>(getIntrospectionQuery());
   const [result, setResult] = useState<string>('');
 
   async function makeRequest(query: string) {
