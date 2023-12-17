@@ -2,7 +2,6 @@ import React from 'react';
 import { GraphQLField, GraphQLSchema } from 'graphql';
 import ListItem from '../ui/ListItem';
 import { TypeToExplorer } from './types';
-import getPureType from './utils';
 import FieldInfo from './ui/FieldInfo';
 
 type QueriesTabProps = {
@@ -19,14 +18,8 @@ function QueriesTab({ clientSchema, setOpenTypes }: QueriesTabProps) {
 
   const endpoints = Object.values(queryType.getFields());
 
-  function handleClickEndpoint(field: GraphQLField<unknown, unknown>) {
-    const pureType = getPureType(field.type);
-    const schemaType = clientSchema.getType(pureType.toString());
-    if (!schemaType) return;
-
-    setOpenTypes([
-      { name: pureType.toString(), description: field.name, type: schemaType },
-    ]);
+  function handleClickEndpoint(field: GraphQLField<unknown, unknown, unknown>) {
+    setOpenTypes([field]);
   }
 
   return (

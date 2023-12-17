@@ -27,7 +27,6 @@ function Schema({ clientSchema }: SchemaProps) {
             typeToExplorer={type}
             tabIndex={index}
             setOpenTypes={setOpenTypes}
-            clientSchema={clientSchema}
           />
         );
       })}
