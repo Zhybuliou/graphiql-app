@@ -1,3 +1,4 @@
+/* eslint no-constant-condition: ["error", { "checkLoops": false }] */
 import {
   isListType,
   isNonNullType,
@@ -8,15 +9,19 @@ import {
 import { TypeToExplorer } from './types';
 
 export function getPureType(typeToExplorer: TypeToExplorer) {
-  const typeWithoutNonNull = isNonNullType(typeToExplorer.type)
-    ? typeToExplorer.type.ofType
-    : typeToExplorer.type;
-  const typeWithoutList = isListType(typeWithoutNonNull)
-    ? typeWithoutNonNull.ofType
-    : typeWithoutNonNull;
-  return isNonNullType(typeWithoutList)
-    ? typeWithoutList.ofType
-    : typeWithoutList;
+  let currentType = typeToExplorer.type;
+
+  while (true) {
+    const typeWithoutNonNull = isNonNullType(currentType)
+      ? currentType.ofType
+      : currentType;
+
+    if (isListType(typeWithoutNonNull)) {
+      currentType = typeWithoutNonNull.ofType;
+    } else {
+      return typeWithoutNonNull;
+    }
+  }
 }
 
 export function isOutputFieldType(
