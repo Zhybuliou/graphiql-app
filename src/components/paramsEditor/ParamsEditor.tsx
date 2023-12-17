@@ -1,23 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import Button from '../ui/Button';
-
-interface IParamsEditorProps {
-  updateVariables: (data: string) => void;
-}
+import CodeMirrorType from '../../types/enums/codeMirrorType';
+import { IParamsEditorProps } from '../../types/interfaces/IParamsEditorProps';
+import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
 
 function ParamsEditor(props: IParamsEditorProps) {
   const [isOpenVariables, setVariablesOpen] = useState(false);
-  const [variables, setVariables] = useState('');
+  const [params, setParams] = useState<IEditorParamsState>({
+    variables: '',
+    additionalHeaders: '',
+  });
+
   const [isOpenHeaders, setHeadersOpen] = useState(false);
-  const [headers, setHeaders] = useState('');
 
-  const { updateVariables } = props;
+  const { updateParams } = props;
 
-  const handleVariables = (event: string) => {
-    setVariables(event);
-    updateVariables(JSON.parse(event));
+  useEffect(() => {
+    updateParams(params);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
+
+  const handleChange = (type: CodeMirrorType) => (value: string) => {
+    setParams({ ...params, [type]: value });
   };
 
   return (
@@ -59,9 +65,9 @@ function ParamsEditor(props: IParamsEditorProps) {
               wordBreak: 'normal',
               wordWrap: 'break-word',
             }}
-            value={variables}
+            value={params.variables}
             extensions={[graphql(), EditorView.lineWrapping]}
-            onChange={(event) => handleVariables(event)}
+            onChange={handleChange(CodeMirrorType.VARIABLES)}
             basicSetup={{
               highlightActiveLine: true,
               autocompletion: true,
@@ -87,9 +93,9 @@ function ParamsEditor(props: IParamsEditorProps) {
               wordBreak: 'normal',
               wordWrap: 'break-word',
             }}
-            value={headers}
+            value={params.additionalHeaders}
             extensions={[graphql(), EditorView.lineWrapping]}
-            onChange={(event) => setHeaders(event)}
+            onChange={handleChange(CodeMirrorType.additionalHeaders)}
             basicSetup={{
               highlightActiveLine: true,
               autocompletion: true,

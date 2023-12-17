@@ -2,42 +2,46 @@ import CodeMirror, { EditorState, EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import { useState } from 'react';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
+import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
 
 export default function CodeEditor() {
-  const [value, setValue] = useState(`query {
-        characters(page: 2, filter: { name: "rick" }) {
-          info {
-            count
-          }
-          results {
-            name
-          }
-        }
-        location(id: 1) {
-          id
-        }
-        episodesByIds(ids: [1, 2]) {
-          id
-        }
-      }`);
+  const [value, setValue] = useState(`query myChar($filter: FilterCharacter) {
+    characters(filter: $filter) {
+      results {
+        name
+        id
+      }
+    }
+  }
+  `);
   const [urlValue, setUrlValue] = useState(
     'https://rickandmortyapi.com/graphql'
   );
   const [output, setOutput] = useState('');
   const [error, setError] = useState(false);
-  const [variables, setVariables] = useState('');
+  const [editorParams, setEditorParams] = useState({
+    variables: '',
+    additionalHeaders: '',
+  });
 
-  const updateVariables = (data: string) => {
-    setVariables(data);
+  const updateParamsEditor = (data: IEditorParamsState) => {
+    setEditorParams(data);
   };
 
   const helpR = async (query: string, url: string) => {
+    const { variables } = editorParams;
+
+    const body = variables
+      ? JSON.stringify({ query, variables })
+      : JSON.stringify({ query });
+
     const result = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query, variables }),
+
+      body,
     })
       .then((res) => res.json())
       .catch(() => setError(true));
@@ -140,7 +144,7 @@ export default function CodeEditor() {
           />
         </div>
       </div>
-      <ParamsEditor updateVariables={updateVariables} />
+      <ParamsEditor updateParams={updateParamsEditor} />
     </div>
   );
 }
