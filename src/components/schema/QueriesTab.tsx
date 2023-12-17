@@ -2,7 +2,9 @@ import React from 'react';
 import { GraphQLField, GraphQLSchema } from 'graphql';
 import ListItem from '../ui/ListItem';
 import { TypeToExplorer } from './types';
-import FieldInfo from './ui/FieldInfo';
+import SectionTitle from './ui/SectionTitle';
+import TabWrapper from './ui/TabWrapper';
+import TypeInfo from './ui/TypeInfo';
 
 type QueriesTabProps = {
   clientSchema: GraphQLSchema;
@@ -13,7 +15,7 @@ function QueriesTab({ clientSchema, setOpenTypes }: QueriesTabProps) {
   const queryType = clientSchema.getQueryType();
 
   if (!queryType) {
-    return <h2>!queryType</h2>;
+    return <TabWrapper>!queryType</TabWrapper>;
   }
 
   const endpoints = Object.values(queryType.getFields());
@@ -23,8 +25,8 @@ function QueriesTab({ clientSchema, setOpenTypes }: QueriesTabProps) {
   }
 
   return (
-    <div className="w-80">
-      <p>QUERIES</p>
+    <TabWrapper>
+      <SectionTitle>Queries</SectionTitle>
       <ul>
         {endpoints.map((field) => {
           return (
@@ -34,7 +36,7 @@ function QueriesTab({ clientSchema, setOpenTypes }: QueriesTabProps) {
               }}
               key={field.name}
             >
-              <FieldInfo
+              <TypeInfo
                 name={field.name}
                 type={field.type.toString()}
                 split="(...): "
@@ -43,7 +45,7 @@ function QueriesTab({ clientSchema, setOpenTypes }: QueriesTabProps) {
           );
         })}
       </ul>
-    </div>
+    </TabWrapper>
   );
 }
 

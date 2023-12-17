@@ -3,6 +3,8 @@ import TabDetails from './TabDetails/TabDetails';
 import { TypeToExplorer } from '../types';
 import TabArguments from './TabArguments/TabArguments';
 import TabHeader from './TabHeader/TabHeader';
+import TabWrapper from '../ui/TabWrapper';
+import TabDescription from './TabDescription/TabDescription';
 
 type TypeTabProps = {
   typeToExplorer: TypeToExplorer;
@@ -12,23 +14,20 @@ type TypeTabProps = {
 
 function TypeTab({ typeToExplorer, tabIndex, setOpenTypes }: TypeTabProps) {
   return (
-    <div className="w-80 p-2">
+    <TabWrapper>
       <TabHeader typeToExplorer={typeToExplorer} />
-
-      {/* <p className="my-7">{typeToExplorer.description}</p> */}
-
+      <TabDescription typeToExplorer={typeToExplorer} />
       <TabDetails
         typeToExplorer={typeToExplorer}
         tabIndex={tabIndex}
         setOpenTypes={setOpenTypes}
       />
-
       <TabArguments
         typeToExplorer={typeToExplorer}
         tabIndex={tabIndex}
         setOpenTypes={setOpenTypes}
       />
-    </div>
+    </TabWrapper>
   );
 }
 

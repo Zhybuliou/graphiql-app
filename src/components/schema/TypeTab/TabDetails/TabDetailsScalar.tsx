@@ -4,15 +4,15 @@ import SectionTitle from '../../ui/SectionTitle';
 import FieldInfo from '../../ui/FieldInfo';
 
 export default function TabDetailsScalar({
-  type,
+  scalarType,
 }: {
-  type: GraphQLScalarType;
+  scalarType: GraphQLScalarType;
 }) {
   return (
-    <>
+    <div>
       <SectionTitle>Type Details</SectionTitle>
-      <p>{type.description}</p>
-      <FieldInfo name="scalar" type={type.name} />
-    </>
+      <p className="my-2">{scalarType.description}</p>
+      <FieldInfo name="scalar" type={scalarType.name} />
+    </div>
   );
 }

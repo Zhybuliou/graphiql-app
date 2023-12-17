@@ -12,21 +12,21 @@ type SchemaProps = {
 };
 
 function Schema({ clientSchema }: SchemaProps) {
-  const [openTypes, setOpenTypes] = useState<TypeToExplorer[]>([]);
+  const [openedTypes, setOpenedTypes] = useState<TypeToExplorer[]>([]);
 
   if (!clientSchema) return null;
 
   return (
     <div className="absolute flex h-full right-0 bg-white shadow">
-      <QueriesTab clientSchema={clientSchema} setOpenTypes={setOpenTypes} />
+      <QueriesTab clientSchema={clientSchema} setOpenTypes={setOpenedTypes} />
 
-      {openTypes.map((type, index) => {
+      {openedTypes.map((type, index) => {
         return (
           <TypeTab
             key={`${type.name}${index}`}
             typeToExplorer={type}
             tabIndex={index}
-            setOpenTypes={setOpenTypes}
+            setOpenTypes={setOpenedTypes}
           />
         );
       })}

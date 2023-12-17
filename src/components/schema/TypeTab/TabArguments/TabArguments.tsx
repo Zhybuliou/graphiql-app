@@ -2,10 +2,10 @@ import React from 'react';
 
 import { GraphQLArgument } from 'graphql/type';
 import { TypeToExplorer } from '../../types';
-import TabArgumentsWrapper from './TabArgumentsWrapper';
 import ListItem from '../../../ui/ListItem';
 import FieldInfo from '../../ui/FieldInfo';
 import { isOutputFieldType, isScalarFieldType } from '../../utils';
+import SectionTitle from '../../ui/SectionTitle';
 
 type TabArgumentsProps = {
   typeToExplorer: TypeToExplorer;
@@ -32,24 +32,25 @@ function TabArguments({
 
   function handleAddNewType(argument: GraphQLArgument) {
     setOpenTypes((prevOpenTypes) => {
-      const dd = prevOpenTypes.slice(0, tabIndex + 1);
-      return [...dd, argument];
+      const arrFront = prevOpenTypes.slice(0, tabIndex + 1);
+      return [...arrFront, argument];
     });
   }
 
   return (
-    <TabArgumentsWrapper>
-      {typeToExplorer.args.map((argument) => {
-        return (
-          <ListItem
-            key={argument.name}
-            onClick={() => handleAddNewType(argument)}
-          >
-            <FieldInfo name={argument.name} type={argument.type.toString()} />
-          </ListItem>
-        );
-      })}
-    </TabArgumentsWrapper>
+    <div>
+      <SectionTitle>Type Arguments</SectionTitle>
+      <ul>
+        {typeToExplorer.args.map((argument) => {
+          const { name, type } = argument;
+          return (
+            <ListItem key={name} onClick={() => handleAddNewType(argument)}>
+              <FieldInfo name={name} type={type.toString()} />
+            </ListItem>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
 

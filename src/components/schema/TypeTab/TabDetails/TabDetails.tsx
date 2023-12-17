@@ -19,8 +19,9 @@ export default function TabDetails({
   setOpenTypes,
 }: TabDetailsProps) {
   const pureType = getPureType(typeToExplorer);
+
   if (isScalarType(pureType)) {
-    return <TabDetailsScalar type={pureType} />;
+    return <TabDetailsScalar scalarType={pureType} />;
   }
 
   if (!isObjectType(pureType)) {
@@ -42,16 +43,18 @@ export default function TabDetails({
 
   return (
     <TabDetailsWrapper typeName={typeToExplorer.name}>
-      {fields.map((typeField) => {
-        return (
-          <ListItem
-            onClick={() => handleAddNewType(typeField)}
-            key={`${typeField.name}`}
-          >
-            <FieldInfo name={typeField.name} type={typeField.type.toString()} />
-          </ListItem>
-        );
-      })}
+      <ul>
+        {fields.map((field) => {
+          return (
+            <ListItem
+              onClick={() => handleAddNewType(field)}
+              key={`${field.name}`}
+            >
+              <FieldInfo name={field.name} type={field.type.toString()} />
+            </ListItem>
+          );
+        })}
+      </ul>
     </TabDetailsWrapper>
   );
 }
