@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { GraphQLSchema } from 'graphql';
 
 import QueriesTab from './QueriesTab';
-import { TypeToExplorer } from './types';
+import { TypeToDisplay } from './types';
 import TypeTab from './TypeTab/TypeTab';
 
 type SchemaProps = {
@@ -12,7 +12,7 @@ type SchemaProps = {
 };
 
 function Schema({ clientSchema }: SchemaProps) {
-  const [openedTypes, setOpenedTypes] = useState<TypeToExplorer[]>([]);
+  const [openedTypes, setOpenedTypes] = useState<TypeToDisplay[]>([]);
 
   if (!clientSchema) return null;
 
@@ -20,13 +20,13 @@ function Schema({ clientSchema }: SchemaProps) {
     <div className="absolute flex h-full right-0 bg-white shadow">
       <QueriesTab clientSchema={clientSchema} setOpenTypes={setOpenedTypes} />
 
-      {openedTypes.map((typeToExplorer, index) => {
+      {openedTypes.map((typeToDisplay, index) => {
         return (
           <TypeTab
-            key={`${typeToExplorer.name}${index}`}
-            typeToExplorer={typeToExplorer}
+            key={`${typeToDisplay.name}${index}`}
+            typeToDisplay={typeToDisplay}
             tabIndex={index}
-            setOpenTypes={setOpenedTypes}
+            setOpenedTypes={setOpenedTypes}
           />
         );
       })}

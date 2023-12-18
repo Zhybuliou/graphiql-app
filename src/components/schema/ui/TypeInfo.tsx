@@ -14,7 +14,7 @@ function TypeInfo({
   split = ': ',
 }: FieldInfoProps) {
   return (
-    <p className={className || ''}>
+    <p className={className}>
       <span className="text-red-700">{name}</span>
       <span>{split}</span>
       <span className="text-amber-600">{type}</span>

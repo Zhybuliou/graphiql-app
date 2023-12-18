@@ -2,23 +2,23 @@ import React from 'react';
 import { isObjectType, GraphQLField, isScalarType } from 'graphql';
 import ListItem from '../../../ui/ListItem';
 import FieldInfo from '../../ui/FieldInfo';
-import { TypeToExplorer } from '../../types';
+import { TypeToDisplay } from '../../types';
 import { getPureType } from '../../utils';
 import TabDetailsWrapper from './TabDetailsWrapper';
 import TabDetailsScalar from './TabDetailsScalar';
 
 type TabDetailsProps = {
-  typeToExplorer: TypeToExplorer;
+  typeToDisplay: TypeToDisplay;
   tabIndex: number;
-  setOpenTypes: React.Dispatch<React.SetStateAction<TypeToExplorer[]>>;
+  setOpenedTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
 export default function TabDetails({
-  typeToExplorer,
+  typeToDisplay,
   tabIndex,
-  setOpenTypes,
+  setOpenedTypes,
 }: TabDetailsProps) {
-  const pureType = getPureType(typeToExplorer);
+  const pureType = getPureType(typeToDisplay);
 
   if (isScalarType(pureType)) {
     return <TabDetailsScalar scalarType={pureType} />;
@@ -35,8 +35,8 @@ export default function TabDetails({
   }
 
   function handleAddNewType(newField: GraphQLField<unknown, unknown, unknown>) {
-    setOpenTypes((prevOpenTypes) => {
-      const arrFront = prevOpenTypes.slice(0, tabIndex + 1);
+    setOpenedTypes((prevOpenedTypes) => {
+      const arrFront = prevOpenedTypes.slice(0, tabIndex + 1);
       return [...arrFront, newField];
     });
   }

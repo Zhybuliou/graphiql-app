@@ -1,39 +1,36 @@
 import React from 'react';
-import { TypeToExplorer } from '../../types';
+import { TypeToDisplay } from '../../types';
 import { isOutputFieldType, isScalarFieldType } from '../../utils';
 import FieldInfo from '../../ui/FieldInfo';
 import TypeInfo from '../../ui/TypeInfo';
 
 type TabHeaderProps = {
-  typeToExplorer: TypeToExplorer;
+  typeToDisplay: TypeToDisplay;
 };
 
-function TabHeader({ typeToExplorer }: TabHeaderProps) {
+function TabHeader({ typeToDisplay }: TabHeaderProps) {
   const tabHeaderWithoutArgs = (
-    <TypeInfo
-      name={typeToExplorer.name}
-      type={typeToExplorer.type.toString()}
-    />
+    <TypeInfo name={typeToDisplay.name} type={typeToDisplay.type.toString()} />
   );
 
-  if (isScalarFieldType(typeToExplorer)) {
+  if (isScalarFieldType(typeToDisplay)) {
     return tabHeaderWithoutArgs;
   }
 
-  if (!isOutputFieldType(typeToExplorer)) {
+  if (!isOutputFieldType(typeToDisplay)) {
     return tabHeaderWithoutArgs;
   }
 
-  if (typeToExplorer.args.length === 0) {
+  if (typeToDisplay.args.length === 0) {
     return tabHeaderWithoutArgs;
   }
 
   return (
     <div>
       <p>
-        <span className="text-red-700">{`${typeToExplorer.name}`}</span>(
+        <span className="text-red-700">{`${typeToDisplay.name}`}</span>(
       </p>
-      {typeToExplorer.args.map((argument) => {
+      {typeToDisplay.args.map((argument) => {
         return (
           <FieldInfo
             key={argument.name}
@@ -45,7 +42,7 @@ function TabHeader({ typeToExplorer }: TabHeaderProps) {
       })}
       <p>
         {'): '}
-        <span className="text-amber-600">{typeToExplorer.type.toString()}</span>
+        <span className="text-amber-600">{typeToDisplay.type.toString()}</span>
       </p>
     </div>
   );

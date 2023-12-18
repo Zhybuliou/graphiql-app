@@ -1,38 +1,34 @@
 import React from 'react';
 
 import { GraphQLArgument } from 'graphql/type';
-import { TypeToExplorer } from '../../types';
+import { TypeToDisplay } from '../../types';
 import ListItem from '../../../ui/ListItem';
 import FieldInfo from '../../ui/FieldInfo';
 import { isOutputFieldType, isScalarFieldType } from '../../utils';
 import SectionTitle from '../../ui/SectionTitle';
 
 type TabArgumentsProps = {
-  typeToExplorer: TypeToExplorer;
+  typeToDisplay: TypeToDisplay;
   tabIndex: number;
-  setOpenTypes: React.Dispatch<React.SetStateAction<TypeToExplorer[]>>;
+  setOpenedTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
 function TabArguments({
-  typeToExplorer,
+  typeToDisplay,
   tabIndex,
-  setOpenTypes,
+  setOpenedTypes,
 }: TabArgumentsProps) {
-  if (!isOutputFieldType(typeToExplorer)) {
+  if (!isOutputFieldType(typeToDisplay)) {
     return null;
   }
 
-  if (isScalarFieldType(typeToExplorer)) {
-    return null;
-  }
-
-  if (typeToExplorer.args.length === 0) {
+  if (isScalarFieldType(typeToDisplay)) {
     return null;
   }
 
   function handleAddNewType(argument: GraphQLArgument) {
-    setOpenTypes((prevOpenTypes) => {
-      const arrFront = prevOpenTypes.slice(0, tabIndex + 1);
+    setOpenedTypes((prevOpenedTypes) => {
+      const arrFront = prevOpenedTypes.slice(0, tabIndex + 1);
       return [...arrFront, argument];
     });
   }
@@ -41,7 +37,7 @@ function TabArguments({
     <div>
       <SectionTitle>Type Arguments</SectionTitle>
       <ul>
-        {typeToExplorer.args.map((argument) => {
+        {typeToDisplay.args.map((argument) => {
           const { name, type } = argument;
           return (
             <ListItem key={name} onClick={() => handleAddNewType(argument)}>

@@ -1,14 +1,14 @@
 import React from 'react';
 import { GraphQLField, GraphQLSchema } from 'graphql';
 import ListItem from '../ui/ListItem';
-import { TypeToExplorer } from './types';
+import { TypeToDisplay } from './types';
 import SectionTitle from './ui/SectionTitle';
 import TabWrapper from './ui/TabWrapper';
 import TypeInfo from './ui/TypeInfo';
 
 type QueriesTabProps = {
   clientSchema: GraphQLSchema;
-  setOpenTypes: React.Dispatch<React.SetStateAction<TypeToExplorer[]>>;
+  setOpenTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
 function QueriesTab({ clientSchema, setOpenTypes }: QueriesTabProps) {

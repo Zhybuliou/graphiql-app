@@ -1,31 +1,31 @@
 import React from 'react';
 import TabDetails from './TabDetails/TabDetails';
-import { TypeToExplorer } from '../types';
+import { TypeToDisplay } from '../types';
 import TabArguments from './TabArguments/TabArguments';
 import TabHeader from './TabHeader/TabHeader';
 import TabWrapper from '../ui/TabWrapper';
 import TabDescription from './TabDescription/TabDescription';
 
 type TypeTabProps = {
-  typeToExplorer: TypeToExplorer;
+  typeToDisplay: TypeToDisplay;
   tabIndex: number;
-  setOpenTypes: React.Dispatch<React.SetStateAction<TypeToExplorer[]>>;
+  setOpenedTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
-function TypeTab({ typeToExplorer, tabIndex, setOpenTypes }: TypeTabProps) {
+function TypeTab({ typeToDisplay, tabIndex, setOpenedTypes }: TypeTabProps) {
   return (
     <TabWrapper>
-      <TabHeader typeToExplorer={typeToExplorer} />
-      <TabDescription typeToExplorer={typeToExplorer} />
+      <TabHeader typeToDisplay={typeToDisplay} />
+      <TabDescription typeToDisplay={typeToDisplay} />
       <TabDetails
-        typeToExplorer={typeToExplorer}
+        typeToDisplay={typeToDisplay}
         tabIndex={tabIndex}
-        setOpenTypes={setOpenTypes}
+        setOpenedTypes={setOpenedTypes}
       />
       <TabArguments
-        typeToExplorer={typeToExplorer}
+        typeToDisplay={typeToDisplay}
         tabIndex={tabIndex}
-        setOpenTypes={setOpenTypes}
+        setOpenedTypes={setOpenedTypes}
       />
     </TabWrapper>
   );

@@ -8,7 +8,7 @@ type FieldInfoProps = {
 
 function FieldInfo({ name, type, className = '' }: FieldInfoProps) {
   return (
-    <p className={className || ''}>
+    <p className={className}>
       <span className="text-blue-600">{name}</span>
       {': '}
       <span className="text-amber-600">{type}</span>

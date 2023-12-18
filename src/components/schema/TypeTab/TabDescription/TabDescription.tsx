@@ -1,17 +1,17 @@
 import React from 'react';
-import { TypeToExplorer } from '../../types';
+import { TypeToDisplay } from '../../types';
 import { isOutputFieldType } from '../../utils';
 
 type TabDescriptionProps = {
-  typeToExplorer: TypeToExplorer;
+  typeToDisplay: TypeToDisplay;
 };
 
-function TabDescription({ typeToExplorer }: TabDescriptionProps) {
-  if (!isOutputFieldType(typeToExplorer)) {
+function TabDescription({ typeToDisplay }: TabDescriptionProps) {
+  if (!isOutputFieldType(typeToDisplay)) {
     return null;
   }
 
-  return <p>{typeToExplorer.description}</p>;
+  return <p>{typeToDisplay.description}</p>;
 }
 
 export default TabDescription;

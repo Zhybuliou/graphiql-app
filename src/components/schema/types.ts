@@ -1,5 +1,5 @@
 import { GraphQLField, GraphQLArgument } from 'graphql';
 
-export type TypeToExplorer =
+export type TypeToDisplay =
   | GraphQLField<unknown, unknown, unknown>
   | GraphQLArgument;

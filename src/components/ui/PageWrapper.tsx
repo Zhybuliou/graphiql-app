@@ -1,14 +1,13 @@
 import React from 'react';
 import { PropsWithChildren } from '../../types/utilityTypes';
+import cn from '../../utils/cn';
 
 function PageWrapper({
-  classNames,
+  className,
   children,
-}: PropsWithChildren<{ classNames?: string }>) {
+}: PropsWithChildren<{ className?: string }>) {
   return (
-    <div
-      className={`flex flex-col items-center text-center ${classNames || ''}`}
-    >
+    <div className={cn('flex flex-col items-center text-center', className)}>
       {children}
     </div>
   );

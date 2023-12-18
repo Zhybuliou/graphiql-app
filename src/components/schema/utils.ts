@@ -6,9 +6,9 @@ import {
   isOutputType,
   isScalarType,
 } from 'graphql';
-import { TypeToExplorer } from './types';
+import { TypeToDisplay } from './types';
 
-export function getPureType(typeToExplorer: TypeToExplorer) {
+export function getPureType(typeToExplorer: TypeToDisplay) {
   let currentType = typeToExplorer.type;
 
   while (true) {
@@ -25,11 +25,11 @@ export function getPureType(typeToExplorer: TypeToExplorer) {
 }
 
 export function isOutputFieldType(
-  typeToExplorer: TypeToExplorer
+  typeToExplorer: TypeToDisplay
 ): typeToExplorer is GraphQLField<unknown, unknown, unknown> {
   return isOutputType(getPureType(typeToExplorer));
 }
 
-export function isScalarFieldType(typeToExplorer: TypeToExplorer) {
+export function isScalarFieldType(typeToExplorer: TypeToDisplay) {
   return isScalarType(getPureType(typeToExplorer));
 }
