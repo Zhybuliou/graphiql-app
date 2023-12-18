@@ -20,6 +20,7 @@ export default function CodeEditor() {
   );
   const [output, setOutput] = useState('');
   const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<null | string>(null);
   const [editorParams, setEditorParams] = useState({
     variables: '',
     additionalHeaders: '',
@@ -30,36 +31,61 @@ export default function CodeEditor() {
   };
 
   const onError = (err: Error) => {
-    toast.error(err.message, {
+    toast.error(`Variables are written incorrectly ${err.message} `, {
       position: toast.POSITION.TOP_LEFT,
     });
   };
 
-  const helpR = async (query: string, url: string) => {
+  const checkRequestBody = (query: string) => {
     const { variables } = editorParams;
 
     let body = JSON.stringify({ query });
-
     if (variables.length > 0) {
       try {
-        const checkVariables = JSON.parse(variables);
-        body = JSON.stringify({ query, variables: checkVariables });
+        body = JSON.stringify({ query, variables: JSON.parse(variables) });
+      } catch (er) {
+        if (er instanceof Error) {
+          setErrorMsg(er.message);
+          onError(er);
+        }
+      }
+    }
+    return body;
+  };
+
+  const checkRequestHeaders = () => {
+    const { additionalHeaders } = editorParams;
+
+    let headers = {
+      'Content-Type': 'application/json',
+    };
+    if (additionalHeaders.length > 0) {
+      try {
+        headers = { ...JSON.parse(additionalHeaders), ...headers };
       } catch (er) {
         if (er instanceof Error) onError(er);
       }
     }
+    return headers;
+  };
 
-    const result = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+  const helpR = async (query: string, url: string) => {
+    const body = checkRequestBody(query);
+    const headers = checkRequestHeaders();
 
-      body,
-    })
-      .then((res) => res.json())
-      .catch(() => setError(true));
-    setOutput(JSON.stringify(result));
+    if (errorMsg) {
+      setOutput(JSON.stringify(errorMsg));
+    } else {
+      const result = await fetch(url, {
+        method: 'POST',
+        headers,
+        body,
+      })
+        .then((res) => res.json())
+        .catch(() => setError(true));
+
+      setOutput(JSON.stringify(result));
+    }
   };
 
   return (

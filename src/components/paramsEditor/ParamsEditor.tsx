@@ -32,8 +32,8 @@ function ParamsEditor(props: IParamsEditorProps) {
         <Button
           className={
             isOpenVariables
-              ? 'bg-sky-500 rounded-l p-2'
-              : 'bg-sky-500/50 rounded-l p-2 text-slate-400'
+              ? 'bg-sky-500 rounded-l p-2 transition-colors duration-300'
+              : 'bg-sky-500/50 rounded-l p-2 text-slate-400 transition-colors duration-300'
           }
           onClick={() => {
             setVariablesOpen(!isOpenVariables);
@@ -45,8 +45,8 @@ function ParamsEditor(props: IParamsEditorProps) {
         <Button
           className={
             isOpenHeaders
-              ? 'bg-sky-500  p-2'
-              : 'bg-sky-500/50  p-2 text-slate-400'
+              ? 'bg-sky-500 rounded-l p-2 transition-colors duration-300'
+              : 'bg-sky-500/50 rounded-l p-2 text-slate-400 transition-colors duration-300'
           }
           onClick={() => {
             setHeadersOpen(!isOpenHeaders);
