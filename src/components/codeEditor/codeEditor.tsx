@@ -1,6 +1,7 @@
 import CodeMirror, { EditorState, EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
 import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
 
@@ -28,12 +29,25 @@ export default function CodeEditor() {
     setEditorParams(data);
   };
 
+  const onError = (err: Error) => {
+    toast.error(err.message, {
+      position: toast.POSITION.TOP_LEFT,
+    });
+  };
+
   const helpR = async (query: string, url: string) => {
     const { variables } = editorParams;
 
-    const body = variables
-      ? JSON.stringify({ query, variables })
-      : JSON.stringify({ query });
+    let body = JSON.stringify({ query });
+
+    if (variables.length > 0) {
+      try {
+        const checkVariables = JSON.parse(variables);
+        body = JSON.stringify({ query, variables: checkVariables });
+      } catch (er) {
+        if (er instanceof Error) onError(er);
+      }
+    }
 
     const result = await fetch(url, {
       method: 'POST',
