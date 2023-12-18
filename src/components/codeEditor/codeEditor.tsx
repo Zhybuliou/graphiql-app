@@ -30,8 +30,8 @@ export default function CodeEditor() {
     setEditorParams(data);
   };
 
-  const onError = (err: Error) => {
-    toast.error(`Variables are written incorrectly ${err.message} `, {
+  const onError = (err: string) => {
+    toast.error(err, {
       position: toast.POSITION.TOP_LEFT,
     });
   };
@@ -40,13 +40,16 @@ export default function CodeEditor() {
     const { variables } = editorParams;
 
     let body = JSON.stringify({ query });
-    if (variables.length > 0) {
+    if (variables) {
       try {
-        body = JSON.stringify({ query, variables: JSON.parse(variables) });
+        const parsedVariables = JSON.parse(variables);
+        if (parsedVariables && typeof parsedVariables === 'object') {
+          body = JSON.stringify({ query, variables: parsedVariables });
+        }
       } catch (er) {
         if (er instanceof Error) {
-          setErrorMsg(er.message);
-          onError(er);
+          setErrorMsg(`Variables are written incorrectly ${er.message}`);
+          onError(`Variables are written incorrectly ${er.message}`);
         }
       }
     }
@@ -59,33 +62,35 @@ export default function CodeEditor() {
     let headers = {
       'Content-Type': 'application/json',
     };
-    if (additionalHeaders.length > 0) {
+    if (additionalHeaders) {
       try {
         headers = { ...JSON.parse(additionalHeaders), ...headers };
       } catch (er) {
-        if (er instanceof Error) onError(er);
+        if (er instanceof Error)
+          onError(`Headers are written incorrectly ${er.message}`);
       }
     }
     return headers;
   };
 
   const helpR = async (query: string, url: string) => {
+    setErrorMsg(null);
     const body = checkRequestBody(query);
     const headers = checkRequestHeaders();
 
     if (errorMsg) {
       setOutput(JSON.stringify(errorMsg));
-    } else {
-      const result = await fetch(url, {
-        method: 'POST',
-        headers,
-        body,
-      })
-        .then((res) => res.json())
-        .catch(() => setError(true));
-
-      setOutput(JSON.stringify(result));
+      return;
     }
+    const result = await fetch(url, {
+      method: 'POST',
+      headers,
+      body,
+    })
+      .then((res) => res.json())
+      .catch(() => setError(true));
+
+    setOutput(JSON.stringify(result));
   };
 
   return (
