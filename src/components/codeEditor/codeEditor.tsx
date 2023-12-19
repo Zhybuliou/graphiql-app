@@ -1,9 +1,10 @@
 import CodeMirror, { EditorState, EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
 import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
+import Spinner from '../Spinner/Spinner';
+import RequestOptions from '../../types/enums/requestOptions';
 
 export default function CodeEditor() {
   const [value, setValue] = useState(`query myChar($filter: FilterCharacter) {
@@ -20,77 +21,65 @@ export default function CodeEditor() {
   );
   const [output, setOutput] = useState('');
   const [error, setError] = useState(false);
-  const [errorMsg, setErrorMsg] = useState<null | string>(null);
+  const [Loading, setLoading] = useState(false);
   const [editorParams, setEditorParams] = useState({
     variables: '',
-    additionalHeaders: '',
+    headers: '',
   });
 
   const updateParamsEditor = (data: IEditorParamsState) => {
     setEditorParams(data);
   };
 
-  const onError = (err: string) => {
-    toast.error(err, {
-      position: toast.POSITION.TOP_LEFT,
-    });
-  };
+  const checkRequestParams = (paramType: RequestOptions, query?: string) => {
+    const { headers, variables } = editorParams;
 
-  const checkRequestBody = (query: string) => {
-    const { variables } = editorParams;
+    const defoultHeaders = {
+      'Content-Type': 'application/json',
+    };
 
-    let body = JSON.stringify({ query });
-    if (variables) {
+    const param = paramType === RequestOptions.VARIABLES ? variables : headers;
+
+    if (param) {
       try {
-        const parsedVariables = JSON.parse(variables);
-        if (parsedVariables && typeof parsedVariables === 'object') {
-          body = JSON.stringify({ query, variables: parsedVariables });
+        const parsedParam = JSON.parse(param);
+        if (parsedParam && typeof parsedParam === 'object') {
+          return paramType === RequestOptions.VARIABLES
+            ? JSON.stringify({ query, variables: parsedParam })
+            : { ...parsedParam, ...defoultHeaders };
         }
       } catch (er) {
         if (er instanceof Error) {
-          setErrorMsg(`Variables are written incorrectly ${er.message}`);
-          onError(`Variables are written incorrectly ${er.message}`);
+          const newErrorMsg = `${paramType} are written incorrectly ${er.message}`;
+          setOutput(JSON.stringify(newErrorMsg));
         }
+        return null;
       }
     }
-    return body;
-  };
 
-  const checkRequestHeaders = () => {
-    const { additionalHeaders } = editorParams;
-
-    let headers = {
-      'Content-Type': 'application/json',
-    };
-    if (additionalHeaders) {
-      try {
-        headers = { ...JSON.parse(additionalHeaders), ...headers };
-      } catch (er) {
-        if (er instanceof Error)
-          onError(`Headers are written incorrectly ${er.message}`);
-      }
-    }
-    return headers;
+    return paramType === RequestOptions.VARIABLES
+      ? JSON.stringify({ query })
+      : defoultHeaders;
   };
 
   const helpR = async (query: string, url: string) => {
-    setErrorMsg(null);
-    const body = checkRequestBody(query);
-    const headers = checkRequestHeaders();
+    setLoading(true);
+    const body = checkRequestParams(RequestOptions.VARIABLES, query);
+    const headers = checkRequestParams(RequestOptions.HEADERS);
 
-    if (errorMsg) {
-      setOutput(JSON.stringify(errorMsg));
-      return;
+    if (body && headers) {
+      const result = await fetch(url, {
+        method: 'POST',
+        headers,
+        body,
+      })
+        .then((res) => res.json())
+        .catch(() => setError(true));
+
+      setOutput(JSON.stringify(result));
     }
-    const result = await fetch(url, {
-      method: 'POST',
-      headers,
-      body,
-    })
-      .then((res) => res.json())
-      .catch(() => setError(true));
 
-    setOutput(JSON.stringify(result));
+    setLoading(false);
   };
 
   return (
@@ -147,7 +136,7 @@ export default function CodeEditor() {
           Schema
         </button>
       </div>
-
+      {Loading ? <Spinner /> : null}
       <div style={{ display: 'flex' }}>
         <div style={{ backgroundColor: 'pink', padding: '15px' }}>
           <CodeMirror
@@ -172,7 +161,7 @@ export default function CodeEditor() {
               lintKeymap: true,
             }}
             width="500px"
-            minHeight="500px"
+            minHeight="300px"
           />
         </div>
         <div style={{ backgroundColor: 'pink', padding: '15px' }}>
@@ -184,8 +173,8 @@ export default function CodeEditor() {
             basicSetup={{
               autocompletion: true,
             }}
-            minWidth="500px"
-            minHeight="500px"
+            width="500px"
+            minHeight="300px"
           />
         </div>
       </div>

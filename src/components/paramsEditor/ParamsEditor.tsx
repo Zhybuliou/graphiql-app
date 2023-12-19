@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import Button from '../ui/Button';
-import CodeMirrorType from '../../types/enums/codeMirrorType';
+import RequestOptions from '../../types/enums/requestOptions';
 import { IParamsEditorProps } from '../../types/interfaces/IParamsEditorProps';
 import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
 
@@ -10,7 +10,7 @@ function ParamsEditor(props: IParamsEditorProps) {
   const [isOpenVariables, setVariablesOpen] = useState(false);
   const [params, setParams] = useState<IEditorParamsState>({
     variables: '',
-    additionalHeaders: '',
+    headers: '',
   });
 
   const [isOpenHeaders, setHeadersOpen] = useState(false);
@@ -22,7 +22,7 @@ function ParamsEditor(props: IParamsEditorProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   });
 
-  const handleChange = (type: CodeMirrorType) => (value: string) => {
+  const handleChange = (type: RequestOptions) => (value: string) => {
     setParams({ ...params, [type]: value });
   };
 
@@ -67,7 +67,7 @@ function ParamsEditor(props: IParamsEditorProps) {
             }}
             value={params.variables}
             extensions={[graphql(), EditorView.lineWrapping]}
-            onChange={handleChange(CodeMirrorType.VARIABLES)}
+            onChange={handleChange(RequestOptions.VARIABLES)}
             basicSetup={{
               highlightActiveLine: true,
               autocompletion: true,
@@ -93,9 +93,9 @@ function ParamsEditor(props: IParamsEditorProps) {
               wordBreak: 'normal',
               wordWrap: 'break-word',
             }}
-            value={params.additionalHeaders}
+            value={params.headers}
             extensions={[graphql(), EditorView.lineWrapping]}
-            onChange={handleChange(CodeMirrorType.additionalHeaders)}
+            onChange={handleChange(RequestOptions.HEADERS)}
             basicSetup={{
               highlightActiveLine: true,
               autocompletion: true,
