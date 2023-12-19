@@ -16,7 +16,7 @@ function WelcomePage() {
   const [clientSchema, setClientSchema] = useState<GraphQLSchema | null>(null);
 
   return (
-    <PageWrapper classNames="relative">
+    <PageWrapper className="relative">
       <h1>{state.strings.welcomePage}</h1>
       {user && (
         <Link to={RoutePaths.MAIN}>
