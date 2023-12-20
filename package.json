@@ -18,6 +18,9 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
+    "@uiw/react-codemirror": "^4.21.21",
+    "cm6-graphql": "^0.0.12",
+    "codemirror": "^6.0.1",
     "firebase": "^10.7.1",
     "nanoid": "^5.0.2",
     "react": "^18.2.0",

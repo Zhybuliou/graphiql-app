@@ -13,3 +13,7 @@
     @apply text-blue-600;
   }
 }
+
+html {
+  overflow-y: scroll;
+}
