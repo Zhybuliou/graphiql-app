@@ -4,15 +4,13 @@ import { useState } from 'react';
 import prettifyGraphQLQuery from './prettifyGraphQLQuery';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
 import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
-import Spinner from '../Spinner/Spinner';
 import RequestOptions from '../../types/enums/requestOptions';
 
 export default function CodeEditor() {
-  const [value, setValue] = useState(`query myChar($filter: FilterCharacter) {
+  const [value, setValue] = useState(`query ($filter: FilterCharacter) {
     characters(filter: $filter) {
       results {
         name
-        id
       }
     }
   }
@@ -22,7 +20,6 @@ export default function CodeEditor() {
   );
   const [output, setOutput] = useState('');
   const [error, setError] = useState(false);
-  const [Loading, setLoading] = useState(false);
   const [editorParams, setEditorParams] = useState({
     variables: '',
     headers: '',
@@ -65,7 +62,6 @@ export default function CodeEditor() {
   };
 
   const helpR = async (query: string, url: string) => {
-    setLoading(true);
     const body = checkRequestParams(RequestOptions.VARIABLES, query);
     const headers = checkRequestParams(RequestOptions.HEADERS);
 
@@ -80,8 +76,6 @@ export default function CodeEditor() {
 
       setOutput(JSON.stringify(result));
     }
-
-    setLoading(false);
   };
 
   return (
@@ -142,7 +136,6 @@ export default function CodeEditor() {
           Schema
         </button>
       </div>
-      {Loading ? <Spinner /> : null}
       <div style={{ display: 'flex' }}>
         <div style={{ backgroundColor: 'pink', padding: '15px' }}>
           <CodeMirror

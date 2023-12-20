@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
@@ -17,19 +18,18 @@ function ParamsEditor(props: IParamsEditorProps) {
 
   const { updateParams, pretti } = props;
 
-  const updatePrettiParams = () => {
-    setParams({
-      variables: prettifyGraphQLQuery(params.variables),
-      headers: prettifyGraphQLQuery(params.headers),
-    });
-  };
-
   useEffect(() => {
     updateParams(params);
+  }, [params]);
+
+  useEffect(() => {
     if (pretti) {
-      updatePrettiParams();
+      setParams({
+        variables: prettifyGraphQLQuery(params.variables),
+        headers: prettifyGraphQLQuery(params.headers),
+      });
     }
-  });
+  }, [pretti]);
 
   const handleChange = (type: RequestOptions) => (value: string) => {
     setParams({ ...params, [type]: value });
