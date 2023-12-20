@@ -1,6 +1,7 @@
 import CodeMirror, { EditorState, EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import { useState } from 'react';
+import prettifyGraphQLQuery from './prettifyGraphQLQuery';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
 import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
 import Spinner from '../Spinner/Spinner';
@@ -25,10 +26,11 @@ export default function CodeEditor() {
   const [editorParams, setEditorParams] = useState({
     variables: '',
     headers: '',
+    pretti: false,
   });
 
   const updateParamsEditor = (data: IEditorParamsState) => {
-    setEditorParams(data);
+    setEditorParams({ ...data, pretti: false });
   };
 
   const checkRequestParams = (paramType: RequestOptions, query?: string) => {
@@ -119,6 +121,10 @@ export default function CodeEditor() {
             margin: '10px',
           }}
           type="button"
+          onClick={() => {
+            setValue(prettifyGraphQLQuery(value));
+            setEditorParams({ ...editorParams, pretti: true });
+          }}
         >
           Prettifying
         </button>
@@ -178,7 +184,10 @@ export default function CodeEditor() {
           />
         </div>
       </div>
-      <ParamsEditor updateParams={updateParamsEditor} />
+      <ParamsEditor
+        updateParams={updateParamsEditor}
+        pretti={editorParams.pretti}
+      />
     </div>
   );
 }

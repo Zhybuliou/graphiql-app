@@ -3,7 +3,6 @@ import './Spinner.css';
 function Spinner(): JSX.Element {
   return (
     <div className="spinner">
-      <h2>Loading ...</h2>
       <svg
         width="135"
         height="135"

@@ -2,24 +2,33 @@ import { useState, useEffect } from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import Button from '../ui/Button';
+import prettifyGraphQLQuery from '../codeEditor/prettifyGraphQLQuery';
 import RequestOptions from '../../types/enums/requestOptions';
 import { IParamsEditorProps } from '../../types/interfaces/IParamsEditorProps';
 import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
 
 function ParamsEditor(props: IParamsEditorProps) {
   const [isOpenVariables, setVariablesOpen] = useState(false);
+  const [isOpenHeaders, setHeadersOpen] = useState(false);
   const [params, setParams] = useState<IEditorParamsState>({
-    variables: '',
+    variables: '{\n     "filter": {\n     "name":   "black"\n  }\n}',
     headers: '',
   });
 
-  const [isOpenHeaders, setHeadersOpen] = useState(false);
+  const { updateParams, pretti } = props;
 
-  const { updateParams } = props;
+  const updatePrettiParams = () => {
+    setParams({
+      variables: prettifyGraphQLQuery(params.variables),
+      headers: prettifyGraphQLQuery(params.headers),
+    });
+  };
 
   useEffect(() => {
     updateParams(params);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (pretti) {
+      updatePrettiParams();
+    }
   });
 
   const handleChange = (type: RequestOptions) => (value: string) => {
