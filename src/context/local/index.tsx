@@ -9,26 +9,36 @@ import { LOCALE_STRINGS, REGIONS } from './constants';
 
 const localLangState = {
   strings: LOCALE_STRINGS[REGIONS.EN],
+  endpoint: 'https://rickandmortyapi.com/graphql',
 };
 type LocalLangState = {
   strings: {
     [key: string]: string;
   };
+  endpoint: string;
 };
 
 const reducer = (
   state: LocalLangState,
-  action: { type: string; payload: { region: string } }
+  action: { type: string; payload: string }
 ) => {
   switch (action.type) {
     case 'CHANGE_LOCALE': {
       return {
-        strings: LOCALE_STRINGS[action.payload.region],
+        ...state,
+        strings: LOCALE_STRINGS[action.payload],
       };
     }
     case 'RESET_LOCALE': {
       return {
+        ...state,
         strings: LOCALE_STRINGS[REGIONS.EN],
+      };
+    }
+    case 'SET_ENDPOINT': {
+      return {
+        ...state,
+        endpoint: action.payload,
       };
     }
     default:
@@ -40,9 +50,7 @@ type Context = {
   state: LocalLangState;
   dispatch: React.Dispatch<{
     type: string;
-    payload: {
-      region: string;
-    };
+    payload: string;
   }>;
 };
 const LocaleContext = createContext<Context>({} as Context);

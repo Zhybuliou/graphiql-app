@@ -11,9 +11,7 @@ export default function LocalToggle() {
     const check = event.currentTarget.checked ? REGIONS.RU : REGIONS.EN;
     const action = {
       type: 'CHANGE_LOCALE',
-      payload: {
-        region: check,
-      },
+      payload: check,
     };
     dispatch(action);
   };

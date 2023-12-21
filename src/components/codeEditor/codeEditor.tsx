@@ -10,8 +10,10 @@ import prettifyGraphQLQuery from './prettifyGraphQLQuery';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
 import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
 import RequestOptions from '../../types/enums/requestOptions';
+import { useLocale } from '../../context/local';
 
 export default function CodeEditor() {
+  const { state, dispatch } = useLocale();
   const [value, setValue] = useState(`query ($filter: FilterCharacter) {
     characters(filter: $filter) {
       results {
@@ -20,9 +22,7 @@ export default function CodeEditor() {
     }
   }
   `);
-  const [urlValue, setUrlValue] = useState(
-    'https://rickandmortyapi.com/graphql'
-  );
+
   const [output, setOutput] = useState('');
   const [error, setError] = useState(false);
   const [editorParams, setEditorParams] = useState({
@@ -67,7 +67,7 @@ export default function CodeEditor() {
       : defaultHeaders;
   };
 
-  const helpR = async (query: string, url: string) => {
+  const getGraphQlResponse = async (query: string, url: string) => {
     const body = checkRequestParams(RequestOptions.VARIABLES, query);
     const headers = checkRequestParams(RequestOptions.HEADERS);
 
@@ -85,7 +85,7 @@ export default function CodeEditor() {
   };
   async function makeRequest() {
     const query = getIntrospectionQuery();
-    const response = await fetch(urlValue, {
+    const response = await fetch(state.endpoint, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -104,115 +104,107 @@ export default function CodeEditor() {
 
   return (
     <div>
-      {getSchema ? (
-        <>
-          <div style={{ backgroundColor: 'blueviolet', padding: '15px' }}>
-            <input
-              value={urlValue}
-              onChange={(event) => {
-                setUrlValue(event.target.value);
-                setError(false);
-              }}
-              style={{ width: '100%', padding: '3px' }}
-              type="text"
-            />
-            {error && <p>Wrong graphql Url</p>}
-            <button
-              style={{
-                border: 'solid 1px black',
-                backgroundColor: '#3B82F6',
-                color: '#fff',
-                padding: '10px',
-                borderRadius: '14px',
-                marginTop: '10px',
-              }}
-              type="button"
-              onClick={() => helpR(value, urlValue)}
-            >
-              Run
-            </button>
-            <button
-              style={{
-                border: 'solid 1px black',
-                backgroundColor: '#3B82F6',
-                color: '#fff',
-                padding: '10px',
-                borderRadius: '14px',
-                margin: '10px',
-              }}
-              type="button"
-              onClick={() => {
-                setValue(prettifyGraphQLQuery(value));
-                setEditorParams({ ...editorParams, pretty: true });
-              }}
-            >
-              Prettifying
-            </button>
-            <button
-              style={{
-                border: 'solid 1px black',
-                backgroundColor: '#3B82F6',
-                color: '#fff',
-                padding: '10px',
-                borderRadius: '14px',
-                margin: '10px',
-              }}
-              type="button"
-            >
-              Schema
-            </button>
-          </div>
-          <div style={{ display: 'flex' }}>
-            <div style={{ backgroundColor: 'pink', padding: '15px' }}>
-              <CodeMirror
-                style={{
-                  textAlign: 'start',
-                  whiteSpace: 'pre-wrap',
-                  wordBreak: 'normal',
-                  wordWrap: 'break-word',
-                }}
-                value={value}
-                extensions={[graphql(getSchema), EditorView.lineWrapping]}
-                onChange={(event) => setValue(event)}
-                basicSetup={{
-                  highlightActiveLine: true,
-                  autocompletion: true,
-                  foldGutter: true,
-                  dropCursor: true,
-                  allowMultipleSelections: true,
-                  indentOnInput: true,
-                  bracketMatching: true,
-                  closeBrackets: true,
-                  lintKeymap: true,
-                }}
-                width="500px"
-                minHeight="300px"
-              />
-            </div>
-            <div style={{ backgroundColor: 'pink', padding: '15px' }}>
-              <CodeMirror
-                style={{ textAlign: 'start' }}
-                value={
-                  output ? JSON.stringify(JSON.parse(output), null, 2) : ''
-                }
-                height="200px"
-                extensions={[graphql(), EditorState.readOnly.of(true)]}
-                basicSetup={{
-                  autocompletion: true,
-                }}
-                width="500px"
-                minHeight="300px"
-              />
-            </div>
-          </div>
-          <ParamsEditor
-            updateParams={updateParamsEditor}
-            pretty={editorParams.pretty}
+      <div style={{ backgroundColor: 'blueviolet', padding: '15px' }}>
+        <input
+          value={state.endpoint}
+          onChange={(event) => {
+            dispatch({ type: 'SET_ENDPOINT', payload: event.target.value });
+            setError(false);
+          }}
+          style={{ width: '100%', padding: '3px' }}
+          type="text"
+        />
+        {error && <p>Wrong graphql Url</p>}
+        <button
+          style={{
+            border: 'solid 1px black',
+            backgroundColor: '#3B82F6',
+            color: '#fff',
+            padding: '10px',
+            borderRadius: '14px',
+            marginTop: '10px',
+          }}
+          type="button"
+          onClick={() => getGraphQlResponse(value, state.endpoint)}
+        >
+          Run
+        </button>
+        <button
+          style={{
+            border: 'solid 1px black',
+            backgroundColor: '#3B82F6',
+            color: '#fff',
+            padding: '10px',
+            borderRadius: '14px',
+            margin: '10px',
+          }}
+          type="button"
+          onClick={() => {
+            setValue(prettifyGraphQLQuery(value));
+            setEditorParams({ ...editorParams, pretty: true });
+          }}
+        >
+          Prettifying
+        </button>
+        <button
+          style={{
+            border: 'solid 1px black',
+            backgroundColor: '#3B82F6',
+            color: '#fff',
+            padding: '10px',
+            borderRadius: '14px',
+            margin: '10px',
+          }}
+          type="button"
+        >
+          Schema
+        </button>
+      </div>
+      <div style={{ display: 'flex' }}>
+        <div style={{ backgroundColor: 'pink', padding: '15px' }}>
+          <CodeMirror
+            style={{
+              textAlign: 'start',
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'normal',
+              wordWrap: 'break-word',
+            }}
+            value={value}
+            extensions={[graphql(getSchema), EditorView.lineWrapping]}
+            onChange={(event) => setValue(event)}
+            basicSetup={{
+              highlightActiveLine: true,
+              autocompletion: true,
+              foldGutter: true,
+              dropCursor: true,
+              allowMultipleSelections: true,
+              indentOnInput: true,
+              bracketMatching: true,
+              closeBrackets: true,
+              lintKeymap: true,
+            }}
+            width="500px"
+            minHeight="300px"
           />
-        </>
-      ) : (
-        <div>Loading...</div>
-      )}
+        </div>
+        <div style={{ backgroundColor: 'pink', padding: '15px' }}>
+          <CodeMirror
+            style={{ textAlign: 'start' }}
+            value={output ? JSON.stringify(JSON.parse(output), null, 2) : ''}
+            height="200px"
+            extensions={[graphql(), EditorState.readOnly.of(true)]}
+            basicSetup={{
+              autocompletion: true,
+            }}
+            width="500px"
+            minHeight="300px"
+          />
+        </div>
+      </div>
+      <ParamsEditor
+        updateParams={updateParamsEditor}
+        pretty={editorParams.pretty}
+      />
     </div>
   );
 }
