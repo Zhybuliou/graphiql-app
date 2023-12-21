@@ -1,39 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import Button from '../ui/Button';
-import prettifyGraphQLQuery from '../codeEditor/prettifyGraphQLQuery';
-import RequestOptions from '../../types/enums/requestOptions';
-import { IParamsEditorProps } from '../../types/interfaces/IParamsEditorProps';
-import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
+import { useLocale } from '../../context/local';
 
-function ParamsEditor(props: IParamsEditorProps) {
+function ParamsEditor() {
+  const { state, dispatch } = useLocale();
   const [isOpenVariables, setVariablesOpen] = useState(false);
   const [isOpenHeaders, setHeadersOpen] = useState(false);
-  const [params, setParams] = useState<IEditorParamsState>({
-    variables: '{\n     "filter": {\n     "name":   "black"\n  }\n}',
-    headers: '',
-  });
-
-  const { updateParams, pretty } = props;
-
-  useEffect(() => {
-    updateParams(params);
-  }, [params]);
-
-  useEffect(() => {
-    if (pretty) {
-      setParams({
-        variables: prettifyGraphQLQuery(params.variables),
-        headers: prettifyGraphQLQuery(params.headers),
-      });
-    }
-  }, [pretty]);
-
-  const handleChange = (type: RequestOptions) => (value: string) => {
-    setParams({ ...params, [type]: value });
-  };
 
   return (
     <div>
@@ -74,9 +49,11 @@ function ParamsEditor(props: IParamsEditorProps) {
               wordBreak: 'normal',
               wordWrap: 'break-word',
             }}
-            value={params.variables}
+            value={state.variables}
             extensions={[graphql(), EditorView.lineWrapping]}
-            onChange={handleChange(RequestOptions.VARIABLES)}
+            onChange={(event) =>
+              dispatch({ type: 'SET_VARIABLES', payload: event })
+            }
             basicSetup={{
               highlightActiveLine: true,
               autocompletion: true,
@@ -102,9 +79,11 @@ function ParamsEditor(props: IParamsEditorProps) {
               wordBreak: 'normal',
               wordWrap: 'break-word',
             }}
-            value={params.headers}
+            value={state.headers}
             extensions={[graphql(), EditorView.lineWrapping]}
-            onChange={handleChange(RequestOptions.HEADERS)}
+            onChange={(event) =>
+              dispatch({ type: 'SET_HEADERS', payload: event })
+            }
             basicSetup={{
               highlightActiveLine: true,
               autocompletion: true,

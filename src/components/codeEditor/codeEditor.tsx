@@ -8,28 +8,21 @@ import { graphql } from 'cm6-graphql';
 import { useEffect, useState } from 'react';
 import prettifyGraphQLQuery from './prettifyGraphQLQuery';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
-import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
 import RequestOptions from '../../types/enums/requestOptions';
 import { useLocale } from '../../context/local';
 
 export default function CodeEditor() {
   const { state, dispatch } = useLocale();
-  // const [output, setOutput] = useState('');
+
   const [error, setError] = useState(false);
-  const [editorParams, setEditorParams] = useState({
-    variables: '',
-    headers: '',
-    pretty: false,
-  });
   const [getSchema, setGetSchema] = useState<GraphQLSchema>();
 
-  const updateParamsEditor = (data: IEditorParamsState) => {
-    setEditorParams({ ...data, pretty: false });
-  };
-
-  const checkRequestParams = (paramType: RequestOptions, query?: string) => {
-    const { headers, variables } = editorParams;
-
+  const checkRequestParams = (
+    paramType: RequestOptions,
+    headers: string,
+    variables: string,
+    query?: string
+  ) => {
     const defaultHeaders = {
       'Content-Type': 'application/json',
     };
@@ -58,9 +51,23 @@ export default function CodeEditor() {
       : defaultHeaders;
   };
 
-  const getGraphQlResponse = async (query: string, url: string) => {
-    const body = checkRequestParams(RequestOptions.VARIABLES, query);
-    const headers = checkRequestParams(RequestOptions.HEADERS);
+  const getGraphQlResponse = async (
+    query: string,
+    url: string,
+    headersString: string,
+    variablesString: string
+  ) => {
+    const body = checkRequestParams(
+      RequestOptions.VARIABLES,
+      headersString,
+      variablesString,
+      query
+    );
+    const headers = checkRequestParams(
+      RequestOptions.HEADERS,
+      headersString,
+      variablesString
+    );
 
     if (body && headers) {
       const result = await fetch(url, {
@@ -73,9 +80,10 @@ export default function CodeEditor() {
       dispatch({ type: 'SET_QUERY_DATA', payload: JSON.stringify(result) });
     }
   };
-  async function makeRequest() {
+
+  async function createGraphQlSchema(endpoint: string) {
     const query = getIntrospectionQuery();
-    const response = await fetch(state.endpoint, {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -88,7 +96,7 @@ export default function CodeEditor() {
   }
 
   useEffect(() => {
-    makeRequest();
+    createGraphQlSchema(state.endpoint);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -115,7 +123,14 @@ export default function CodeEditor() {
             marginTop: '10px',
           }}
           type="button"
-          onClick={() => getGraphQlResponse(state.queryString, state.endpoint)}
+          onClick={() =>
+            getGraphQlResponse(
+              state.queryString,
+              state.endpoint,
+              state.headers,
+              state.variables
+            )
+          }
         >
           Run
         </button>
@@ -134,7 +149,14 @@ export default function CodeEditor() {
               type: 'SET_QUERY_STRING',
               payload: prettifyGraphQLQuery(state.queryString),
             });
-            setEditorParams({ ...editorParams, pretty: true });
+            dispatch({
+              type: 'SET_VARIABLES',
+              payload: prettifyGraphQLQuery(state.variables),
+            });
+            dispatch({
+              type: 'SET_HEADERS',
+              payload: prettifyGraphQLQuery(state.headers),
+            });
           }}
         >
           Prettifying
@@ -204,10 +226,7 @@ export default function CodeEditor() {
           />
         </div>
       </div>
-      <ParamsEditor
-        updateParams={updateParamsEditor}
-        pretty={editorParams.pretty}
-      />
+      <ParamsEditor />
     </div>
   );
 }

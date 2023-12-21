@@ -8,6 +8,7 @@ import {
 import {
   BASE_ENDPOINT,
   BASE_QUERY_STRING,
+  BASE_VARIABLES,
   LOCALE_STRINGS,
   REGIONS,
 } from './constants';
@@ -17,6 +18,8 @@ const localLangState = {
   endpoint: BASE_ENDPOINT,
   queryString: BASE_QUERY_STRING,
   outputQueryData: '',
+  variables: BASE_VARIABLES,
+  headers: '',
 };
 type LocalLangState = {
   strings: {
@@ -25,6 +28,8 @@ type LocalLangState = {
   endpoint: string;
   queryString: string;
   outputQueryData: string;
+  variables: string;
+  headers: string;
 };
 
 const reducer = (
@@ -60,6 +65,18 @@ const reducer = (
       return {
         ...state,
         outputQueryData: action.payload,
+      };
+    }
+    case 'SET_VARIABLES': {
+      return {
+        ...state,
+        variables: action.payload,
+      };
+    }
+    case 'SET_HEADERS': {
+      return {
+        ...state,
+        headers: action.payload,
       };
     }
     default:

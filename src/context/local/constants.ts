@@ -21,3 +21,9 @@ export const BASE_QUERY_STRING = `query ($filter: FilterCharacter) {
 `;
 
 export const BASE_ENDPOINT = 'https://rickandmortyapi.com/graphql';
+
+export const BASE_VARIABLES = `{ 
+    "filter": {
+       "name":   "black"
+       }
+      }`;
