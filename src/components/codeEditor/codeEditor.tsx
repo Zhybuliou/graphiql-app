@@ -21,7 +21,8 @@ export default function CodeEditor() {
       setGetSchema(schema);
     };
     saveSchema();
-  }, [state.endpoint]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
