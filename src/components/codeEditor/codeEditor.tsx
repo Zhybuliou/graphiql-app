@@ -7,6 +7,8 @@ import ParamsEditor from '../paramsEditor/ParamsEditor';
 import { useLocale } from '../../context/local';
 import getGraphQlResponse from './getGraphQlResponse';
 import createGraphQlSchema from './createGraphQlSchema';
+import IconPlay from './IconPlay';
+import IconSparkles from './IconSparkles';
 
 export default function CodeEditor() {
   const { state, dispatch } = useLocale();
@@ -23,7 +25,13 @@ export default function CodeEditor() {
 
   return (
     <div>
-      <div style={{ backgroundColor: 'blueviolet', padding: '15px' }}>
+      <div
+        style={{
+          backgroundColor: 'blueviolet',
+          padding: '15px',
+          justifyItems: 'center',
+        }}
+      >
         <input
           value={state.endpoint}
           onChange={(event) => {
@@ -54,7 +62,7 @@ export default function CodeEditor() {
             )
           }
         >
-          Run
+          <IconPlay />
         </button>
         <button
           style={{
@@ -81,7 +89,7 @@ export default function CodeEditor() {
             });
           }}
         >
-          Prettifying
+          <IconSparkles />
         </button>
         <button
           style={{
