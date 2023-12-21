@@ -16,20 +16,20 @@ function ParamsEditor(props: IParamsEditorProps) {
     headers: '',
   });
 
-  const { updateParams, pretti } = props;
+  const { updateParams, pretty } = props;
 
   useEffect(() => {
     updateParams(params);
   }, [params]);
 
   useEffect(() => {
-    if (pretti) {
+    if (pretty) {
       setParams({
         variables: prettifyGraphQLQuery(params.variables),
         headers: prettifyGraphQLQuery(params.headers),
       });
     }
-  }, [pretti]);
+  }, [pretty]);
 
   const handleChange = (type: RequestOptions) => (value: string) => {
     setParams({ ...params, [type]: value });
