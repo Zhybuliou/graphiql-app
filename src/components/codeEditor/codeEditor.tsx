@@ -14,7 +14,7 @@ import { useLocale } from '../../context/local';
 
 export default function CodeEditor() {
   const { state, dispatch } = useLocale();
-  const [output, setOutput] = useState('');
+  // const [output, setOutput] = useState('');
   const [error, setError] = useState(false);
   const [editorParams, setEditorParams] = useState({
     variables: '',
@@ -47,7 +47,7 @@ export default function CodeEditor() {
       } catch (er) {
         if (er instanceof Error) {
           const newErrorMsg = `${paramType} are written incorrectly ${er.message}`;
-          setOutput(JSON.stringify(newErrorMsg));
+          dispatch({ type: 'SET_QUERY_DATA', payload: newErrorMsg });
         }
         return null;
       }
@@ -70,8 +70,7 @@ export default function CodeEditor() {
       })
         .then((res) => res.json())
         .catch(() => setError(true));
-
-      setOutput(JSON.stringify(result));
+      dispatch({ type: 'SET_QUERY_DATA', payload: JSON.stringify(result) });
     }
   };
   async function makeRequest() {
@@ -190,7 +189,11 @@ export default function CodeEditor() {
         <div style={{ backgroundColor: 'pink', padding: '15px' }}>
           <CodeMirror
             style={{ textAlign: 'start' }}
-            value={output ? JSON.stringify(JSON.parse(output), null, 2) : ''}
+            value={
+              state.outputQueryData
+                ? JSON.stringify(JSON.parse(state.outputQueryData), null, 2)
+                : ''
+            }
             height="200px"
             extensions={[graphql(), EditorState.readOnly.of(true)]}
             basicSetup={{

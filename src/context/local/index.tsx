@@ -5,12 +5,18 @@ import {
   useMemo,
   useReducer,
 } from 'react';
-import { BASE_QUERY_STRING, LOCALE_STRINGS, REGIONS } from './constants';
+import {
+  BASE_ENDPOINT,
+  BASE_QUERY_STRING,
+  LOCALE_STRINGS,
+  REGIONS,
+} from './constants';
 
 const localLangState = {
   strings: LOCALE_STRINGS[REGIONS.EN],
-  endpoint: 'https://rickandmortyapi.com/graphql',
+  endpoint: BASE_ENDPOINT,
   queryString: BASE_QUERY_STRING,
+  outputQueryData: '',
 };
 type LocalLangState = {
   strings: {
@@ -18,6 +24,7 @@ type LocalLangState = {
   };
   endpoint: string;
   queryString: string;
+  outputQueryData: string;
 };
 
 const reducer = (
@@ -47,6 +54,12 @@ const reducer = (
       return {
         ...state,
         queryString: action.payload,
+      };
+    }
+    case 'SET_QUERY_DATA': {
+      return {
+        ...state,
+        outputQueryData: action.payload,
       };
     }
     default:

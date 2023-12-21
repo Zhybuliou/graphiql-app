@@ -10,6 +10,7 @@ export const LOCALE_STRINGS = {
   [REGIONS.RU]: ruString,
   [REGIONS.EN]: enString,
 };
+
 export const BASE_QUERY_STRING = `query ($filter: FilterCharacter) {
   characters(filter: $filter) {
     results {
@@ -18,3 +19,5 @@ export const BASE_QUERY_STRING = `query ($filter: FilterCharacter) {
   }
 }
 `;
+
+export const BASE_ENDPOINT = 'https://rickandmortyapi.com/graphql';
