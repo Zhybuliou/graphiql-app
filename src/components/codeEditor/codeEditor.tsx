@@ -14,15 +14,6 @@ import { useLocale } from '../../context/local';
 
 export default function CodeEditor() {
   const { state, dispatch } = useLocale();
-  const [value, setValue] = useState(`query ($filter: FilterCharacter) {
-    characters(filter: $filter) {
-      results {
-        name
-      }
-    }
-  }
-  `);
-
   const [output, setOutput] = useState('');
   const [error, setError] = useState(false);
   const [editorParams, setEditorParams] = useState({
@@ -125,7 +116,7 @@ export default function CodeEditor() {
             marginTop: '10px',
           }}
           type="button"
-          onClick={() => getGraphQlResponse(value, state.endpoint)}
+          onClick={() => getGraphQlResponse(state.queryString, state.endpoint)}
         >
           Run
         </button>
@@ -140,7 +131,10 @@ export default function CodeEditor() {
           }}
           type="button"
           onClick={() => {
-            setValue(prettifyGraphQLQuery(value));
+            dispatch({
+              type: 'SET_QUERY_STRING',
+              payload: prettifyGraphQLQuery(state.queryString),
+            });
             setEditorParams({ ...editorParams, pretty: true });
           }}
         >
@@ -162,30 +156,36 @@ export default function CodeEditor() {
       </div>
       <div style={{ display: 'flex' }}>
         <div style={{ backgroundColor: 'pink', padding: '15px' }}>
-          <CodeMirror
-            style={{
-              textAlign: 'start',
-              whiteSpace: 'pre-wrap',
-              wordBreak: 'normal',
-              wordWrap: 'break-word',
-            }}
-            value={value}
-            extensions={[graphql(getSchema), EditorView.lineWrapping]}
-            onChange={(event) => setValue(event)}
-            basicSetup={{
-              highlightActiveLine: true,
-              autocompletion: true,
-              foldGutter: true,
-              dropCursor: true,
-              allowMultipleSelections: true,
-              indentOnInput: true,
-              bracketMatching: true,
-              closeBrackets: true,
-              lintKeymap: true,
-            }}
-            width="500px"
-            minHeight="300px"
-          />
+          {getSchema ? (
+            <CodeMirror
+              style={{
+                textAlign: 'start',
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'normal',
+                wordWrap: 'break-word',
+              }}
+              value={state.queryString}
+              extensions={[graphql(getSchema), EditorView.lineWrapping]}
+              onChange={(event) =>
+                dispatch({ type: 'SET_QUERY_STRING', payload: event })
+              }
+              basicSetup={{
+                highlightActiveLine: true,
+                autocompletion: true,
+                foldGutter: true,
+                dropCursor: true,
+                allowMultipleSelections: true,
+                indentOnInput: true,
+                bracketMatching: true,
+                closeBrackets: true,
+                lintKeymap: true,
+              }}
+              width="500px"
+              minHeight="300px"
+            />
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
         <div style={{ backgroundColor: 'pink', padding: '15px' }}>
           <CodeMirror

@@ -5,17 +5,19 @@ import {
   useMemo,
   useReducer,
 } from 'react';
-import { LOCALE_STRINGS, REGIONS } from './constants';
+import { BASE_QUERY_STRING, LOCALE_STRINGS, REGIONS } from './constants';
 
 const localLangState = {
   strings: LOCALE_STRINGS[REGIONS.EN],
   endpoint: 'https://rickandmortyapi.com/graphql',
+  queryString: BASE_QUERY_STRING,
 };
 type LocalLangState = {
   strings: {
     [key: string]: string;
   };
   endpoint: string;
+  queryString: string;
 };
 
 const reducer = (
@@ -39,6 +41,12 @@ const reducer = (
       return {
         ...state,
         endpoint: action.payload,
+      };
+    }
+    case 'SET_QUERY_STRING': {
+      return {
+        ...state,
+        queryString: action.payload,
       };
     }
     default:
