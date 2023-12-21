@@ -24,7 +24,6 @@ const getGraphQlResponse = async (
     variablesString,
     saveParams
   );
-
   if (body && headers) {
     const result = await fetch(url, {
       method: 'POST',

@@ -17,7 +17,9 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@codemirror/lang-json": "^6.0.1",
     "@hookform/resolvers": "^3.3.2",
+    "@uiw/codemirror-extensions-langs": "^4.21.21",
     "@uiw/react-codemirror": "^4.21.21",
     "cm6-graphql": "^0.0.12",
     "codemirror": "^6.0.1",

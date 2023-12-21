@@ -2,8 +2,8 @@ import RequestOptions from '../../types/enums/requestOptions';
 
 const checkRequestParams = (
   paramType: RequestOptions,
-  headers: string,
-  variables: string,
+  headersValue: string,
+  variablesValue: string,
   saveParams: React.Dispatch<{
     type: string;
     payload: string;
@@ -14,7 +14,8 @@ const checkRequestParams = (
     'Content-Type': 'application/json',
   };
 
-  const param = paramType === RequestOptions.VARIABLES ? variables : headers;
+  const param =
+    paramType === RequestOptions.VARIABLES ? variablesValue : headersValue;
 
   if (param) {
     try {
@@ -27,7 +28,10 @@ const checkRequestParams = (
     } catch (er) {
       if (er instanceof Error) {
         const newErrorMsg = `${paramType} are written incorrectly ${er.message}`;
-        saveParams({ type: 'SET_QUERY_DATA', payload: newErrorMsg });
+        saveParams({
+          type: 'SET_QUERY_DATA',
+          payload: JSON.stringify(newErrorMsg),
+        });
       }
       return null;
     }

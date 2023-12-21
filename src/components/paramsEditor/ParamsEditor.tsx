@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
-import { graphql } from 'cm6-graphql';
+import { json } from '@codemirror/lang-json';
 import Button from '../ui/Button';
 import { useLocale } from '../../context/local';
 
@@ -50,7 +50,7 @@ function ParamsEditor() {
               wordWrap: 'break-word',
             }}
             value={state.variables}
-            extensions={[graphql(), EditorView.lineWrapping]}
+            extensions={[json(), EditorView.lineWrapping]}
             onChange={(event) =>
               dispatch({ type: 'SET_VARIABLES', payload: event })
             }
@@ -80,7 +80,7 @@ function ParamsEditor() {
               wordWrap: 'break-word',
             }}
             value={state.headers}
-            extensions={[graphql(), EditorView.lineWrapping]}
+            extensions={[json(), EditorView.lineWrapping]}
             onChange={(event) =>
               dispatch({ type: 'SET_HEADERS', payload: event })
             }
