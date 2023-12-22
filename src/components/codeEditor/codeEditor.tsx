@@ -9,11 +9,14 @@ import getGraphQlResponse from './getGraphQlResponse';
 import createGraphQlSchema from './createGraphQlSchema';
 import IconPlay from './IconPlay';
 import IconSparkles from './IconSparkles';
+import Schema from '../schema/Schema';
+import PageWrapper from '../ui/PageWrapper';
 
 export default function CodeEditor() {
   const { state, dispatch } = useLocale();
   const [error, setError] = useState(false);
   const [getSchema, setGetSchema] = useState<GraphQLSchema>();
+  const [isOpenSchema, setIsOpenSchema] = useState<boolean>(false);
 
   useEffect(() => {
     const saveSchema = async () => {
@@ -25,7 +28,7 @@ export default function CodeEditor() {
   }, []);
 
   return (
-    <div>
+    <PageWrapper>
       <div
         style={{
           backgroundColor: 'blueviolet',
@@ -102,6 +105,7 @@ export default function CodeEditor() {
             margin: '10px',
           }}
           type="button"
+          onClick={() => setIsOpenSchema((isOpen) => !isOpen)}
         >
           Schema
         </button>
@@ -158,6 +162,7 @@ export default function CodeEditor() {
         </div>
       </div>
       <ParamsEditor />
-    </div>
+      {isOpenSchema && <Schema clientSchema={getSchema} />}
+    </PageWrapper>
   );
 }
