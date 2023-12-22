@@ -26,6 +26,10 @@ function TabArguments({
     return null;
   }
 
+  if (typeToDisplay.args.length === 0) {
+    return null;
+  }
+
   function handleAddNewType(argument: GraphQLArgument) {
     setOpenedTypes((prevOpenedTypes) => {
       const arrFront = prevOpenedTypes.slice(0, tabIndex + 1);
