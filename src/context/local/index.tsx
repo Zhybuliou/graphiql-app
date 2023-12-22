@@ -5,30 +5,78 @@ import {
   useMemo,
   useReducer,
 } from 'react';
-import { LOCALE_STRINGS, REGIONS } from './constants';
+import {
+  BASE_ENDPOINT,
+  BASE_QUERY_STRING,
+  BASE_VARIABLES,
+  LOCALE_STRINGS,
+  REGIONS,
+} from './constants';
 
 const localLangState = {
   strings: LOCALE_STRINGS[REGIONS.EN],
+  endpoint: BASE_ENDPOINT,
+  queryString: BASE_QUERY_STRING,
+  outputQueryData: '',
+  variables: BASE_VARIABLES,
+  headers: '',
 };
 type LocalLangState = {
   strings: {
     [key: string]: string;
   };
+  endpoint: string;
+  queryString: string;
+  outputQueryData: string;
+  variables: string;
+  headers: string;
 };
 
 const reducer = (
   state: LocalLangState,
-  action: { type: string; payload: { region: string } }
+  action: { type: string; payload: string }
 ) => {
   switch (action.type) {
     case 'CHANGE_LOCALE': {
       return {
-        strings: LOCALE_STRINGS[action.payload.region],
+        ...state,
+        strings: LOCALE_STRINGS[action.payload],
       };
     }
     case 'RESET_LOCALE': {
       return {
+        ...state,
         strings: LOCALE_STRINGS[REGIONS.EN],
+      };
+    }
+    case 'SET_ENDPOINT': {
+      return {
+        ...state,
+        endpoint: action.payload,
+      };
+    }
+    case 'SET_QUERY_STRING': {
+      return {
+        ...state,
+        queryString: action.payload,
+      };
+    }
+    case 'SET_QUERY_DATA': {
+      return {
+        ...state,
+        outputQueryData: action.payload,
+      };
+    }
+    case 'SET_VARIABLES': {
+      return {
+        ...state,
+        variables: action.payload,
+      };
+    }
+    case 'SET_HEADERS': {
+      return {
+        ...state,
+        headers: action.payload,
       };
     }
     default:
@@ -40,9 +88,7 @@ type Context = {
   state: LocalLangState;
   dispatch: React.Dispatch<{
     type: string;
-    payload: {
-      region: string;
-    };
+    payload: string;
   }>;
 };
 const LocaleContext = createContext<Context>({} as Context);

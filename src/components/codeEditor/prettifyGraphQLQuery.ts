@@ -24,6 +24,8 @@ function prettifyGraphQLQuery(query: string) {
       indentLevel -= 1;
     } else if (char === ',') {
       prettyQuery += ', ';
+    } else if (char === "'") {
+      prettyQuery += '"';
     } else if (char === ':') {
       prettyQuery += ': ';
     } else {

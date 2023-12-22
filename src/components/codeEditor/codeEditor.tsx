@@ -1,90 +1,42 @@
 import CodeMirror, { EditorState, EditorView } from '@uiw/react-codemirror';
+import { GraphQLSchema } from 'graphql';
 import { graphql } from 'cm6-graphql';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import prettifyGraphQLQuery from './prettifyGraphQLQuery';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
-import { IEditorParamsState } from '../../types/interfaces/IEditorParamsState';
-import RequestOptions from '../../types/enums/requestOptions';
+import { useLocale } from '../../context/local';
+import getGraphQlResponse from './getGraphQlResponse';
+import createGraphQlSchema from './createGraphQlSchema';
+import IconPlay from './IconPlay';
+import IconSparkles from './IconSparkles';
 
 export default function CodeEditor() {
-  const [value, setValue] = useState(`query ($filter: FilterCharacter) {
-    characters(filter: $filter) {
-      results {
-        name
-      }
-    }
-  }
-  `);
-  const [urlValue, setUrlValue] = useState(
-    'https://rickandmortyapi.com/graphql'
-  );
-  const [output, setOutput] = useState('');
+  const { state, dispatch } = useLocale();
   const [error, setError] = useState(false);
-  const [editorParams, setEditorParams] = useState({
-    variables: '',
-    headers: '',
-    pretti: false,
-  });
+  const [getSchema, setGetSchema] = useState<GraphQLSchema>();
 
-  const updateParamsEditor = (data: IEditorParamsState) => {
-    setEditorParams({ ...data, pretti: false });
-  };
-
-  const checkRequestParams = (paramType: RequestOptions, query?: string) => {
-    const { headers, variables } = editorParams;
-
-    const defoultHeaders = {
-      'Content-Type': 'application/json',
+  useEffect(() => {
+    const saveSchema = async () => {
+      const schema = await createGraphQlSchema(state.endpoint);
+      setGetSchema(schema);
     };
-
-    const param = paramType === RequestOptions.VARIABLES ? variables : headers;
-
-    if (param) {
-      try {
-        const parsedParam = JSON.parse(param);
-        if (parsedParam && typeof parsedParam === 'object') {
-          return paramType === RequestOptions.VARIABLES
-            ? JSON.stringify({ query, variables: parsedParam })
-            : { ...parsedParam, ...defoultHeaders };
-        }
-      } catch (er) {
-        if (er instanceof Error) {
-          const newErrorMsg = `${paramType} are written incorrectly ${er.message}`;
-          setOutput(JSON.stringify(newErrorMsg));
-        }
-        return null;
-      }
-    }
-
-    return paramType === RequestOptions.VARIABLES
-      ? JSON.stringify({ query })
-      : defoultHeaders;
-  };
-
-  const helpR = async (query: string, url: string) => {
-    const body = checkRequestParams(RequestOptions.VARIABLES, query);
-    const headers = checkRequestParams(RequestOptions.HEADERS);
-
-    if (body && headers) {
-      const result = await fetch(url, {
-        method: 'POST',
-        headers,
-        body,
-      })
-        .then((res) => res.json())
-        .catch(() => setError(true));
-
-      setOutput(JSON.stringify(result));
-    }
-  };
+    saveSchema();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
-      <div style={{ backgroundColor: 'blueviolet', padding: '15px' }}>
+      <div
+        style={{
+          backgroundColor: 'blueviolet',
+          padding: '15px',
+          justifyItems: 'center',
+        }}
+      >
         <input
-          value={urlValue}
+          value={state.endpoint}
           onChange={(event) => {
-            setUrlValue(event.target.value);
+            dispatch({ type: 'SET_ENDPOINT', payload: event.target.value });
             setError(false);
           }}
           style={{ width: '100%', padding: '3px' }}
@@ -101,9 +53,17 @@ export default function CodeEditor() {
             marginTop: '10px',
           }}
           type="button"
-          onClick={() => helpR(value, urlValue)}
+          onClick={() =>
+            getGraphQlResponse(
+              state.queryString,
+              state.endpoint,
+              state.headers,
+              state.variables,
+              dispatch
+            )
+          }
         >
-          Run
+          <IconPlay />
         </button>
         <button
           style={{
@@ -116,11 +76,21 @@ export default function CodeEditor() {
           }}
           type="button"
           onClick={() => {
-            setValue(prettifyGraphQLQuery(value));
-            setEditorParams({ ...editorParams, pretti: true });
+            dispatch({
+              type: 'SET_QUERY_STRING',
+              payload: prettifyGraphQLQuery(state.queryString),
+            });
+            dispatch({
+              type: 'SET_VARIABLES',
+              payload: prettifyGraphQLQuery(state.variables),
+            });
+            dispatch({
+              type: 'SET_HEADERS',
+              payload: prettifyGraphQLQuery(state.headers),
+            });
           }}
         >
-          Prettifying
+          <IconSparkles />
         </button>
         <button
           style={{
@@ -138,35 +108,45 @@ export default function CodeEditor() {
       </div>
       <div style={{ display: 'flex' }}>
         <div style={{ backgroundColor: 'pink', padding: '15px' }}>
-          <CodeMirror
-            style={{
-              textAlign: 'start',
-              whiteSpace: 'pre-wrap',
-              wordBreak: 'normal',
-              wordWrap: 'break-word',
-            }}
-            value={value}
-            extensions={[graphql(), EditorView.lineWrapping]}
-            onChange={(event) => setValue(event)}
-            basicSetup={{
-              highlightActiveLine: true,
-              autocompletion: true,
-              foldGutter: true,
-              dropCursor: true,
-              allowMultipleSelections: true,
-              indentOnInput: true,
-              bracketMatching: true,
-              closeBrackets: true,
-              lintKeymap: true,
-            }}
-            width="500px"
-            minHeight="300px"
-          />
+          {getSchema ? (
+            <CodeMirror
+              style={{
+                textAlign: 'start',
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'normal',
+                wordWrap: 'break-word',
+              }}
+              value={state.queryString}
+              extensions={[graphql(getSchema), EditorView.lineWrapping]}
+              onChange={(event) =>
+                dispatch({ type: 'SET_QUERY_STRING', payload: event })
+              }
+              basicSetup={{
+                highlightActiveLine: true,
+                autocompletion: true,
+                foldGutter: true,
+                dropCursor: true,
+                allowMultipleSelections: true,
+                indentOnInput: true,
+                bracketMatching: true,
+                closeBrackets: true,
+                lintKeymap: true,
+              }}
+              width="500px"
+              minHeight="300px"
+            />
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
         <div style={{ backgroundColor: 'pink', padding: '15px' }}>
           <CodeMirror
             style={{ textAlign: 'start' }}
-            value={output ? JSON.stringify(JSON.parse(output), null, 2) : ''}
+            value={
+              state.outputQueryData
+                ? JSON.stringify(JSON.parse(state.outputQueryData), null, 2)
+                : ''
+            }
             height="200px"
             extensions={[graphql(), EditorState.readOnly.of(true)]}
             basicSetup={{
@@ -177,10 +157,7 @@ export default function CodeEditor() {
           />
         </div>
       </div>
-      <ParamsEditor
-        updateParams={updateParamsEditor}
-        pretti={editorParams.pretti}
-      />
+      <ParamsEditor />
     </div>
   );
 }
