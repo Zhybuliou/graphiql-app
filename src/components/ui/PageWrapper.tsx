@@ -1,9 +1,15 @@
 import React from 'react';
 import { PropsWithChildren } from '../../types/utilityTypes';
+import cn from '../../utils/cn';
 
-function PageWrapper({ children }: PropsWithChildren) {
+function PageWrapper({
+  className,
+  children,
+}: PropsWithChildren<{ className?: string }>) {
   return (
-    <div className="flex flex-col items-center text-center p-5">{children}</div>
+    <div className={cn('flex flex-col items-center text-center', className)}>
+      {children}
+    </div>
   );
 }
 

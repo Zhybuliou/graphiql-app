@@ -11,8 +11,8 @@ function ParamsEditor() {
   const [isOpenHeaders, setHeadersOpen] = useState(false);
 
   return (
-    <div>
-      <div className="flex bg-indigo-900 p-4 text-white">
+    <div className="w-full">
+      <div className="flex justify-center gap-2.5 bg-indigo-900 p-4 text-white">
         <Button
           className={
             isOpenVariables

@@ -11,7 +11,7 @@ function WelcomePage() {
   const user = useUser();
 
   return (
-    <PageWrapper>
+    <PageWrapper className="relative">
       <h1>{state.strings.welcomePage}</h1>
       {user && (
         <Link to={RoutePaths.MAIN}>
