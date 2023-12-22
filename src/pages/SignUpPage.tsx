@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { toast } from 'react-toastify';
 import { auth, registerWithEmailAndPassword } from '../firebase/firebase';
 import { useLocale } from '../context/local';
 import RoutePaths from '../types/enums/routePaths';
@@ -35,12 +36,18 @@ function SignUpPage() {
     mode: 'onChange',
   });
 
+  const onError = (err: Error) => {
+    toast.error(err.message, {
+      position: toast.POSITION.TOP_LEFT,
+    });
+  };
+
   const registerUser: SubmitHandler<ISignUpForm> = ({
     name,
     email,
     password,
   }) => {
-    registerWithEmailAndPassword(name, email, password);
+    registerWithEmailAndPassword(name, email, password).catch(onError);
   };
 
   return (
