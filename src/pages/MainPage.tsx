@@ -1,6 +1,6 @@
 import { useLocale } from '../context/local';
 import PageWrapper from '../components/ui/PageWrapper';
-import CodeEditor from '../components/codeEditor/CodeEditor';
+import CodeEditor from '../components/codeEditor/codeEditor';
 
 function MainPage() {
   const { state } = useLocale();

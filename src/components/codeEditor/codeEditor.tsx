@@ -11,6 +11,7 @@ import IconPlay from './IconPlay';
 import IconSparkles from './IconSparkles';
 import Schema from '../schema/Schema';
 import PageWrapper from '../ui/PageWrapper';
+import Button from '../ui/Button';
 
 export default function CodeEditor() {
   const { state, dispatch } = useLocale();
@@ -29,89 +30,61 @@ export default function CodeEditor() {
 
   return (
     <PageWrapper>
-      <div
-        style={{
-          backgroundColor: 'blueviolet',
-          padding: '15px',
-          justifyItems: 'center',
-        }}
-      >
+      <div className="w-full bg-fuchsia-900 p-5">
         <input
           value={state.endpoint}
           onChange={(event) => {
             dispatch({ type: 'SET_ENDPOINT', payload: event.target.value });
             setError(false);
           }}
-          style={{ width: '100%', padding: '3px' }}
+          className="w-full p-1 mb-5"
           type="text"
         />
         {error && <p>Wrong graphql Url</p>}
-        <button
-          style={{
-            border: 'solid 1px black',
-            backgroundColor: '#3B82F6',
-            color: '#fff',
-            padding: '10px',
-            borderRadius: '14px',
-            marginTop: '10px',
-          }}
-          type="button"
-          onClick={() =>
-            getGraphQlResponse(
-              state.queryString,
-              state.endpoint,
-              state.headers,
-              state.variables,
-              dispatch
-            )
-          }
-        >
-          <IconPlay />
-        </button>
-        <button
-          style={{
-            border: 'solid 1px black',
-            backgroundColor: '#3B82F6',
-            color: '#fff',
-            padding: '10px',
-            borderRadius: '14px',
-            margin: '10px',
-          }}
-          type="button"
-          onClick={() => {
-            dispatch({
-              type: 'SET_QUERY_STRING',
-              payload: prettifyGraphQLQuery(state.queryString),
-            });
-            dispatch({
-              type: 'SET_VARIABLES',
-              payload: prettifyGraphQLQuery(state.variables),
-            });
-            dispatch({
-              type: 'SET_HEADERS',
-              payload: prettifyGraphQLQuery(state.headers),
-            });
-          }}
-        >
-          <IconSparkles />
-        </button>
-        <button
-          style={{
-            border: 'solid 1px black',
-            backgroundColor: '#3B82F6',
-            color: '#fff',
-            padding: '10px',
-            borderRadius: '14px',
-            margin: '10px',
-          }}
-          type="button"
-          onClick={() => setIsOpenSchema((isOpen) => !isOpen)}
-        >
-          Schema
-        </button>
+        <div className="flex items-center justify-center gap-2.5">
+          <Button
+            type="button"
+            onClick={() =>
+              getGraphQlResponse(
+                state.queryString,
+                state.endpoint,
+                state.headers,
+                state.variables,
+                dispatch
+              )
+            }
+          >
+            <IconPlay />
+          </Button>
+          <Button
+            type="button"
+            onClick={() => {
+              dispatch({
+                type: 'SET_QUERY_STRING',
+                payload: prettifyGraphQLQuery(state.queryString),
+              });
+              dispatch({
+                type: 'SET_VARIABLES',
+                payload: prettifyGraphQLQuery(state.variables),
+              });
+              dispatch({
+                type: 'SET_HEADERS',
+                payload: prettifyGraphQLQuery(state.headers),
+              });
+            }}
+          >
+            <IconSparkles />
+          </Button>
+          <Button
+            type="button"
+            onClick={() => setIsOpenSchema((isOpen) => !isOpen)}
+          >
+            Schema
+          </Button>
+        </div>
       </div>
-      <div style={{ display: 'flex' }}>
-        <div style={{ backgroundColor: 'pink', padding: '15px' }}>
+      <div className="flex">
+        <div className="bg-pink-300 p-4">
           {getSchema ? (
             <CodeMirror
               style={{
@@ -143,7 +116,7 @@ export default function CodeEditor() {
             <div>Loading...</div>
           )}
         </div>
-        <div style={{ backgroundColor: 'pink', padding: '15px' }}>
+        <div className="bg-pink-300 p-4">
           <CodeMirror
             style={{ textAlign: 'start' }}
             value={
