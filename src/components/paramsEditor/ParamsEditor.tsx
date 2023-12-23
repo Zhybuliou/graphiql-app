@@ -2,105 +2,96 @@ import { useState } from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
 import Button from '../ui/Button';
-import { AppStateActions, useAppState } from '../../context/appState';
+import cn from '../../utils/cn';
 
-function ParamsEditor() {
-  const { state, dispatch } = useAppState();
-  const { headers, variables } = state;
+enum DisplayState {
+  closeAll,
+  headers,
+  variables,
+}
 
-  const [isOpenVariables, setVariablesOpen] = useState(false);
-  const [isOpenHeaders, setHeadersOpen] = useState(false);
+type ParamsEditorProps = {
+  headers: string;
+  variables: string;
+  setHeaders: (newHeaders: string) => void;
+  setVariables: (newVariables: string) => void;
+};
+
+function ParamsEditor({
+  headers,
+  variables,
+  setHeaders,
+  setVariables,
+}: ParamsEditorProps) {
+  const [displayState, setDisplayState] = useState<DisplayState>(
+    DisplayState.closeAll
+  );
+
+  const editorValue =
+    displayState === DisplayState.variables ? variables : headers;
+  const onChange =
+    displayState === DisplayState.variables ? setVariables : setHeaders;
 
   return (
     <div className="w-full">
       <div className="flex justify-center gap-2.5 bg-indigo-900 p-4 text-white">
         <Button
-          className={
-            isOpenVariables
-              ? 'bg-sky-500 rounded-l p-2 transition-colors duration-300'
-              : 'bg-sky-500/50 rounded-l p-2 text-slate-400 transition-colors duration-300'
-          }
+          className={cn({
+            'bg-sky-500/50 text-slate-400':
+              displayState === DisplayState.variables,
+          })}
           onClick={() => {
-            setVariablesOpen(!isOpenVariables);
-            setHeadersOpen(false);
+            setDisplayState((prevDisplayState) => {
+              return prevDisplayState === DisplayState.variables
+                ? DisplayState.closeAll
+                : DisplayState.variables;
+            });
           }}
         >
           Variables
         </Button>
         <Button
-          className={
-            isOpenHeaders
-              ? 'bg-sky-500 rounded-l p-2 transition-colors duration-300'
-              : 'bg-sky-500/50 rounded-l p-2 text-slate-400 transition-colors duration-300'
-          }
+          className={cn({
+            'bg-sky-500/50 text-slate-400':
+              displayState === DisplayState.headers,
+          })}
           onClick={() => {
-            setHeadersOpen(!isOpenHeaders);
-            setVariablesOpen(false);
+            setDisplayState((prevDisplayState) => {
+              return prevDisplayState === DisplayState.headers
+                ? DisplayState.closeAll
+                : DisplayState.headers;
+            });
           }}
         >
           Headers
         </Button>
       </div>
-      {isOpenVariables && (
-        <div className="bg-pink-400 p-2">
-          <CodeMirror
-            style={{
-              textAlign: 'start',
-              whiteSpace: 'pre-wrap',
-              wordBreak: 'normal',
-              wordWrap: 'break-word',
-            }}
-            value={variables}
-            extensions={[json(), EditorView.lineWrapping]}
-            onChange={(event) =>
-              dispatch({ type: AppStateActions.SET_VARIABLES, payload: event })
-            }
-            basicSetup={{
-              highlightActiveLine: true,
-              autocompletion: true,
-              foldGutter: true,
-              dropCursor: true,
-              allowMultipleSelections: true,
-              indentOnInput: true,
-              bracketMatching: true,
-              closeBrackets: true,
-              lintKeymap: true,
-            }}
-            width="auto"
-            minHeight="80px"
-          />
-        </div>
-      )}
-      {isOpenHeaders && (
-        <div className="bg-emerald-400 p-2">
-          <CodeMirror
-            style={{
-              textAlign: 'start',
-              whiteSpace: 'pre-wrap',
-              wordBreak: 'normal',
-              wordWrap: 'break-word',
-            }}
-            value={headers}
-            extensions={[json(), EditorView.lineWrapping]}
-            onChange={(event) =>
-              dispatch({ type: AppStateActions.SET_HEADERS, payload: event })
-            }
-            basicSetup={{
-              highlightActiveLine: true,
-              autocompletion: true,
-              foldGutter: true,
-              dropCursor: true,
-              allowMultipleSelections: true,
-              indentOnInput: true,
-              bracketMatching: true,
-              closeBrackets: true,
-              lintKeymap: true,
-            }}
-            width="auto"
-            minHeight="80px"
-          />
-        </div>
-      )}
+      <div className="bg-pink-400 p-2">
+        <CodeMirror
+          style={{
+            textAlign: 'start',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'normal',
+            wordWrap: 'break-word',
+          }}
+          value={editorValue}
+          extensions={[json(), EditorView.lineWrapping]}
+          onChange={onChange}
+          basicSetup={{
+            highlightActiveLine: true,
+            autocompletion: true,
+            foldGutter: true,
+            dropCursor: true,
+            allowMultipleSelections: true,
+            indentOnInput: true,
+            bracketMatching: true,
+            closeBrackets: true,
+            lintKeymap: true,
+          }}
+          width="auto"
+          minHeight="80px"
+        />
+      </div>
     </div>
   );
 }

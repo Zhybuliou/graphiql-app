@@ -11,15 +11,19 @@ import { usePlayground } from './usePlayground';
 
 export default function Playground() {
   const {
-    changeEndpointUrl,
-    prettify,
-    getGraphQlResponse,
-    setQueryString,
-    schema,
     endpoint,
+    schema,
+    headers,
+    variables,
+    queryString,
     response,
     error,
-    queryString,
+    changeEndpoint,
+    setHeaders,
+    setVariables,
+    setQueryString,
+    prettify,
+    getGraphQlResponse,
   } = usePlayground();
 
   const [isOpenSchema, setIsOpenSchema] = useState<boolean>(false);
@@ -29,7 +33,7 @@ export default function Playground() {
       <div className="w-full bg-fuchsia-900 p-5">
         <input
           value={endpoint}
-          onChange={(event) => changeEndpointUrl(event.target.value)}
+          onChange={(event) => changeEndpoint(event.target.value)}
           className="w-full p-1 mb-5"
           type="text"
         />
@@ -56,7 +60,12 @@ export default function Playground() {
         />
         <ResponseEditor response={response} error={error} />
       </div>
-      <ParamsEditor />
+      <ParamsEditor
+        headers={headers}
+        variables={variables}
+        setVariables={setVariables}
+        setHeaders={setHeaders}
+      />
       {isOpenSchema && <Schema clientSchema={schema} />}
     </PageWrapper>
   );

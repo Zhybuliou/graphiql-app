@@ -46,7 +46,7 @@ export function usePlayground() {
     getSchema();
   }, [endpoint]);
 
-  function changeEndpointUrl(newUrl: string) {
+  function changeEndpoint(newUrl: string) {
     dispatch({
       type: AppStateActions.SET_ENDPOINT,
       payload: newUrl,
@@ -83,9 +83,19 @@ export function usePlayground() {
     }
   }
 
+  function setVariables(newVariables: string) {
+    dispatch({ type: AppStateActions.SET_VARIABLES, payload: newVariables });
+  }
+
+  function setHeaders(newHeaders: string) {
+    dispatch({ type: AppStateActions.SET_HEADERS, payload: newHeaders });
+  }
+
   return {
     getGraphQlResponse,
-    changeEndpointUrl,
+    changeEndpoint,
+    setVariables,
+    setHeaders,
     setQueryString,
     prettify,
     ...state,
