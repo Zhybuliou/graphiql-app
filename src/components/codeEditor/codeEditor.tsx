@@ -1,14 +1,12 @@
 import CodeMirror, { EditorState, EditorView } from '@uiw/react-codemirror';
 import {
-  GraphQLSchema,
   buildClientSchema,
   getIntrospectionQuery,
+  GraphQLSchema,
 } from 'graphql';
 import { graphql } from 'cm6-graphql';
 import React, { useEffect, useState } from 'react';
-import prettifyGraphQLQuery from '../../utils/prettifyGraphQLQuery';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
-import { useLocale } from '../../context/local';
 import { IconPlay } from '../ui/icons/IconPlay';
 import { IconSparkles } from '../ui/icons/IconSparkles';
 import Schema from '../schema/Schema';
@@ -17,19 +15,29 @@ import Button from '../ui/Button';
 import { makeRequest } from '../../services/makeRequest';
 import { createBodyOfRequest } from '../../utils/createBodyOfRequest';
 import { createHeadersOfRequest } from '../../utils/createHeadersOfRequest';
+import { AppStateActions, useAppState } from '../../context/appState';
 
 export default function CodeEditor() {
-  const { state, dispatch } = useLocale();
+  const { state: appState, dispatch: appDispatch } = useAppState();
+  const { headers, variables, endpoint, queryString, outputQueryData } =
+    appState;
+
   const [error, setError] = useState(false);
   const [schema, setSchema] = useState<GraphQLSchema>();
   const [isOpenSchema, setIsOpenSchema] = useState<boolean>(false);
 
   useEffect(() => {
     const getSchema = async () => {
-      const headers = createHeadersOfRequest('');
+      const requestHeaders = createHeadersOfRequest('');
       const query = getIntrospectionQuery();
-      const body = createBodyOfRequest('', query);
-      const schemaData = await makeRequest(state.endpoint, headers, body);
+      const requestBody = createBodyOfRequest('', query);
+
+      const schemaData = await makeRequest(
+        endpoint,
+        requestHeaders,
+        requestBody
+      );
+
       const clientSchema = buildClientSchema(schemaData.data);
       setSchema(clientSchema);
     };
@@ -40,17 +48,19 @@ export default function CodeEditor() {
 
   async function getGraphQlResponse() {
     try {
-      const headers = createHeadersOfRequest(state.headers);
-      const body = createBodyOfRequest(state.variables, state.queryString);
+      const requestHeaders = createHeadersOfRequest(headers);
+      const requestBody = createBodyOfRequest(variables, queryString);
+      const data = await makeRequest(endpoint, requestHeaders, requestBody);
 
-      const data = await makeRequest(state.endpoint, headers, body);
-
-      dispatch({ type: 'SET_QUERY_DATA', payload: JSON.stringify(data) });
+      appDispatch({
+        type: AppStateActions.SET_QUERY_DATA,
+        payload: JSON.stringify(data),
+      });
     } catch (err) {
       if (err instanceof Error) {
         const newErrorMsg = `Error ${err.message}`;
-        dispatch({
-          type: 'SET_QUERY_DATA',
+        appDispatch({
+          type: AppStateActions.SET_QUERY_DATA,
           payload: JSON.stringify(newErrorMsg),
         });
       }
@@ -61,9 +71,12 @@ export default function CodeEditor() {
     <PageWrapper>
       <div className="w-full bg-fuchsia-900 p-5">
         <input
-          value={state.endpoint}
+          value={endpoint}
           onChange={(event) => {
-            dispatch({ type: 'SET_ENDPOINT', payload: event.target.value });
+            appDispatch({
+              type: AppStateActions.SET_ENDPOINT,
+              payload: event.target.value,
+            });
             setError(false);
           }}
           className="w-full p-1 mb-5"
@@ -77,17 +90,9 @@ export default function CodeEditor() {
           <Button
             type="button"
             onClick={() => {
-              dispatch({
-                type: 'SET_QUERY_STRING',
-                payload: prettifyGraphQLQuery(state.queryString),
-              });
-              dispatch({
-                type: 'SET_VARIABLES',
-                payload: prettifyGraphQLQuery(state.variables),
-              });
-              dispatch({
-                type: 'SET_HEADERS',
-                payload: prettifyGraphQLQuery(state.headers),
+              appDispatch({
+                type: AppStateActions.PRETTIFY,
+                payload: '',
               });
             }}
           >
@@ -111,10 +116,13 @@ export default function CodeEditor() {
                 wordBreak: 'normal',
                 wordWrap: 'break-word',
               }}
-              value={state.queryString}
+              value={queryString}
               extensions={[graphql(schema), EditorView.lineWrapping]}
               onChange={(event) =>
-                dispatch({ type: 'SET_QUERY_STRING', payload: event })
+                appDispatch({
+                  type: AppStateActions.SET_QUERY_STRING,
+                  payload: event,
+                })
               }
               basicSetup={{
                 highlightActiveLine: true,
@@ -138,8 +146,8 @@ export default function CodeEditor() {
           <CodeMirror
             style={{ textAlign: 'start' }}
             value={
-              state.outputQueryData
-                ? JSON.stringify(JSON.parse(state.outputQueryData), null, 2)
+              outputQueryData
+                ? JSON.stringify(JSON.parse(outputQueryData), null, 2)
                 : ''
             }
             height="200px"

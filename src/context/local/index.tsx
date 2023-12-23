@@ -1,99 +1,62 @@
-import {
+import React, {
   ReactElement,
   createContext,
   useContext,
   useMemo,
   useReducer,
 } from 'react';
-import {
-  BASE_ENDPOINT,
-  BASE_QUERY_STRING,
-  BASE_VARIABLES,
-  LOCALE_STRINGS,
-  REGIONS,
-} from './constants';
+import { LOCALE_STRINGS, REGIONS } from './constants';
 
-const localLangState = {
-  strings: LOCALE_STRINGS[REGIONS.EN],
-  endpoint: BASE_ENDPOINT,
-  queryString: BASE_QUERY_STRING,
-  outputQueryData: '',
-  variables: BASE_VARIABLES,
-  headers: '',
-};
-type LocalLangState = {
+export enum LocaleActions {
+  CHANGE_LOCALE,
+  RESET_LOCALE,
+}
+
+type LocaleState = {
   strings: {
     [key: string]: string;
   };
-  endpoint: string;
-  queryString: string;
-  outputQueryData: string;
-  variables: string;
-  headers: string;
 };
 
 const reducer = (
-  state: LocalLangState,
-  action: { type: string; payload: string }
+  state: LocaleState,
+  action: { type: LocaleActions; payload: string }
 ) => {
   switch (action.type) {
-    case 'CHANGE_LOCALE': {
+    case LocaleActions.CHANGE_LOCALE: {
       return {
         ...state,
         strings: LOCALE_STRINGS[action.payload],
       };
     }
-    case 'RESET_LOCALE': {
+    case LocaleActions.RESET_LOCALE: {
       return {
         ...state,
         strings: LOCALE_STRINGS[REGIONS.EN],
       };
     }
-    case 'SET_ENDPOINT': {
-      return {
-        ...state,
-        endpoint: action.payload,
-      };
-    }
-    case 'SET_QUERY_STRING': {
-      return {
-        ...state,
-        queryString: action.payload,
-      };
-    }
-    case 'SET_QUERY_DATA': {
-      return {
-        ...state,
-        outputQueryData: action.payload,
-      };
-    }
-    case 'SET_VARIABLES': {
-      return {
-        ...state,
-        variables: action.payload,
-      };
-    }
-    case 'SET_HEADERS': {
-      return {
-        ...state,
-        headers: action.payload,
-      };
-    }
-    default:
+    default: {
       return state;
+    }
   }
 };
 
 type Context = {
-  state: LocalLangState;
+  state: LocaleState;
   dispatch: React.Dispatch<{
-    type: string;
+    type: LocaleActions;
     payload: string;
   }>;
 };
+
 const LocaleContext = createContext<Context>({} as Context);
+
+const initialLocaleState: LocaleState = {
+  strings: LOCALE_STRINGS[REGIONS.EN],
+};
+
 export function LocaleProvider({ children }: { children: ReactElement }) {
-  const [state, dispatch] = useReducer(reducer, localLangState);
+  const [state, dispatch] = useReducer(reducer, initialLocaleState);
   const memoContext = useMemo(() => ({ state, dispatch }), [state, dispatch]);
   return (
     <LocaleContext.Provider value={memoContext}>
