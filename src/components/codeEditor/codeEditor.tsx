@@ -1,32 +1,61 @@
 import CodeMirror, { EditorState, EditorView } from '@uiw/react-codemirror';
-import { GraphQLSchema } from 'graphql';
+import {
+  GraphQLSchema,
+  buildClientSchema,
+  getIntrospectionQuery,
+} from 'graphql';
 import { graphql } from 'cm6-graphql';
-import { useEffect, useState } from 'react';
-import prettifyGraphQLQuery from './prettifyGraphQLQuery';
+import React, { useEffect, useState } from 'react';
+import prettifyGraphQLQuery from '../../utils/prettifyGraphQLQuery';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
 import { useLocale } from '../../context/local';
-import getGraphQlResponse from './getGraphQlResponse';
-import createGraphQlSchema from './createGraphQlSchema';
-import IconPlay from './IconPlay';
-import IconSparkles from './IconSparkles';
+import { IconPlay } from '../ui/icons/IconPlay';
+import { IconSparkles } from '../ui/icons/IconSparkles';
 import Schema from '../schema/Schema';
 import PageWrapper from '../ui/PageWrapper';
 import Button from '../ui/Button';
+import { makeRequest } from '../../services/makeRequest';
+import { createBodyOfRequest } from '../../utils/createBodyOfRequest';
+import { createHeadersOfRequest } from '../../utils/createHeadersOfRequest';
 
 export default function CodeEditor() {
   const { state, dispatch } = useLocale();
   const [error, setError] = useState(false);
-  const [getSchema, setGetSchema] = useState<GraphQLSchema>();
+  const [schema, setSchema] = useState<GraphQLSchema>();
   const [isOpenSchema, setIsOpenSchema] = useState<boolean>(false);
 
   useEffect(() => {
-    const saveSchema = async () => {
-      const schema = await createGraphQlSchema(state.endpoint);
-      setGetSchema(schema);
+    const getSchema = async () => {
+      const headers = createHeadersOfRequest('');
+      const query = getIntrospectionQuery();
+      const body = createBodyOfRequest('', query);
+      const schemaData = await makeRequest(state.endpoint, headers, body);
+      const clientSchema = buildClientSchema(schemaData.data);
+      setSchema(clientSchema);
     };
-    saveSchema();
+
+    getSchema();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  async function getGraphQlResponse() {
+    try {
+      const headers = createHeadersOfRequest(state.headers);
+      const body = createBodyOfRequest(state.variables, state.queryString);
+
+      const data = await makeRequest(state.endpoint, headers, body);
+
+      dispatch({ type: 'SET_QUERY_DATA', payload: JSON.stringify(data) });
+    } catch (err) {
+      if (err instanceof Error) {
+        const newErrorMsg = `Error ${err.message}`;
+        dispatch({
+          type: 'SET_QUERY_DATA',
+          payload: JSON.stringify(newErrorMsg),
+        });
+      }
+    }
+  }
 
   return (
     <PageWrapper>
@@ -42,18 +71,7 @@ export default function CodeEditor() {
         />
         {error && <p>Wrong graphql Url</p>}
         <div className="flex items-center justify-center gap-2.5">
-          <Button
-            type="button"
-            onClick={() =>
-              getGraphQlResponse(
-                state.queryString,
-                state.endpoint,
-                state.headers,
-                state.variables,
-                dispatch
-              )
-            }
-          >
+          <Button type="button" onClick={() => getGraphQlResponse()}>
             <IconPlay />
           </Button>
           <Button
@@ -85,7 +103,7 @@ export default function CodeEditor() {
       </div>
       <div className="flex">
         <div className="bg-pink-300 p-4">
-          {getSchema ? (
+          {schema ? (
             <CodeMirror
               style={{
                 textAlign: 'start',
@@ -94,7 +112,7 @@ export default function CodeEditor() {
                 wordWrap: 'break-word',
               }}
               value={state.queryString}
-              extensions={[graphql(getSchema), EditorView.lineWrapping]}
+              extensions={[graphql(schema), EditorView.lineWrapping]}
               onChange={(event) =>
                 dispatch({ type: 'SET_QUERY_STRING', payload: event })
               }
@@ -135,7 +153,7 @@ export default function CodeEditor() {
         </div>
       </div>
       <ParamsEditor />
-      {isOpenSchema && <Schema clientSchema={getSchema} />}
+      {isOpenSchema && <Schema clientSchema={schema} />}
     </PageWrapper>
   );
 }

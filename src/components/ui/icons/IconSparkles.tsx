@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function IconSparkles() {
+export function IconSparkles() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
