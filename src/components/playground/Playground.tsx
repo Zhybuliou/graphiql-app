@@ -1,10 +1,8 @@
-import CodeMirror, { EditorState, EditorView } from '@uiw/react-codemirror';
 import {
   buildClientSchema,
   getIntrospectionQuery,
   GraphQLSchema,
 } from 'graphql';
-import { graphql } from 'cm6-graphql';
 import React, { useEffect, useState } from 'react';
 import ParamsEditor from '../paramsEditor/ParamsEditor';
 import { IconPlay } from '../ui/icons/IconPlay';
@@ -16,11 +14,12 @@ import { makeRequest } from '../../services/makeRequest';
 import { createBodyOfRequest } from '../../utils/createBodyOfRequest';
 import { createHeadersOfRequest } from '../../utils/createHeadersOfRequest';
 import { AppStateActions, useAppState } from '../../context/appState';
+import CodeEditor from './CodeEditor';
+import ResponseEditor from './ResponseEditor';
 
-export default function CodeEditor() {
+export default function Playground() {
   const { state: appState, dispatch: appDispatch } = useAppState();
-  const { headers, variables, endpoint, queryString, outputQueryData } =
-    appState;
+  const { headers, variables, endpoint, queryString } = appState;
 
   const [error, setError] = useState(false);
   const [schema, setSchema] = useState<GraphQLSchema>();
@@ -48,6 +47,7 @@ export default function CodeEditor() {
 
   async function getGraphQlResponse() {
     try {
+      setError(false);
       const requestHeaders = createHeadersOfRequest(headers);
       const requestBody = createBodyOfRequest(variables, queryString);
       const data = await makeRequest(endpoint, requestHeaders, requestBody);
@@ -63,6 +63,7 @@ export default function CodeEditor() {
           type: AppStateActions.SET_QUERY_DATA,
           payload: JSON.stringify(newErrorMsg),
         });
+        setError(true);
       }
     }
   }
@@ -107,58 +108,8 @@ export default function CodeEditor() {
         </div>
       </div>
       <div className="flex">
-        <div className="bg-pink-300 p-4">
-          {schema ? (
-            <CodeMirror
-              style={{
-                textAlign: 'start',
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'normal',
-                wordWrap: 'break-word',
-              }}
-              value={queryString}
-              extensions={[graphql(schema), EditorView.lineWrapping]}
-              onChange={(event) =>
-                appDispatch({
-                  type: AppStateActions.SET_QUERY_STRING,
-                  payload: event,
-                })
-              }
-              basicSetup={{
-                highlightActiveLine: true,
-                autocompletion: true,
-                foldGutter: true,
-                dropCursor: true,
-                allowMultipleSelections: true,
-                indentOnInput: true,
-                bracketMatching: true,
-                closeBrackets: true,
-                lintKeymap: true,
-              }}
-              width="500px"
-              minHeight="300px"
-            />
-          ) : (
-            <div>Loading...</div>
-          )}
-        </div>
-        <div className="bg-pink-300 p-4">
-          <CodeMirror
-            style={{ textAlign: 'start' }}
-            value={
-              outputQueryData
-                ? JSON.stringify(JSON.parse(outputQueryData), null, 2)
-                : ''
-            }
-            height="200px"
-            extensions={[graphql(), EditorState.readOnly.of(true)]}
-            basicSetup={{
-              autocompletion: true,
-            }}
-            width="500px"
-            minHeight="300px"
-          />
-        </div>
+        <CodeEditor schema={schema} />
+        <ResponseEditor />
       </div>
       <ParamsEditor />
       {isOpenSchema && <Schema clientSchema={schema} />}

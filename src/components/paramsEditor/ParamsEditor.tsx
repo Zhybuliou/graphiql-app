@@ -1,12 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
 import Button from '../ui/Button';
-import { useLocale } from '../../context/local';
+import { AppStateActions, useAppState } from '../../context/appState';
 
 function ParamsEditor() {
-  const { state, dispatch } = useLocale();
+  const { state, dispatch } = useAppState();
+  const { headers, variables } = state;
+
   const [isOpenVariables, setVariablesOpen] = useState(false);
   const [isOpenHeaders, setHeadersOpen] = useState(false);
 
@@ -49,10 +50,10 @@ function ParamsEditor() {
               wordBreak: 'normal',
               wordWrap: 'break-word',
             }}
-            value={state.variables}
+            value={variables}
             extensions={[json(), EditorView.lineWrapping]}
             onChange={(event) =>
-              dispatch({ type: 'SET_VARIABLES', payload: event })
+              dispatch({ type: AppStateActions.SET_VARIABLES, payload: event })
             }
             basicSetup={{
               highlightActiveLine: true,
@@ -79,10 +80,10 @@ function ParamsEditor() {
               wordBreak: 'normal',
               wordWrap: 'break-word',
             }}
-            value={state.headers}
+            value={headers}
             extensions={[json(), EditorView.lineWrapping]}
             onChange={(event) =>
-              dispatch({ type: 'SET_HEADERS', payload: event })
+              dispatch({ type: AppStateActions.SET_HEADERS, payload: event })
             }
             basicSetup={{
               highlightActiveLine: true,
