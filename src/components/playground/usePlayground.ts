@@ -16,20 +16,31 @@ export function usePlayground() {
   const [error, setError] = useState<Error | null>(null);
   const [schema, setSchema] = useState<GraphQLSchema>();
 
+  function handleError(caughtError: unknown, errorTitle: string) {
+    const errorMessage =
+      caughtError instanceof Error ? caughtError.message : '';
+    const fullErrorMessage = JSON.stringify(`${errorTitle} - ${errorMessage}`);
+    setError(new Error(fullErrorMessage));
+  }
+
   useEffect(() => {
     const getSchema = async () => {
+      setError(null);
       const requestHeaders = createHeadersOfRequest('');
       const query = getIntrospectionQuery();
       const requestBody = createBodyOfRequest('', query);
 
-      const schemaData = await makeRequest(
-        endpoint,
-        requestHeaders,
-        requestBody
-      );
-
-      const clientSchema = buildClientSchema(schemaData.data);
-      setSchema(clientSchema);
+      try {
+        const schemaData = await makeRequest(
+          endpoint,
+          requestHeaders,
+          requestBody
+        );
+        const clientSchema = buildClientSchema(schemaData.data);
+        setSchema(clientSchema);
+      } catch (caughtError) {
+        handleError(caughtError, "Error. We can't get the schema.");
+      }
     };
 
     getSchema();
@@ -57,18 +68,11 @@ export function usePlayground() {
       const data = await makeRequest(endpoint, requestHeaders, requestBody);
 
       dispatch({
-        type: AppStateActions.SET_QUERY_DATA,
+        type: AppStateActions.SET_RESPONSE,
         payload: JSON.stringify(data),
       });
-    } catch (err) {
-      if (err instanceof Error) {
-        const newErrorMsg = `Error ${err.message}`;
-        setError(new Error(newErrorMsg));
-        dispatch({
-          type: AppStateActions.SET_QUERY_DATA,
-          payload: JSON.stringify(newErrorMsg),
-        });
-      }
+    } catch (caughtError) {
+      handleError(caughtError, "Error. We can't get data");
     }
   }
 

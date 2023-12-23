@@ -1,20 +1,22 @@
 import React from 'react';
 import CodeMirror, { EditorState } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
-import { useAppState } from '../../context/appState';
+import cn from '../../utils/cn';
 
-function ResponseEditor() {
-  const { state: appState } = useAppState();
-  const { outputQueryData } = appState;
+function ResponseEditor({
+  error,
+  response,
+}: {
+  error: Error | null;
+  response: string;
+}) {
+  const dataToDisplay = error ? error.message : response;
+
   return (
-    <div className="bg-pink-300 p-4">
+    <div className={cn('bg-pink-300 p-4', { 'bg-red-500': !!error })}>
       <CodeMirror
         style={{ textAlign: 'start' }}
-        value={
-          outputQueryData
-            ? JSON.stringify(JSON.parse(outputQueryData), null, 2)
-            : ''
-        }
+        value={dataToDisplay}
         height="200px"
         extensions={[graphql(), EditorState.readOnly.of(true)]}
         basicSetup={{

@@ -11,7 +11,7 @@ import prettifyGraphQLQuery from '../../utils/prettifyGraphQLQuery';
 export enum AppStateActions {
   SET_ENDPOINT,
   SET_QUERY_STRING,
-  SET_QUERY_DATA,
+  SET_RESPONSE,
   SET_VARIABLES,
   SET_HEADERS,
   PRETTIFY,
@@ -20,7 +20,7 @@ export enum AppStateActions {
 type AppState = {
   endpoint: string;
   queryString: string;
-  outputQueryData: string;
+  response: string;
   variables: string;
   headers: string;
 };
@@ -42,10 +42,10 @@ const reducer = (
         queryString: action.payload,
       };
     }
-    case AppStateActions.SET_QUERY_DATA: {
+    case AppStateActions.SET_RESPONSE: {
       return {
         ...state,
-        outputQueryData: action.payload,
+        response: JSON.stringify(JSON.parse(action.payload), null, 2),
       };
     }
     case AppStateActions.SET_VARIABLES: {
@@ -85,7 +85,7 @@ const AppStateContext = createContext<Context>({} as Context);
 const initialAppState: AppState = {
   endpoint: BASE_ENDPOINT,
   queryString: BASE_QUERY_STRING,
-  outputQueryData: '',
+  response: '',
   variables: BASE_VARIABLES,
   headers: '',
 };

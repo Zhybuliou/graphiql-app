@@ -16,6 +16,7 @@ export default function Playground() {
     getGraphQlResponse,
     schema,
     endpoint,
+    response,
     error,
   } = usePlayground();
 
@@ -30,7 +31,6 @@ export default function Playground() {
           className="w-full p-1 mb-5"
           type="text"
         />
-        {error && <p>{error.message}</p>}
         <div className="flex items-center justify-center gap-2.5">
           <Button type="button" onClick={getGraphQlResponse}>
             <IconPlay />
@@ -48,7 +48,7 @@ export default function Playground() {
       </div>
       <div className="flex">
         <RequestEditor schema={schema} />
-        <ResponseEditor />
+        <ResponseEditor response={response} error={error} />
       </div>
       <ParamsEditor />
       {isOpenSchema && <Schema clientSchema={schema} />}
