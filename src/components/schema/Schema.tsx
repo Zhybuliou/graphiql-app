@@ -8,7 +8,7 @@ import { TypeToDisplay } from './types';
 import TypeTab from './TypeTab/TypeTab';
 
 type SchemaProps = {
-  clientSchema: GraphQLSchema | undefined;
+  clientSchema: GraphQLSchema | null;
 };
 
 function Schema({ clientSchema }: SchemaProps) {

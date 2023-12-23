@@ -3,7 +3,7 @@ import {
   buildClientSchema,
   getIntrospectionQuery,
   GraphQLSchema,
-} from 'graphql/index';
+} from 'graphql';
 import { createHeadersOfRequest } from '../../utils/createHeadersOfRequest';
 import { createBodyOfRequest } from '../../utils/createBodyOfRequest';
 import { makeRequest } from '../../services/makeRequest';
@@ -14,7 +14,7 @@ export function usePlayground() {
   const { headers, variables, endpoint, queryString } = state;
 
   const [error, setError] = useState<Error | null>(null);
-  const [schema, setSchema] = useState<GraphQLSchema>();
+  const [schema, setSchema] = useState<GraphQLSchema | null>(null);
 
   function handleError(caughtError: unknown, errorTitle: string) {
     const errorMessage =
@@ -60,6 +60,13 @@ export function usePlayground() {
     });
   }
 
+  function setQueryString(query: string) {
+    dispatch({
+      type: AppStateActions.SET_QUERY_STRING,
+      payload: query,
+    });
+  }
+
   async function getGraphQlResponse() {
     try {
       setError(null);
@@ -79,6 +86,7 @@ export function usePlayground() {
   return {
     getGraphQlResponse,
     changeEndpointUrl,
+    setQueryString,
     prettify,
     ...state,
     schema,

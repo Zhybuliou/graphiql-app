@@ -14,10 +14,12 @@ export default function Playground() {
     changeEndpointUrl,
     prettify,
     getGraphQlResponse,
+    setQueryString,
     schema,
     endpoint,
     response,
     error,
+    queryString,
   } = usePlayground();
 
   const [isOpenSchema, setIsOpenSchema] = useState<boolean>(false);
@@ -47,7 +49,11 @@ export default function Playground() {
         </div>
       </div>
       <div className="flex">
-        <RequestEditor schema={schema} />
+        <RequestEditor
+          schema={schema}
+          setQueryString={setQueryString}
+          queryString={queryString}
+        />
         <ResponseEditor response={response} error={error} />
       </div>
       <ParamsEditor />

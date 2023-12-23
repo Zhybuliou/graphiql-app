@@ -2,11 +2,16 @@ import React from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import { GraphQLSchema } from 'graphql';
-import { AppStateActions, useAppState } from '../../context/appState';
 
-function RequestEditor({ schema }: { schema: GraphQLSchema | undefined }) {
-  const { state: appState, dispatch: appDispatch } = useAppState();
-  const { queryString } = appState;
+function RequestEditor({
+  schema,
+  queryString,
+  setQueryString,
+}: {
+  schema: GraphQLSchema | null;
+  queryString: string;
+  setQueryString: (newQuery: string) => void;
+}) {
   return (
     <div className="bg-pink-300 p-4">
       {schema ? (
@@ -19,12 +24,7 @@ function RequestEditor({ schema }: { schema: GraphQLSchema | undefined }) {
           }}
           value={queryString}
           extensions={[graphql(schema), EditorView.lineWrapping]}
-          onChange={(event) =>
-            appDispatch({
-              type: AppStateActions.SET_QUERY_STRING,
-              payload: event,
-            })
-          }
+          onChange={setQueryString}
           basicSetup={{
             highlightActiveLine: true,
             autocompletion: true,
