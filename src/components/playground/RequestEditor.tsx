@@ -38,6 +38,7 @@ function RequestEditor({
           }}
           width="500px"
           minHeight="300px"
+          height="1px"
         />
       ) : (
         <div>Loading...</div>

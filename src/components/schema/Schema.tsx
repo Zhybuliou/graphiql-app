@@ -23,7 +23,7 @@ function Schema({ clientSchema }: SchemaProps) {
       {openedTypes.map((typeToDisplay, index) => {
         return (
           <TypeTab
-            key={`${typeToDisplay.name}${index}`}
+            key={index}
             typeToDisplay={typeToDisplay}
             tabIndex={index}
             setOpenedTypes={setOpenedTypes}

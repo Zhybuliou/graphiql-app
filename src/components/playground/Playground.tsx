@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import ParamsEditor from '../paramsEditor/ParamsEditor';
+import Params from '../params/Params';
 import { IconPlay } from '../ui/icons/IconPlay';
 import { IconSparkles } from '../ui/icons/IconSparkles';
 import Schema from '../schema/Schema';
 import PageWrapper from '../ui/PageWrapper';
 import Button from '../ui/Button';
 import RequestEditor from './RequestEditor';
-import ResponseEditor from './ResponseEditor';
+import CodeViewer from './CodeViewer';
 import { usePlayground } from './usePlayground';
 
 export default function Playground() {
@@ -58,9 +58,9 @@ export default function Playground() {
           setQueryString={setQueryString}
           queryString={queryString}
         />
-        <ResponseEditor response={response} error={error} />
+        <CodeViewer value={response} error={error} />
       </div>
-      <ParamsEditor
+      <Params
         headers={headers}
         variables={variables}
         setVariables={setVariables}
