@@ -4,7 +4,7 @@ import { graphql } from 'cm6-graphql';
 import { GraphQLSchema } from 'graphql';
 import { AppStateActions, useAppState } from '../../context/appState';
 
-function CodeEditor({ schema }: { schema: GraphQLSchema | undefined }) {
+function RequestEditor({ schema }: { schema: GraphQLSchema | undefined }) {
   const { state: appState, dispatch: appDispatch } = useAppState();
   const { queryString } = appState;
   return (
@@ -46,4 +46,4 @@ function CodeEditor({ schema }: { schema: GraphQLSchema | undefined }) {
   );
 }
 
-export default CodeEditor;
+export default RequestEditor;
