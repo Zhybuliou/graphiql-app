@@ -3,15 +3,19 @@ import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import { GraphQLSchema } from 'graphql';
 
+type RequestEditorProps = {
+  schema: GraphQLSchema | null;
+  queryString: string;
+  setQueryString: (newQuery: string) => void;
+  params: React.ReactElement;
+};
+
 function RequestEditor({
   schema,
   queryString,
   setQueryString,
-}: {
-  schema: GraphQLSchema | null;
-  queryString: string;
-  setQueryString: (newQuery: string) => void;
-}) {
+  params,
+}: RequestEditorProps) {
   return (
     <div className="bg-pink-300 p-4">
       {schema ? (
@@ -43,6 +47,7 @@ function RequestEditor({
       ) : (
         <div>Loading...</div>
       )}
+      {params}
     </div>
   );
 }

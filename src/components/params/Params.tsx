@@ -1,7 +1,12 @@
-import { useState } from 'react';
-import ParamsControls from './ParamsControls';
+import React, { useState } from 'react';
 import ParamsEditor from './ParamsEditor';
-import { DisplayState } from './types';
+import TabButton from './TabButton';
+import cn from '../../utils/cn';
+
+enum TabsParams {
+  headers = 'headers html',
+  variables = 'query variables',
+}
 
 type ParamsProps = {
   headers: string;
@@ -11,27 +16,57 @@ type ParamsProps = {
 };
 
 function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
-  const [displayState, setDisplayState] = useState<DisplayState>(
-    DisplayState.closeAll
-  );
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<TabsParams>(TabsParams.variables);
 
   const editor = {
-    [DisplayState.closeAll]: null,
-    [DisplayState.variables]: (
+    [TabsParams.variables]: (
       <ParamsEditor value={headers} onChange={setHeaders} />
     ),
-    [DisplayState.headers]: (
+    [TabsParams.headers]: (
       <ParamsEditor value={variables} onChange={setVariables} />
     ),
-  }[displayState];
+  }[activeTab];
+
+  function handleChangeTab(newTab: TabsParams) {
+    if (!isOpen) {
+      setIsOpen((o) => !o);
+    }
+    setActiveTab(newTab);
+  }
+
+  function handleClickHeader(
+    event: React.MouseEvent<HTMLUListElement, MouseEvent>
+  ) {
+    if (!(event.target as Element).closest('[data-id=tab-button]')) {
+      setIsOpen((o) => !o);
+    }
+  }
 
   return (
     <div className="w-full">
-      <ParamsControls
-        displayState={displayState}
-        setDisplayState={setDisplayState}
-      />
-      {editor}
+      <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+        <ul
+          className={cn(
+            'flex',
+            { 'cursor-s-resize': isOpen },
+            { 'cursor-row-resize': !isOpen }
+          )}
+          onClick={handleClickHeader}
+        >
+          {Object.entries(TabsParams).map(([, tabParams]) => {
+            return (
+              <TabButton
+                key={tabParams}
+                onClick={() => handleChangeTab(tabParams)}
+                text={tabParams}
+                isActive={activeTab === tabParams}
+              />
+            );
+          })}
+        </ul>
+      </div>
+      {isOpen && editor}
     </div>
   );
 }

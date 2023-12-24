@@ -57,15 +57,18 @@ export default function Playground() {
           schema={schema}
           setQueryString={setQueryString}
           queryString={queryString}
+          params={
+            <Params
+              headers={headers}
+              variables={variables}
+              setVariables={setVariables}
+              setHeaders={setHeaders}
+            />
+          }
         />
         <CodeViewer value={response} error={error} />
       </div>
-      <Params
-        headers={headers}
-        variables={variables}
-        setVariables={setVariables}
-        setHeaders={setHeaders}
-      />
+
       {isOpenSchema && <Schema clientSchema={schema} />}
     </PageWrapper>
   );
