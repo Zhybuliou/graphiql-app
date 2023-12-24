@@ -12,21 +12,38 @@ type CodeViewerProps = {
 function CodeViewer({ error, value, className = '' }: CodeViewerProps) {
   const dataToDisplay = error ? error.message : value;
 
+  const footer = <div className="h-[56px]">Footer</div>;
+
+  if (!dataToDisplay) {
+    return (
+      <>
+        <div className="bg-pink-300 p-4 w-6/12 h-full">
+          No data! Make a request!
+        </div>
+        {footer}
+      </>
+    );
+  }
+
   return (
     <div
-      className={cn('bg-pink-300 p-4', { 'bg-red-500': !!error }, className)}
+      className={cn(
+        'flex flex-col bg-pink-300 p-4 w-6/12 h-full',
+        { 'bg-red-500': !!error },
+        className
+      )}
     >
       <CodeMirror
-        style={{ textAlign: 'start', overflow: 'auto' }}
+        style={{ textAlign: 'start', overflow: 'auto', height: '100%' }}
         value={dataToDisplay}
         extensions={[graphql(), EditorState.readOnly.of(true)]}
         basicSetup={{
           autocompletion: true,
         }}
-        width="500px"
-        minHeight="300px"
-        height="1px"
+        width="100%"
+        height="100%"
       />
+      {footer}
     </div>
   );
 }

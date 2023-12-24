@@ -4,8 +4,8 @@ import TabButton from './TabButton';
 import cn from '../../utils/cn';
 
 enum TabsParams {
-  headers = 'headers html',
   variables = 'query variables',
+  headers = 'headers html',
 }
 
 type ParamsProps = {
@@ -30,7 +30,7 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
 
   function handleChangeTab(newTab: TabsParams) {
     if (!isOpen) {
-      setIsOpen((o) => !o);
+      setIsOpen(true);
     }
     setActiveTab(newTab);
   }
@@ -45,13 +45,11 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
 
   return (
     <div className="w-full">
-      <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+      <div className="text-sm font-medium text-center text-gray-500 ">
         <ul
-          className={cn(
-            'flex',
-            { 'cursor-s-resize': isOpen },
-            { 'cursor-row-resize': !isOpen }
-          )}
+          className={cn('flex cursor-row-resize', {
+            'cursor-s-resize': isOpen,
+          })}
           onClick={handleClickHeader}
         >
           {Object.entries(TabsParams).map(([, tabParams]) => {

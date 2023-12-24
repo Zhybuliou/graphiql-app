@@ -3,7 +3,6 @@ import Params from '../params/Params';
 import { IconPlay } from '../ui/icons/IconPlay';
 import { IconSparkles } from '../ui/icons/IconSparkles';
 import Schema from '../schema/Schema';
-import PageWrapper from '../ui/PageWrapper';
 import Button from '../ui/Button';
 import RequestEditor from './RequestEditor';
 import CodeViewer from './CodeViewer';
@@ -29,30 +28,32 @@ export default function Playground() {
   const [isOpenSchema, setIsOpenSchema] = useState<boolean>(false);
 
   return (
-    <PageWrapper>
-      <div className="w-full bg-fuchsia-900 p-5">
+    <div className="flex flex-col w-full h-[calc(100vh-56px)]">
+      <div className="w-full flex items-center justify-center gap-4 bg-fuchsia-900 p-5">
+        <Button
+          type="button"
+          onClick={prettify}
+          title="Prettify"
+          className="p-2"
+        >
+          <IconSparkles className="w-4 h-4" />
+        </Button>
+        <Button
+          type="button"
+          onClick={() => setIsOpenSchema((o) => !o)}
+          title="Schema"
+          className="p-2 text-xs"
+        >
+          Sch
+        </Button>
         <input
           value={endpoint}
           onChange={(event) => changeEndpoint(event.target.value)}
-          className="w-full p-1 mb-5"
+          className="w-full"
           type="text"
         />
-        <div className="flex items-center justify-center gap-2.5">
-          <Button type="button" onClick={getGraphQlResponse}>
-            <IconPlay />
-          </Button>
-          <Button type="button" onClick={prettify}>
-            <IconSparkles />
-          </Button>
-          <Button
-            type="button"
-            onClick={() => setIsOpenSchema((isOpen) => !isOpen)}
-          >
-            Schema
-          </Button>
-        </div>
       </div>
-      <div className="flex">
+      <div className="flex w-full h-full relative">
         <RequestEditor
           schema={schema}
           setQueryString={setQueryString}
@@ -66,10 +67,21 @@ export default function Playground() {
             />
           }
         />
+        <div className="absolute z-10 flex justify-center w-full top-6">
+          <Button
+            type="button"
+            onClick={getGraphQlResponse}
+            className="p-2"
+            title="Execute query"
+          >
+            <IconPlay className="w-8 h-8" />
+          </Button>
+        </div>
+
         <CodeViewer value={response} error={error} />
       </div>
 
       {isOpenSchema && <Schema clientSchema={schema} />}
-    </PageWrapper>
+    </div>
   );
 }

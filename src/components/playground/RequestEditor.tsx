@@ -17,33 +17,35 @@ function RequestEditor({
   params,
 }: RequestEditorProps) {
   return (
-    <div className="bg-pink-300 p-4">
+    <div className="flex flex-col bg-pink-300 p-4 w-6/12 h-full">
       {schema ? (
-        <CodeMirror
-          style={{
-            textAlign: 'start',
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'normal',
-            wordWrap: 'break-word',
-          }}
-          value={queryString}
-          extensions={[graphql(schema), EditorView.lineWrapping]}
-          onChange={setQueryString}
-          basicSetup={{
-            highlightActiveLine: true,
-            autocompletion: true,
-            foldGutter: true,
-            dropCursor: true,
-            allowMultipleSelections: true,
-            indentOnInput: true,
-            bracketMatching: true,
-            closeBrackets: true,
-            lintKeymap: true,
-          }}
-          width="500px"
-          minHeight="300px"
-          height="1px"
-        />
+        <div className="flex-1">
+          <CodeMirror
+            style={{
+              textAlign: 'start',
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'normal',
+              wordWrap: 'break-word',
+              height: '100%',
+            }}
+            value={queryString}
+            extensions={[graphql(schema), EditorView.lineWrapping]}
+            onChange={setQueryString}
+            basicSetup={{
+              highlightActiveLine: true,
+              autocompletion: true,
+              foldGutter: true,
+              dropCursor: true,
+              allowMultipleSelections: true,
+              indentOnInput: true,
+              bracketMatching: true,
+              closeBrackets: true,
+              lintKeymap: true,
+            }}
+            width="100%"
+            height="100%"
+          />
+        </div>
       ) : (
         <div>Loading...</div>
       )}
