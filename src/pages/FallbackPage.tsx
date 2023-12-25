@@ -1,6 +1,6 @@
 import React from 'react';
 import PageWrapper from '../components/ui/PageWrapper';
-import Button from '../components/ui/Button';
+import UiButton from '../components/ui/UiButton';
 
 type FallbackProps = {
   error: Error;
@@ -12,9 +12,9 @@ function FallbackPage({ error, resetErrorBoundary }: FallbackProps) {
     <PageWrapper>
       <h1>Something went wrong</h1>
       <pre className="mb-4 p-4 text-red-700 bg-gray-200">{error.message}</pre>
-      <Button type="button" onClick={resetErrorBoundary}>
+      <UiButton type="button" onClick={resetErrorBoundary}>
         Go to Main
-      </Button>
+      </UiButton>
     </PageWrapper>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import Params from '../params/Params';
 import { IconPlay } from '../ui/icons/IconPlay';
 import { IconSparkles } from '../ui/icons/IconSparkles';
-import Button from '../ui/Button';
+import UiButton from '../ui/UiButton';
 import RequestEditor from './RequestEditor';
 import CodeViewer from './CodeViewer';
 import { usePlayground } from './usePlayground';
@@ -29,14 +29,14 @@ export default function Playground() {
     <PlaygroundLayout
       controls={
         <>
-          <Button
+          <UiButton
             type="button"
             onClick={prettify}
             title="Prettify"
             className="p-2"
           >
             <IconSparkles className="w-4 h-4" />
-          </Button>
+          </UiButton>
           <input
             value={endpoint}
             onChange={(event) => changeEndpoint(event.target.value)}
@@ -46,14 +46,14 @@ export default function Playground() {
         </>
       }
       buttonExecute={
-        <Button
+        <UiButton
           type="button"
           onClick={executeQuery}
           className="p-2"
           title="Execute query"
         >
           <IconPlay className="w-8 h-8" />
-        </Button>
+        </UiButton>
       }
       requestEditor={
         <RequestEditor

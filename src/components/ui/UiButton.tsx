@@ -2,7 +2,7 @@ import React from 'react';
 import { PropsWithChildren } from '../../types/utilityTypes';
 import cn from '../../utils/cn';
 
-function Button({
+function UiButton({
   children,
   type = 'button',
   className = '',
@@ -25,4 +25,4 @@ function Button({
   );
 }
 
-export default Button;
+export default UiButton;

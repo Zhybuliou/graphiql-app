@@ -12,8 +12,8 @@ import ISignUpForm from '../types/interfaces/ISignUpForm';
 import { signUpValidationSchema } from '../utils/validationSchemes';
 import PageWrapper from '../components/ui/PageWrapper';
 import FormWrapper from '../components/ui/FormWrapper';
-import FormInput from '../components/ui/FormInput';
-import Button from '../components/ui/Button';
+import UIFormInput from '../components/ui/UIFormInput';
+import UiButton from '../components/ui/UiButton';
 
 function SignUpPage() {
   const { state } = useLocale();
@@ -55,7 +55,7 @@ function SignUpPage() {
       <h1>{state.strings.signUpPlease}</h1>
       <form onSubmit={handleSubmit(registerUser)}>
         <FormWrapper>
-          <FormInput
+          <UIFormInput
             type="text"
             name="name"
             register={register}
@@ -63,7 +63,7 @@ function SignUpPage() {
             error={errors.name?.message}
             required
           />
-          <FormInput
+          <UIFormInput
             type="text"
             name="email"
             register={register}
@@ -71,7 +71,7 @@ function SignUpPage() {
             error={errors.email?.message}
             required
           />
-          <FormInput
+          <UIFormInput
             type="password"
             name="password"
             register={register}
@@ -79,7 +79,7 @@ function SignUpPage() {
             error={errors.password?.message}
             required
           />
-          <FormInput
+          <UIFormInput
             type="password"
             name="confirmPassword"
             register={register}
@@ -87,9 +87,9 @@ function SignUpPage() {
             error={errors.confirmPassword?.message}
             required
           />
-          <Button type="submit" disabled={!isValid}>
+          <UiButton type="submit" disabled={!isValid}>
             {state.strings.signUp}
-          </Button>
+          </UiButton>
           <div className="mt-4">
             {state.strings.haveAccount}
             <Link to={RoutePaths.SIGNIN}>{state.strings.signIn}</Link>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { GraphQLField, GraphQLSchema } from 'graphql';
-import ListItem from '../ui/ListItem';
+import UiListItem from '../ui/UiListItem';
 import { TypeToDisplay } from './types';
 import SectionTitle from './ui/SectionTitle';
 import TabWrapper from './ui/TabWrapper';
@@ -30,7 +30,7 @@ function QueriesTab({ clientSchema, setOpenTypes }: QueriesTabProps) {
       <ul>
         {endpoints.map((field) => {
           return (
-            <ListItem
+            <UiListItem
               onClick={() => {
                 handleClickEndpoint(field);
               }}
@@ -41,7 +41,7 @@ function QueriesTab({ clientSchema, setOpenTypes }: QueriesTabProps) {
                 type={field.type.toString()}
                 split="(...): "
               />
-            </ListItem>
+            </UiListItem>
           );
         })}
       </ul>
