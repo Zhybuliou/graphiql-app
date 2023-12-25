@@ -16,12 +16,12 @@ function CodeViewer({ error, value, className = '' }: CodeViewerProps) {
 
   if (!dataToDisplay) {
     return (
-      <>
-        <div className="bg-pink-300 p-4 w-6/12 h-full">
+      <div className="flex flex-col bg-pink-300 p-4 w-6/12 h-full">
+        <div className="flex items-center justify-center w-full h-full">
           No data! Make a request!
         </div>
         {footer}
-      </>
+      </div>
     );
   }
 

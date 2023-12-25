@@ -67,7 +67,7 @@ export function usePlayground() {
     });
   }
 
-  async function getGraphQlResponse() {
+  async function executeQuery() {
     try {
       setError(null);
       const requestHeaders = createHeadersOfRequest(headers);
@@ -92,7 +92,7 @@ export function usePlayground() {
   }
 
   return {
-    getGraphQlResponse,
+    executeQuery,
     changeEndpoint,
     setVariables,
     setHeaders,
