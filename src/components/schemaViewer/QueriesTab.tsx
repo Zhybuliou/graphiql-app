@@ -3,21 +3,20 @@ import { GraphQLField } from 'graphql';
 import UiListItem from '../ui/UiListItem';
 import { TypeToDisplay } from './types';
 import SectionTitle from './ui/SectionTitle';
-import TabWrapper from './ui/TabWrapper';
 import TypeInfo from './ui/TypeInfo';
 
 type QueriesTabProps = {
   queries: GraphQLField<unknown, unknown, unknown>[];
-  setOpenTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
+  setOpenedTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
-function QueriesTab({ queries, setOpenTypes }: QueriesTabProps) {
+function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
   function handleClickEndpoint(field: GraphQLField<unknown, unknown, unknown>) {
-    setOpenTypes([field]);
+    setOpenedTypes([field]);
   }
 
   return (
-    <TabWrapper>
+    <div className="flex flex-col gap-4 w-80 p-2 text-left">
       <SectionTitle>Queries</SectionTitle>
       <ul>
         {queries.map((field) => {
@@ -37,7 +36,7 @@ function QueriesTab({ queries, setOpenTypes }: QueriesTabProps) {
           );
         })}
       </ul>
-    </TabWrapper>
+    </div>
   );
 }
 

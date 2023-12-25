@@ -1,18 +1,13 @@
 import React from 'react';
 
-type FieldInfoProps = {
+type TypeInfoProps = {
   name: string;
   type: string;
   className?: string;
   split?: string;
 };
 
-function TypeInfo({
-  name,
-  type,
-  className = '',
-  split = ': ',
-}: FieldInfoProps) {
+function TypeInfo({ name, type, className = '', split = ': ' }: TypeInfoProps) {
   return (
     <p className={className}>
       <span className="text-red-700">{name}</span>

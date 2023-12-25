@@ -1,24 +1,34 @@
 /* eslint-disable react/no-array-index-key */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { GraphQLSchema } from 'graphql';
 
 import QueriesTab from './QueriesTab';
-import { TypeToDisplay } from './types';
 import TypeTab from './TypeTab/TypeTab';
 import { useSchemaViewer } from './useSchemaViewer';
+import SchemaViewerLayout from './SchemaViewerLayout';
+import UiButton from '../ui/UiButton';
 
 function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
-  const { queries } = useSchemaViewer(schema);
-  const [openedTypes, setOpenedTypes] = useState<TypeToDisplay[]>([]);
-
-  if (!schema) return null;
+  const { isOpen, setIsOpen, queries, openedTypes, setOpenedTypes } =
+    useSchemaViewer(schema);
 
   return (
-    <div className="absolute z-20 flex h-full right-0 top-0 bg-white shadow">
-      <QueriesTab queries={queries} setOpenTypes={setOpenedTypes} />
-
-      {openedTypes.map((typeToDisplay, index) => {
+    <SchemaViewerLayout
+      isOpen={isOpen}
+      buttonOpen={
+        <UiButton
+          type="button"
+          onClick={() => setIsOpen((o) => !o)}
+          className="p-1 py-1 text-sm tracking-widest rounded-none rounded-t-lg"
+        >
+          Schema
+        </UiButton>
+      }
+      queriesTab={
+        <QueriesTab queries={queries} setOpenedTypes={setOpenedTypes} />
+      }
+      openedTypeTabs={openedTypes.map((typeToDisplay, index) => {
         return (
           <TypeTab
             key={index}
@@ -28,7 +38,7 @@ function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
           />
         );
       })}
-    </div>
+    />
   );
 }
 
