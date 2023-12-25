@@ -20,7 +20,7 @@ function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
         <UiButton
           type="button"
           onClick={() => setIsOpen((o) => !o)}
-          className="p-1 py-1 text-sm tracking-widest rounded-none rounded-t-lg"
+          className="p-1 text-sm tracking-widest rounded-none rounded-t-lg"
         >
           Schema
         </UiButton>

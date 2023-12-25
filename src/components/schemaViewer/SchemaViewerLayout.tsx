@@ -1,19 +1,19 @@
 import React from 'react';
 import cn from '../../utils/cn';
 
-type SchemaViewerProps = {
+type SchemaViewerLayoutProps = {
   isOpen: boolean;
   buttonOpen: React.ReactElement;
   queriesTab: React.ReactElement;
   openedTypeTabs: React.ReactElement[];
 };
 
-function SchemaViewer({
+function SchemaViewerLayout({
   isOpen,
   queriesTab,
   openedTypeTabs,
   buttonOpen,
-}: SchemaViewerProps) {
+}: SchemaViewerLayoutProps) {
   return (
     <div
       className={cn(
@@ -32,4 +32,4 @@ function SchemaViewer({
   );
 }
 
-export default SchemaViewer;
+export default SchemaViewerLayout;

@@ -4,13 +4,9 @@ import { TypeToDisplay } from './types';
 
 export function useSchemaViewer(schema: GraphQLSchema) {
   const [openedTypes, setOpenedTypes] = useState<TypeToDisplay[]>([]);
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const queryType = schema.getQueryType();
-
-  // if (!queryType) {
-  //   return <TabWrapper>!queryType</TabWrapper>;
-  // }
 
   const queries = queryType ? Object.values(queryType.getFields()) : [];
 

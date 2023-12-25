@@ -51,10 +51,10 @@ export default function Playground() {
           <UiButton
             type="button"
             onClick={executeQuery}
-            className="p-2"
+            className="p-2 rounded-full"
             title="Execute query"
           >
-            <IconPlay className="w-8 h-8" />
+            <IconPlay className="w-10 h-10" />
           </UiButton>
         }
         requestEditor={
