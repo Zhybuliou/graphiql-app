@@ -6,19 +6,17 @@ import { GraphQLSchema } from 'graphql';
 import QueriesTab from './QueriesTab';
 import { TypeToDisplay } from './types';
 import TypeTab from './TypeTab/TypeTab';
+import { useSchemaViewer } from './useSchemaViewer';
 
-type SchemaProps = {
-  clientSchema: GraphQLSchema | null;
-};
-
-function Schema({ clientSchema }: SchemaProps) {
+function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
+  const { queries } = useSchemaViewer(schema);
   const [openedTypes, setOpenedTypes] = useState<TypeToDisplay[]>([]);
 
-  if (!clientSchema) return null;
+  if (!schema) return null;
 
   return (
-    <div className="absolute flex h-full right-0 bg-white shadow">
-      <QueriesTab clientSchema={clientSchema} setOpenTypes={setOpenedTypes} />
+    <div className="absolute z-20 flex h-full right-0 top-0 bg-white shadow">
+      <QueriesTab queries={queries} setOpenTypes={setOpenedTypes} />
 
       {openedTypes.map((typeToDisplay, index) => {
         return (
@@ -34,4 +32,4 @@ function Schema({ clientSchema }: SchemaProps) {
   );
 }
 
-export default Schema;
+export default SchemaViewer;

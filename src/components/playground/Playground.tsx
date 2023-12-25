@@ -7,6 +7,7 @@ import RequestEditor from './RequestEditor';
 import CodeViewer from './CodeViewer';
 import { usePlayground } from './usePlayground';
 import PlaygroundLayout from './PlaygroundLayout';
+import SchemaViewer from '../schemaViewer/SchemaViewer';
 
 export default function Playground() {
   const {
@@ -17,7 +18,7 @@ export default function Playground() {
     queryString,
     response,
     error,
-    changeEndpoint,
+    setEndpoint,
     setHeaders,
     setVariables,
     setQueryString,
@@ -26,51 +27,54 @@ export default function Playground() {
   } = usePlayground();
 
   return (
-    <PlaygroundLayout
-      controls={
-        <>
+    <>
+      <PlaygroundLayout
+        controls={
+          <>
+            <UiButton
+              type="button"
+              onClick={prettify}
+              title="Prettify"
+              className="p-2"
+            >
+              <IconSparkles className="w-4 h-4" />
+            </UiButton>
+            <input
+              value={endpoint}
+              onChange={(event) => setEndpoint(event.target.value)}
+              className="w-full"
+              type="text"
+            />
+          </>
+        }
+        buttonExecute={
           <UiButton
             type="button"
-            onClick={prettify}
-            title="Prettify"
+            onClick={executeQuery}
             className="p-2"
+            title="Execute query"
           >
-            <IconSparkles className="w-4 h-4" />
+            <IconPlay className="w-8 h-8" />
           </UiButton>
-          <input
-            value={endpoint}
-            onChange={(event) => changeEndpoint(event.target.value)}
-            className="w-full"
-            type="text"
+        }
+        requestEditor={
+          <RequestEditor
+            schema={schema}
+            setQueryString={setQueryString}
+            queryString={queryString}
+            params={
+              <Params
+                headers={headers}
+                variables={variables}
+                setVariables={setVariables}
+                setHeaders={setHeaders}
+              />
+            }
           />
-        </>
-      }
-      buttonExecute={
-        <UiButton
-          type="button"
-          onClick={executeQuery}
-          className="p-2"
-          title="Execute query"
-        >
-          <IconPlay className="w-8 h-8" />
-        </UiButton>
-      }
-      requestEditor={
-        <RequestEditor
-          schema={schema}
-          setQueryString={setQueryString}
-          queryString={queryString}
-          params={
-            <Params
-              headers={headers}
-              variables={variables}
-              setVariables={setVariables}
-              setHeaders={setHeaders}
-            />
-          }
-        />
-      }
-      codeViewer={<CodeViewer value={response} error={error} />}
-    />
+        }
+        codeViewer={<CodeViewer value={response} error={error} />}
+      />
+      {schema && <SchemaViewer schema={schema} />}
+    </>
   );
 }

@@ -46,7 +46,7 @@ export function usePlayground() {
     getSchema();
   }, [endpoint]);
 
-  function changeEndpoint(newUrl: string) {
+  function setEndpoint(newUrl: string) {
     dispatch({
       type: AppStateActions.SET_ENDPOINT,
       payload: newUrl,
@@ -93,7 +93,7 @@ export function usePlayground() {
 
   return {
     executeQuery,
-    changeEndpoint,
+    setEndpoint,
     setVariables,
     setHeaders,
     setQueryString,

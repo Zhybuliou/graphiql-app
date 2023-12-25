@@ -2,13 +2,12 @@ import React from 'react';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
 
-function ParamsEditor({
-  value,
-  onChange,
-}: {
+type ParamsEditorProps = {
   value: string;
   onChange: (value: string) => void;
-}) {
+};
+
+function ParamsEditor({ value, onChange }: ParamsEditorProps) {
   return (
     <div className="bg-pink-400 p-2">
       <CodeMirror

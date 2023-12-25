@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraphQLField, GraphQLSchema } from 'graphql';
+import { GraphQLField } from 'graphql';
 import UiListItem from '../ui/UiListItem';
 import { TypeToDisplay } from './types';
 import SectionTitle from './ui/SectionTitle';
@@ -7,19 +7,11 @@ import TabWrapper from './ui/TabWrapper';
 import TypeInfo from './ui/TypeInfo';
 
 type QueriesTabProps = {
-  clientSchema: GraphQLSchema;
+  queries: GraphQLField<unknown, unknown, unknown>[];
   setOpenTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
-function QueriesTab({ clientSchema, setOpenTypes }: QueriesTabProps) {
-  const queryType = clientSchema.getQueryType();
-
-  if (!queryType) {
-    return <TabWrapper>!queryType</TabWrapper>;
-  }
-
-  const endpoints = Object.values(queryType.getFields());
-
+function QueriesTab({ queries, setOpenTypes }: QueriesTabProps) {
   function handleClickEndpoint(field: GraphQLField<unknown, unknown, unknown>) {
     setOpenTypes([field]);
   }
@@ -28,7 +20,7 @@ function QueriesTab({ clientSchema, setOpenTypes }: QueriesTabProps) {
     <TabWrapper>
       <SectionTitle>Queries</SectionTitle>
       <ul>
-        {endpoints.map((field) => {
+        {queries.map((field) => {
           return (
             <UiListItem
               onClick={() => {
