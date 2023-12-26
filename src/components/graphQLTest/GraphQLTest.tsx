@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '../ui/Button';
+import UiButton from '../ui/UiButton';
 import tempFetch from '../../utils/tempFetch';
 
 export interface IDataFromFetch {
@@ -42,9 +42,9 @@ function GraphQLTest() {
   };
   return (
     <div className="my-4 flex content-center items-center gap-3">
-      <Button type="button" onClick={handleTestButton}>
+      <UiButton type="button" onClick={handleTestButton}>
         Go
-      </Button>
+      </UiButton>
       <input
         className="border-2 border-cyan-400 rounded"
         type="text"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { isObjectType, GraphQLField, isScalarType } from 'graphql';
-import ListItem from '../../../ui/ListItem';
+import UiListItem from '../../../ui/UiListItem';
 import FieldInfo from '../../ui/FieldInfo';
 import { TypeToDisplay } from '../../types';
 import { getPureType } from '../../utils';
@@ -47,9 +47,9 @@ export default function TabDetails({
         {fields.map((field) => {
           const { name, type } = field;
           return (
-            <ListItem onClick={() => handleAddNewType(field)} key={name}>
+            <UiListItem onClick={() => handleAddNewType(field)} key={name}>
               <FieldInfo name={name} type={type.toString()} />
-            </ListItem>
+            </UiListItem>
           );
         })}
       </ul>

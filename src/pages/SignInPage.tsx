@@ -9,8 +9,8 @@ import RoutePaths from '../types/enums/routePaths';
 import { useLocale } from '../context/local';
 import PageWrapper from '../components/ui/PageWrapper';
 import FormWrapper from '../components/ui/FormWrapper';
-import Button from '../components/ui/Button';
-import FormInput from '../components/ui/FormInput';
+import UiButton from '../components/ui/UiButton';
+import UIFormInput from '../components/ui/UIFormInput';
 import { signInValidationSchema } from '../utils/validationSchemes';
 import ISignInForm from '../types/interfaces/ISignInForm';
 
@@ -51,7 +51,7 @@ function SignInPage() {
       <h1>{state.strings.signInPlease}</h1>
       <form onSubmit={handleSubmit(logInUser)}>
         <FormWrapper>
-          <FormInput
+          <UIFormInput
             type="text"
             name="email"
             register={register}
@@ -59,7 +59,7 @@ function SignInPage() {
             error={errors.email?.message}
             required
           />
-          <FormInput
+          <UIFormInput
             type="password"
             name="password"
             register={register}
@@ -67,9 +67,9 @@ function SignInPage() {
             error={errors.password?.message}
             required
           />
-          <Button type="submit" disabled={!isValid}>
+          <UiButton type="submit" disabled={!isValid}>
             {state.strings.login}
-          </Button>
+          </UiButton>
           <div className="mt-2">
             {state.strings.dontHaveAccount}
             <Link to={RoutePaths.SIGNUP}>{state.strings.register}</Link>

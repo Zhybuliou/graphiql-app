@@ -4,7 +4,7 @@ import { useUser } from '../firebase/firebase';
 import { useLocale } from '../context/local';
 import RoutePaths from '../types/enums/routePaths';
 import PageWrapper from '../components/ui/PageWrapper';
-import Button from '../components/ui/Button';
+import UiButton from '../components/ui/UiButton';
 
 function WelcomePage() {
   const { state } = useLocale();
@@ -15,7 +15,7 @@ function WelcomePage() {
       <h1>{state.strings.welcomePage}</h1>
       {user && (
         <Link to={RoutePaths.MAIN}>
-          <Button type="button">{state.strings.goMainPage}</Button>
+          <UiButton type="button">{state.strings.goMainPage}</UiButton>
         </Link>
       )}
       <div className="flex flex-col content-center items-center max-w-screen-md m-auto p-8 rounded-lg bg-cyan-400">

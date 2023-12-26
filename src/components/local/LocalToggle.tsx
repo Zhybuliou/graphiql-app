@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocale } from '../../context/local';
+import { LocaleActions, useLocale } from '../../context/local';
 import { REGIONS } from '../../context/local/constants';
 
 export default function LocalToggle() {
@@ -10,7 +10,7 @@ export default function LocalToggle() {
   ) => {
     const check = event.currentTarget.checked ? REGIONS.RU : REGIONS.EN;
     const action = {
-      type: 'CHANGE_LOCALE',
+      type: LocaleActions.CHANGE_LOCALE,
       payload: check,
     };
     dispatch(action);

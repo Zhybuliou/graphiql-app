@@ -3,7 +3,6 @@ import TabDetails from './TabDetails/TabDetails';
 import { TypeToDisplay } from '../types';
 import TabArguments from './TabArguments/TabArguments';
 import TabHeader from './TabHeader/TabHeader';
-import TabWrapper from '../ui/TabWrapper';
 import TabDescription from './TabDescription/TabDescription';
 
 type TypeTabProps = {
@@ -14,7 +13,7 @@ type TypeTabProps = {
 
 function TypeTab({ typeToDisplay, tabIndex, setOpenedTypes }: TypeTabProps) {
   return (
-    <TabWrapper>
+    <div className="flex flex-col gap-4 w-80 p-2 text-left">
       <TabHeader typeToDisplay={typeToDisplay} />
       <TabDescription typeToDisplay={typeToDisplay} />
       <TabDetails
@@ -27,7 +26,7 @@ function TypeTab({ typeToDisplay, tabIndex, setOpenedTypes }: TypeTabProps) {
         tabIndex={tabIndex}
         setOpenedTypes={setOpenedTypes}
       />
-    </TabWrapper>
+    </div>
   );
 }
 

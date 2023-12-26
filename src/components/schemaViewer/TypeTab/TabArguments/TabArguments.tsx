@@ -2,7 +2,7 @@ import React from 'react';
 
 import { GraphQLArgument } from 'graphql/type';
 import { TypeToDisplay } from '../../types';
-import ListItem from '../../../ui/ListItem';
+import UiListItem from '../../../ui/UiListItem';
 import FieldInfo from '../../ui/FieldInfo';
 import { isOutputFieldType, isScalarFieldType } from '../../utils';
 import SectionTitle from '../../ui/SectionTitle';
@@ -44,9 +44,9 @@ function TabArguments({
         {typeToDisplay.args.map((argument) => {
           const { name, type } = argument;
           return (
-            <ListItem key={name} onClick={() => handleAddNewType(argument)}>
+            <UiListItem key={name} onClick={() => handleAddNewType(argument)}>
               <FieldInfo name={name} type={type.toString()} />
-            </ListItem>
+            </UiListItem>
           );
         })}
       </ul>

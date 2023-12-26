@@ -6,7 +6,7 @@ import { useLocale } from '../../context/local';
 import RoutePaths from '../../types/enums/routePaths';
 import LocalToggle from '../local/LocalToggle';
 
-import Button from '../ui/Button';
+import UiButton from '../ui/UiButton';
 
 function Navbar() {
   const { state } = useLocale();
@@ -18,19 +18,19 @@ function Navbar() {
       {!user ? (
         <>
           <Link to={RoutePaths.SIGNIN}>
-            <Button type="button">{state.strings.signIn}</Button>
+            <UiButton type="button">{state.strings.signIn}</UiButton>
           </Link>
           <Link to={RoutePaths.SIGNUP}>
-            <Button type="button">{state.strings.signUp}</Button>
+            <UiButton type="button">{state.strings.signUp}</UiButton>
           </Link>
         </>
       ) : (
-        <Button type="button" onClick={logout}>
+        <UiButton type="button" onClick={logout}>
           {state.strings.logOut}
-        </Button>
+        </UiButton>
       )}
       <Link to={RoutePaths.WELCOME}>
-        <Button type="button"> {state.strings.mainPage}</Button>
+        <UiButton type="button"> {state.strings.mainPage}</UiButton>
       </Link>
     </div>
   );

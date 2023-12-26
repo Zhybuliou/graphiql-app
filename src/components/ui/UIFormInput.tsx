@@ -1,7 +1,7 @@
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import React from 'react';
 
-type FormInputProps<T extends FieldValues> = {
+type UiFormInputProps<T extends FieldValues> = {
   type: React.HTMLInputTypeAttribute;
   name: Path<T>;
   register: UseFormRegister<T>;
@@ -10,14 +10,14 @@ type FormInputProps<T extends FieldValues> = {
   error: string | undefined;
 };
 
-function FormInput<T extends FieldValues>({
+function UIFormInput<T extends FieldValues>({
   type,
   name,
   register,
   required,
   placeholder,
   error = '',
-}: FormInputProps<T>) {
+}: UiFormInputProps<T>) {
   return (
     <label htmlFor={name} className="relative w-80 mb-6">
       <input
@@ -36,4 +36,4 @@ function FormInput<T extends FieldValues>({
   );
 }
 
-export default FormInput;
+export default UIFormInput;
