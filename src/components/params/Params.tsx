@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ParamsEditor from './ParamsEditor';
-import TabButton from './TabButton';
 import cn from '../../utils/cn';
 
 enum TabsParams {
@@ -32,7 +31,7 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
   }
 
   function handleClickHeader(
-    event: React.MouseEvent<HTMLUListElement, MouseEvent>
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
     if (!(event.target as Element).closest('[data-id=tab-button]')) {
       setIsOpen((o) => !o);
@@ -42,7 +41,7 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
   return (
     <div className="w-full">
       <div className="text-sm font-medium text-center text-gray-500 ">
-        <ul
+        <div
           className={cn('flex cursor-row-resize', {
             'cursor-s-resize': isOpen,
           })}
@@ -50,15 +49,24 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
         >
           {Object.entries(TabsParams).map(([, tabParams]) => {
             return (
-              <TabButton
+              <button
                 key={tabParams}
+                data-id="tab-button"
+                type="button"
                 onClick={() => handleChangeTab(tabParams)}
-                text={tabParams}
-                isActive={activeTab === tabParams}
-              />
+                className={cn(
+                  `uppercase inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300`,
+                  {
+                    'border-blue-600 text-gray-600 hover:border-blue-600':
+                      activeTab === tabParams,
+                  }
+                )}
+              >
+                {tabParams}
+              </button>
             );
           })}
-        </ul>
+        </div>
       </div>
       {isOpen && <ParamsEditor value={value} onChange={onChange} />}
     </div>
