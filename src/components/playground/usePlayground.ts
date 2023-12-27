@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import {
   buildClientSchema,
   getIntrospectionQuery,
@@ -7,10 +7,17 @@ import {
 import { createHeadersOfRequest } from '../../utils/createHeadersOfRequest';
 import { createBodyOfRequest } from '../../utils/createBodyOfRequest';
 import { makeRequest } from '../../services/makeRequest';
-import { AppStateActions, useAppState } from '../../context/appState';
+import {
+  initialPlaygroundState,
+  PlaygroundActions,
+  playgroundReducer,
+} from '../reducers/playground';
 
 export function usePlayground() {
-  const { state, dispatch } = useAppState();
+  const [state, dispatch] = useReducer(
+    playgroundReducer,
+    initialPlaygroundState
+  );
   const { headers, variables, endpoint, queryString } = state;
 
   const [error, setError] = useState<Error | null>(null);
@@ -24,8 +31,9 @@ export function usePlayground() {
   }
 
   useEffect(() => {
-    const getSchema = async () => {
+    async function getSchema() {
       setError(null);
+      setSchema(null);
       const requestHeaders = createHeadersOfRequest('');
       const query = getIntrospectionQuery();
       const requestBody = createBodyOfRequest('', query);
@@ -41,28 +49,28 @@ export function usePlayground() {
       } catch (caughtError) {
         handleError(caughtError, "Error. We can't get the schema.");
       }
-    };
+    }
 
     getSchema();
   }, [endpoint]);
 
   function setEndpoint(newUrl: string) {
     dispatch({
-      type: AppStateActions.SET_ENDPOINT,
+      type: PlaygroundActions.SET_ENDPOINT,
       payload: newUrl,
     });
   }
 
   function prettify() {
     dispatch({
-      type: AppStateActions.PRETTIFY,
+      type: PlaygroundActions.PRETTIFY,
       payload: '',
     });
   }
 
   function setQueryString(query: string) {
     dispatch({
-      type: AppStateActions.SET_QUERY_STRING,
+      type: PlaygroundActions.SET_QUERY_STRING,
       payload: query,
     });
   }
@@ -75,7 +83,7 @@ export function usePlayground() {
       const data = await makeRequest(endpoint, requestHeaders, requestBody);
 
       dispatch({
-        type: AppStateActions.SET_RESPONSE,
+        type: PlaygroundActions.SET_RESPONSE,
         payload: JSON.stringify(data),
       });
     } catch (caughtError) {
@@ -84,11 +92,11 @@ export function usePlayground() {
   }
 
   function setVariables(newVariables: string) {
-    dispatch({ type: AppStateActions.SET_VARIABLES, payload: newVariables });
+    dispatch({ type: PlaygroundActions.SET_VARIABLES, payload: newVariables });
   }
 
   function setHeaders(newHeaders: string) {
-    dispatch({ type: AppStateActions.SET_HEADERS, payload: newHeaders });
+    dispatch({ type: PlaygroundActions.SET_HEADERS, payload: newHeaders });
   }
 
   return {
