@@ -19,13 +19,9 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<TabsParams>(TabsParams.variables);
 
-  const editor = {
-    [TabsParams.variables]: (
-      <ParamsEditor value={headers} onChange={setHeaders} />
-    ),
-    [TabsParams.headers]: (
-      <ParamsEditor value={variables} onChange={setVariables} />
-    ),
+  const { value, onChange } = {
+    [TabsParams.headers]: { value: headers, onChange: setHeaders },
+    [TabsParams.variables]: { value: variables, onChange: setVariables },
   }[activeTab];
 
   function handleChangeTab(newTab: TabsParams) {
@@ -64,7 +60,7 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
           })}
         </ul>
       </div>
-      {isOpen && editor}
+      {isOpen && <ParamsEditor value={value} onChange={onChange} />}
     </div>
   );
 }
