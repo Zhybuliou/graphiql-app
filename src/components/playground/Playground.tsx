@@ -8,6 +8,7 @@ import CodeViewer from './CodeViewer';
 import { usePlayground } from './usePlayground';
 import PlaygroundLayout from './PlaygroundLayout';
 import SchemaViewer from '../schemaViewer/SchemaViewer';
+import EndpointInput from './EndpointInput';
 
 export default function Playground() {
   const {
@@ -39,12 +40,7 @@ export default function Playground() {
             >
               <IconSparkles className="w-4 h-4" />
             </UiButton>
-            <input
-              value={endpoint}
-              onChange={(event) => setEndpoint(event.target.value)}
-              className="w-full"
-              type="text"
-            />
+            <EndpointInput endpoint={endpoint} setEndpoint={setEndpoint} />
           </>
         }
         buttonExecute={

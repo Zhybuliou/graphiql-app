@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import {
   buildClientSchema,
   getIntrospectionQuery,
@@ -54,12 +54,12 @@ export function usePlayground() {
     getSchema();
   }, [endpoint]);
 
-  function setEndpoint(newUrl: string) {
+  const setEndpoint = useCallback((newUrl: string) => {
     dispatch({
       type: PlaygroundActions.SET_ENDPOINT,
       payload: newUrl,
     });
-  }
+  }, []);
 
   function prettify() {
     dispatch({
