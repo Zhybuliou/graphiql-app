@@ -19,6 +19,7 @@ export default function Playground() {
     queryString,
     response,
     error,
+    isLoading,
     setEndpoint,
     setHeaders,
     setVariables,
@@ -49,6 +50,7 @@ export default function Playground() {
             onClick={executeQuery}
             className="p-2 rounded-full"
             title="Execute query"
+            disabled={isLoading || !schema}
           >
             <IconPlay className="w-10 h-10" />
           </UiButton>
@@ -68,7 +70,9 @@ export default function Playground() {
             }
           />
         }
-        codeViewer={<CodeViewer value={response} error={error} />}
+        codeViewer={
+          <CodeViewer value={response} error={error} isLoading={isLoading} />
+        }
       />
       {schema && <SchemaViewer schema={schema} />}
     </>

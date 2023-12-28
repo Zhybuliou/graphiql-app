@@ -21,12 +21,14 @@ export function usePlayground() {
   const { headers, variables, endpoint, queryString } = state;
 
   const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [schema, setSchema] = useState<GraphQLSchema | undefined>();
 
   function handleError(caughtError: unknown, errorTitle: string) {
     const errorMessage =
       caughtError instanceof Error ? caughtError.message : '';
     const fullErrorMessage = JSON.stringify(`${errorTitle} - ${errorMessage}`);
+    setIsLoading(false);
     setError(new Error(fullErrorMessage));
   }
 
@@ -42,6 +44,7 @@ export function usePlayground() {
       setError(null);
       setSchema(undefined);
       clearResponseData();
+      setIsLoading(true);
       const requestHeaders = createHeadersOfRequest('');
       const query = getIntrospectionQuery();
       const requestBody = createBodyOfRequest('', query);
@@ -52,6 +55,7 @@ export function usePlayground() {
           requestHeaders,
           requestBody
         );
+        setIsLoading(false);
         const clientSchema = buildClientSchema(schemaData.data);
         setSchema(clientSchema);
       } catch (caughtError) {
@@ -86,11 +90,12 @@ export function usePlayground() {
   async function executeQuery() {
     try {
       setError(null);
+      setIsLoading(true);
       clearResponseData();
       const requestHeaders = createHeadersOfRequest(headers);
       const requestBody = createBodyOfRequest(variables, queryString);
       const data = await makeRequest(endpoint, requestHeaders, requestBody);
-
+      setIsLoading(false);
       dispatch({
         type: PlaygroundActions.SET_RESPONSE,
         payload: JSON.stringify(data),
@@ -118,6 +123,6 @@ export function usePlayground() {
     ...state,
     schema,
     error,
-    dispatch,
+    isLoading,
   };
 }
