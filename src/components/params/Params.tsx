@@ -39,7 +39,7 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-sky-950">
       <div className="text-sm font-medium text-center text-gray-500 ">
         <div
           className={cn('flex cursor-row-resize', {

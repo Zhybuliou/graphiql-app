@@ -1,5 +1,6 @@
 import React from 'react';
 import CodeMirror, { EditorState } from '@uiw/react-codemirror';
+import { graphql } from 'cm6-graphql';
 import cn from '../../utils/cn';
 
 type CodeViewerProps = {
@@ -17,15 +18,8 @@ function CodeViewer({
 }: CodeViewerProps) {
   const dataToDisplay = error ? error.message : value;
 
-  const footer = <div className="h-[56px]">Footer</div>;
-
   return (
-    <div
-      className={cn(
-        'relative flex flex-col bg-pink-300 p-4 w-6/12 h-full',
-        className
-      )}
-    >
+    <div className={cn('relative flex flex-col w-6/12 h-full', className)}>
       {isLoading ? (
         <div className="h-full w-full">Spinner</div>
       ) : (
@@ -34,10 +28,11 @@ function CodeViewer({
             textAlign: 'start',
             overflow: 'auto',
             height: '100%',
+            paddingLeft: '16px',
             background: error ? 'red' : '',
           }}
           value={dataToDisplay}
-          extensions={[EditorState.readOnly.of(true)]}
+          extensions={[graphql(), EditorState.readOnly.of(true)]}
           theme="none"
           basicSetup={{
             autocompletion: false,
@@ -50,7 +45,9 @@ function CodeViewer({
           height="100%"
         />
       )}
-      {footer}
+      <div className="h-[56px] flex justify-end items-center px-3 bg-sky-950 text-gray-400">
+        Footer
+      </div>
       {!dataToDisplay && !isLoading && (
         <div className="absolute flex items-center justify-center w-[calc(100%-16px)] h-[calc(100%-16px)]">
           No data! Make a request!

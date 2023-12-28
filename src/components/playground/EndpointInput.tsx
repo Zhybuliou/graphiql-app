@@ -19,7 +19,7 @@ function EndpointInput({ endpoint, setEndpoint }: EndpointInputProps) {
     <input
       value={inputText}
       onChange={(event) => setInputText(event.target.value)}
-      className="w-full"
+      className="w-full py-1 px-2 outline-none rounded"
       type="text"
     />
   );

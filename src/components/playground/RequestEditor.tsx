@@ -17,7 +17,7 @@ function RequestEditor({
   params,
 }: RequestEditorProps) {
   return (
-    <div className="flex flex-col bg-pink-300 p-4 w-6/12 h-full">
+    <div className="flex flex-col w-6/12 h-full">
       <div className="flex-1">
         <CodeMirror
           style={{
@@ -45,6 +45,7 @@ function RequestEditor({
             closeBrackets: true,
             lintKeymap: true,
           }}
+          theme="dark"
           width="100%"
           height="100%"
         />
