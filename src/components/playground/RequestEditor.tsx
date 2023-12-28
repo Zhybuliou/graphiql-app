@@ -20,7 +20,6 @@ function RequestEditor({
     <div className="flex flex-col bg-pink-300 p-4 w-6/12 h-full">
       <div className="flex-1">
         <CodeMirror
-          key={(!!schema).toString()}
           style={{
             textAlign: 'start',
             whiteSpace: 'pre-wrap',
@@ -29,7 +28,11 @@ function RequestEditor({
             height: '100%',
           }}
           value={queryString}
-          extensions={[graphql(schema), EditorView.lineWrapping]}
+          extensions={
+            schema
+              ? [graphql(schema), EditorView.lineWrapping]
+              : [EditorView.lineWrapping]
+          }
           onChange={setQueryString}
           basicSetup={{
             highlightActiveLine: true,
