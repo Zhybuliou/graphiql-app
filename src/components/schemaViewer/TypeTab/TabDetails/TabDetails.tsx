@@ -1,5 +1,10 @@
 import React from 'react';
-import { isObjectType, GraphQLField, isScalarType } from 'graphql';
+import {
+  isObjectType,
+  GraphQLField,
+  isScalarType,
+  isInputObjectType,
+} from 'graphql';
 import UiListItem from '../../../ui/UiListItem';
 import FieldInfo from '../../ui/FieldInfo';
 import { TypeToDisplay } from '../../types';
@@ -24,14 +29,14 @@ export default function TabDetails({
     return <TabDetailsScalar scalarType={pureType} />;
   }
 
-  if (!isObjectType(pureType)) {
-    return <p>!isObjectType</p>;
+  if (!isObjectType(pureType) && !isInputObjectType(pureType)) {
+    throw new Error('!isObjectType');
   }
 
   const fields = Object.values(pureType.getFields());
 
   if (fields.length === 0) {
-    return <p>fields.length===0</p>;
+    throw new Error('fields.length === 0');
   }
 
   function handleAddNewType(newField: GraphQLField<unknown, unknown, unknown>) {
