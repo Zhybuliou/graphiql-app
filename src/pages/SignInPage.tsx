@@ -48,7 +48,9 @@ function SignInPage() {
 
   return (
     <PageWrapper>
-      <h1>{state.strings.signInPlease}</h1>
+      <h1 className="text-black font-inter text-xl font-medium">
+        {state.strings.signInPlease}
+      </h1>
       <form onSubmit={handleSubmit(logInUser)}>
         <FormWrapper>
           <UIFormInput
