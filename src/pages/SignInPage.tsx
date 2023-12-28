@@ -27,8 +27,8 @@ function SignInPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, loading]);
 
-  const onError = (err: Error) => {
-    toast.error(err.message, {
+  const onError = () => {
+    toast.error('Firebase: Error (auth/invalid-credential)', {
       position: toast.POSITION.TOP_LEFT,
     });
   };

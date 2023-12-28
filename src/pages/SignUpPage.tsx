@@ -36,8 +36,8 @@ function SignUpPage() {
     mode: 'onChange',
   });
 
-  const onError = (err: Error) => {
-    toast.error(err.message, {
+  const onError = () => {
+    toast.error('Firebase: Error!', {
       position: toast.POSITION.TOP_LEFT,
     });
   };
@@ -52,7 +52,9 @@ function SignUpPage() {
 
   return (
     <PageWrapper>
-      <h1>{state.strings.signUpPlease}</h1>
+      <h1 className="text-black font-inter text-xl font-medium">
+        {state.strings.signUpPlease}
+      </h1>
       <form onSubmit={handleSubmit(registerUser)}>
         <FormWrapper>
           <UIFormInput
