@@ -16,7 +16,7 @@ function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-80 p-2 text-left">
+    <div className="flex flex-col gap-4 w-80 overflow-y-scroll shrink-0 p-2 text-left">
       <SectionTitle>Queries</SectionTitle>
       <ul>
         {queries.map((field) => {

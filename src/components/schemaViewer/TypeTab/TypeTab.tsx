@@ -13,7 +13,7 @@ type TypeTabProps = {
 
 function TypeTab({ typeToDisplay, tabIndex, setOpenedTypes }: TypeTabProps) {
   return (
-    <div className="flex flex-col gap-4 w-80 p-2 text-left">
+    <div className="flex flex-col gap-4 w-80 shrink-0 overflow-y-scroll p-2 text-left">
       <TabHeader typeToDisplay={typeToDisplay} />
       <TabDescription typeToDisplay={typeToDisplay} />
       <TabDetails
