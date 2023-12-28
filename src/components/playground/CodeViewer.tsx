@@ -1,6 +1,5 @@
 import React from 'react';
 import CodeMirror, { EditorState } from '@uiw/react-codemirror';
-import { graphql } from 'cm6-graphql';
 import cn from '../../utils/cn';
 
 type CodeViewerProps = {
@@ -29,7 +28,7 @@ function CodeViewer({ error, value, className = '' }: CodeViewerProps) {
           height: '100%',
         }}
         value={dataToDisplay}
-        extensions={[graphql(), EditorState.readOnly.of(true)]}
+        extensions={[EditorState.readOnly.of(true)]}
         theme="none"
         basicSetup={{
           autocompletion: false,
@@ -43,7 +42,7 @@ function CodeViewer({ error, value, className = '' }: CodeViewerProps) {
       />
       {footer}
       {!dataToDisplay && (
-        <div className="absolute flex items-center justify-center w-full h-full">
+        <div className="absolute flex items-center justify-center w-[calc(100%-16px)] h-[calc(100%-16px)]">
           No data! Make a request!
         </div>
       )}

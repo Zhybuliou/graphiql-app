@@ -30,10 +30,18 @@ export function usePlayground() {
     setError(new Error(fullErrorMessage));
   }
 
+  function clearResponseData() {
+    dispatch({
+      type: PlaygroundActions.SET_RESPONSE,
+      payload: '',
+    });
+  }
+
   useEffect(() => {
     async function getSchema() {
       setError(null);
       setSchema(undefined);
+      clearResponseData();
       const requestHeaders = createHeadersOfRequest('');
       const query = getIntrospectionQuery();
       const requestBody = createBodyOfRequest('', query);
@@ -78,6 +86,7 @@ export function usePlayground() {
   async function executeQuery() {
     try {
       setError(null);
+      clearResponseData();
       const requestHeaders = createHeadersOfRequest(headers);
       const requestBody = createBodyOfRequest(variables, queryString);
       const data = await makeRequest(endpoint, requestHeaders, requestBody);

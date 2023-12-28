@@ -20,6 +20,7 @@ function RequestEditor({
     <div className="flex flex-col bg-pink-300 p-4 w-6/12 h-full">
       <div className="flex-1">
         <CodeMirror
+          key={(!!schema).toString()}
           style={{
             textAlign: 'start',
             whiteSpace: 'pre-wrap',

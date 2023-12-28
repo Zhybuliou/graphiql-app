@@ -47,7 +47,9 @@ export const playgroundReducer = (
     case PlaygroundActions.SET_RESPONSE: {
       return {
         ...state,
-        response: JSON.stringify(JSON.parse(action.payload), null, 2),
+        response: action.payload
+          ? JSON.stringify(JSON.parse(action.payload), null, 2)
+          : '',
       };
     }
     case PlaygroundActions.SET_VARIABLES: {
