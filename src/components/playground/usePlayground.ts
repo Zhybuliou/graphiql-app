@@ -21,7 +21,7 @@ export function usePlayground() {
   const { headers, variables, endpoint, queryString } = state;
 
   const [error, setError] = useState<Error | null>(null);
-  const [schema, setSchema] = useState<GraphQLSchema | null>(null);
+  const [schema, setSchema] = useState<GraphQLSchema | undefined>();
 
   function handleError(caughtError: unknown, errorTitle: string) {
     const errorMessage =
@@ -33,7 +33,7 @@ export function usePlayground() {
   useEffect(() => {
     async function getSchema() {
       setError(null);
-      setSchema(null);
+      setSchema(undefined);
       const requestHeaders = createHeadersOfRequest('');
       const query = getIntrospectionQuery();
       const requestBody = createBodyOfRequest('', query);
