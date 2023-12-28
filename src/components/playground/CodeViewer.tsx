@@ -14,38 +14,39 @@ function CodeViewer({ error, value, className = '' }: CodeViewerProps) {
 
   const footer = <div className="h-[56px]">Footer</div>;
 
-  if (!dataToDisplay) {
-    return (
-      <div
-        className={cn('flex flex-col bg-pink-300 p-4 w-6/12 h-full', className)}
-      >
-        <div className="flex items-center justify-center w-full h-full">
-          No data! Make a request!
-        </div>
-        {footer}
-      </div>
-    );
-  }
-
   return (
     <div
       className={cn(
-        'flex flex-col bg-pink-300 p-4 w-6/12 h-full',
+        'relative flex flex-col bg-pink-300 p-4 w-6/12 h-full',
         { 'bg-red-500': !!error },
         className
       )}
     >
       <CodeMirror
-        style={{ textAlign: 'start', overflow: 'auto', height: '100%' }}
+        style={{
+          textAlign: 'start',
+          overflow: 'auto',
+          height: '100%',
+        }}
         value={dataToDisplay}
         extensions={[graphql(), EditorState.readOnly.of(true)]}
+        theme="none"
         basicSetup={{
-          autocompletion: true,
+          autocompletion: false,
+          foldGutter: false,
+          lineNumbers: false,
+          bracketMatching: true,
+          highlightActiveLine: false,
         }}
         width="100%"
         height="100%"
       />
       {footer}
+      {!dataToDisplay && (
+        <div className="absolute flex items-center justify-center w-full h-full">
+          No data! Make a request!
+        </div>
+      )}
     </div>
   );
 }
