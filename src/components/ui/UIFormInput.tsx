@@ -27,7 +27,7 @@ function UIFormInput<T extends FieldValues>({
     setShowPassword(!showPassword);
   };
   return (
-    <label htmlFor={name} className="relative w-80 mb-6 text-black">
+    <label htmlFor={name} className="relative w-80 text-black">
       <input
         type={showPassword ? 'text' : type}
         id={name}
@@ -50,7 +50,9 @@ function UIFormInput<T extends FieldValues>({
           )}
         </span>
       )}
-      {error && <div className="text-red-400 select-none">{error}</div>}
+      <div className="h-10 mb-0.5 mt-0.5 text-red-400 text-sm select-none">
+        {error}
+      </div>
     </label>
   );
 }
