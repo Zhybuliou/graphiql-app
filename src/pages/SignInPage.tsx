@@ -28,7 +28,7 @@ function SignInPage() {
   }, [user, loading]);
 
   const onError = () => {
-    toast.error('Firebase: Error (auth/invalid-credential)', {
+    toast.error('Firebase: Error, autoization invalid', {
       position: toast.POSITION.TOP_LEFT,
     });
   };
