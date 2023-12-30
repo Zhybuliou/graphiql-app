@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ParamsEditor from './ParamsEditor';
-import cn from '../../utils/cn';
+import { ParamsEditor } from './editors/ParamsEditor';
+import { cn } from '../../utils/cn';
 
 enum TabsParams {
   variables = 'query variables',
@@ -14,7 +14,12 @@ type ParamsProps = {
   setVariables: (newVariables: string) => void;
 };
 
-function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
+export function Params({
+  headers,
+  variables,
+  setHeaders,
+  setVariables,
+}: ParamsProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<TabsParams>(TabsParams.variables);
 
@@ -72,5 +77,3 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
     </div>
   );
 }
-
-export default Params;

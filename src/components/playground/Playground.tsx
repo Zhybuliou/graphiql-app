@@ -1,14 +1,14 @@
 import React from 'react';
-import Params from '../params/Params';
+import { Params } from './Params';
 import { IconPlay } from '../ui/icons/IconPlay';
 import { IconSparkles } from '../ui/icons/IconSparkles';
-import UiButton from '../ui/UiButton';
-import RequestEditor from './RequestEditor';
-import CodeViewer from './CodeViewer';
+import { UiButton } from '../ui/UiButton';
+import { RequestEditor } from './editors/RequestEditor';
+import { ResponseEditor } from './editors/ResponseEditor';
 import { usePlayground } from './usePlayground';
-import PlaygroundLayout from './PlaygroundLayout';
-import SchemaViewer from '../schemaViewer/SchemaViewer';
-import EndpointInput from './EndpointInput';
+import { PlaygroundLayout } from './PlaygroundLayout';
+import { SchemaViewer } from '../schemaViewer/SchemaViewer';
+import { EndpointInput } from './EndpointInput';
 
 export default function Playground() {
   const {
@@ -71,7 +71,11 @@ export default function Playground() {
           />
         }
         codeViewer={
-          <CodeViewer value={response} error={error} isLoading={isLoading} />
+          <ResponseEditor
+            value={response}
+            error={error}
+            isLoading={isLoading}
+          />
         }
       />
       {schema && <SchemaViewer schema={schema} />}
