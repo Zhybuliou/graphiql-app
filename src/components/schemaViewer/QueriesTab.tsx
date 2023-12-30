@@ -16,7 +16,7 @@ export function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-80 overflow-y-scroll shrink-0 p-2 text-left">
+    <div className="relative flex flex-col gap-4 w-80 overflow-y-scroll shrink-0 p-2 text-left bg-schema-gradient">
       <SectionTitle>Queries</SectionTitle>
       <ul>
         {queries.map((field) => {
@@ -36,6 +36,7 @@ export function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
           );
         })}
       </ul>
+      <div className="absolute -z-10 top-0 left-0 h-full w-full opacity-25 bg-schema-pattern" />
     </div>
   );
 }

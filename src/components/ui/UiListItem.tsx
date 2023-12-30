@@ -16,13 +16,13 @@ export function UiListItem({
   return (
     <li
       className={cn(
-        'flex justify-between p-1 items-center cursor-pointer hover:bg-blue-100',
+        'flex justify-between p-1 items-center cursor-pointer rounded-[10px] hover:bg-blue-li-hover',
         className
       )}
       onClick={onClick}
     >
       <div className="ml-2">{children}</div>
-      <IconArrowRight className="h-[18px] w-2.5 text-gray-400" />
+      <IconArrowRight className="h-[18px] w-2.5 text-white" />
     </li>
   );
 }
