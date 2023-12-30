@@ -7,6 +7,7 @@ import AppRouter from './routes/AppRouter';
 
 import { LocaleProvider } from './context/local';
 import { AppStateProvider } from './context/appState';
+import Footer from './components/footer/Footer';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Navbar />
           <AppRouter />
           <ToastContainer />
+          <Footer />
         </BrowserRouter>
       </AppStateProvider>
     </LocaleProvider>
