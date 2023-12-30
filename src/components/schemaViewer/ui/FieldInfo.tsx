@@ -6,7 +6,7 @@ type FieldInfoProps = {
   className?: string;
 };
 
-function FieldInfo({ name, type, className = '' }: FieldInfoProps) {
+export function FieldInfo({ name, type, className = '' }: FieldInfoProps) {
   return (
     <p className={className}>
       <span className="text-blue-600">{name}</span>
@@ -19,5 +19,3 @@ function FieldInfo({ name, type, className = '' }: FieldInfoProps) {
 FieldInfo.defaultProps = {
   className: '',
 };
-
-export default FieldInfo;

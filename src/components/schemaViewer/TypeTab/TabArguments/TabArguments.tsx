@@ -2,10 +2,10 @@ import React from 'react';
 
 import { GraphQLArgument } from 'graphql/type';
 import { TypeToDisplay } from '../../types';
-import UiListItem from '../../../ui/UiListItem';
-import FieldInfo from '../../ui/FieldInfo';
+import { UiListItem } from '../../../ui/UiListItem';
+import { FieldInfo } from '../../ui/FieldInfo';
 import { isOutputFieldType, isScalarFieldType } from '../../utils';
-import SectionTitle from '../../ui/SectionTitle';
+import { SectionTitle } from '../../ui/SectionTitle';
 
 type TabArgumentsProps = {
   typeToDisplay: TypeToDisplay;
@@ -13,7 +13,7 @@ type TabArgumentsProps = {
   setOpenedTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
-function TabArguments({
+export function TabArguments({
   typeToDisplay,
   tabIndex,
   setOpenedTypes,
@@ -53,5 +53,3 @@ function TabArguments({
     </div>
   );
 }
-
-export default TabArguments;

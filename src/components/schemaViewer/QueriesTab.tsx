@@ -1,16 +1,16 @@
 import React from 'react';
 import { GraphQLField } from 'graphql';
-import UiListItem from '../ui/UiListItem';
+import { UiListItem } from '../ui/UiListItem';
 import { TypeToDisplay } from './types';
-import SectionTitle from './ui/SectionTitle';
-import TypeInfo from './ui/TypeInfo';
+import { SectionTitle } from './ui/SectionTitle';
+import { TypeInfo } from './ui/TypeInfo';
 
 type QueriesTabProps = {
   queries: GraphQLField<unknown, unknown, unknown>[];
   setOpenedTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
-function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
+export function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
   function handleClickEndpoint(field: GraphQLField<unknown, unknown, unknown>) {
     setOpenedTypes([field]);
   }
@@ -39,5 +39,3 @@ function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
     </div>
   );
 }
-
-export default QueriesTab;

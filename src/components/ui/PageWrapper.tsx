@@ -1,8 +1,8 @@
 import React from 'react';
 import { PropsWithChildren } from '../../types/utilityTypes';
-import cn from '../../utils/cn';
+import { cn } from '../../utils/cn';
 
-function PageWrapper({
+export function PageWrapper({
   className,
   children,
 }: PropsWithChildren<{ className?: string }>) {
@@ -12,5 +12,3 @@ function PageWrapper({
     </div>
   );
 }
-
-export default PageWrapper;

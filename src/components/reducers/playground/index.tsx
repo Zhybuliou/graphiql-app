@@ -1,6 +1,6 @@
 import { BASE_ENDPOINT, BASE_QUERY_STRING, BASE_VARIABLES } from './constants';
 
-import prettifyGraphQLQuery from '../../../utils/prettifyGraphQLQuery';
+import { prettifyGraphQLQuery } from '../../../utils/prettifyGraphQLQuery';
 
 export enum PlaygroundActions {
   SET_ENDPOINT,

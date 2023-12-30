@@ -6,12 +6,10 @@ type TabDescriptionProps = {
   typeToDisplay: TypeToDisplay;
 };
 
-function TabDescription({ typeToDisplay }: TabDescriptionProps) {
+export function TabDescription({ typeToDisplay }: TabDescriptionProps) {
   if (!isOutputFieldType(typeToDisplay)) {
     return null;
   }
 
   return <p>{typeToDisplay.description}</p>;
 }
-
-export default TabDescription;

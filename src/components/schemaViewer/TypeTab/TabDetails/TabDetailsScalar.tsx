@@ -1,9 +1,9 @@
 import React from 'react';
 import { GraphQLScalarType } from 'graphql/type';
-import SectionTitle from '../../ui/SectionTitle';
-import FieldInfo from '../../ui/FieldInfo';
+import { SectionTitle } from '../../ui/SectionTitle';
+import { FieldInfo } from '../../ui/FieldInfo';
 
-export default function TabDetailsScalar({
+export function TabDetailsScalar({
   scalarType,
 }: {
   scalarType: GraphQLScalarType;

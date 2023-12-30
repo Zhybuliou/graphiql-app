@@ -10,7 +10,7 @@ type UiFormInputProps<T extends FieldValues> = {
   error: string | undefined;
 };
 
-function UIFormInput<T extends FieldValues>({
+export function UIFormInput<T extends FieldValues>({
   type,
   name,
   register,
@@ -35,5 +35,3 @@ function UIFormInput<T extends FieldValues>({
     </label>
   );
 }
-
-export default UIFormInput;

@@ -11,7 +11,11 @@ query allCharacters {
 }
 `;
 
-const tempFetch = (endpoint: string, query: string, variables1: string) => {
+export const tempFetch = (
+  endpoint: string,
+  query: string,
+  variables1: string
+) => {
   const finalEndpoint = endpoint === '' ? baseEndPoint : endpoint;
   const finalQuery = query === '' ? baseQuery : query;
   fetch(finalEndpoint, {
@@ -27,5 +31,3 @@ const tempFetch = (endpoint: string, query: string, variables1: string) => {
     .then((res) => res.json())
     .then((result) => console.log(result.data.characters));
 };
-
-export default tempFetch;

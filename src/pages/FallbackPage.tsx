@@ -1,13 +1,13 @@
 import React from 'react';
-import PageWrapper from '../components/ui/PageWrapper';
-import UiButton from '../components/ui/UiButton';
+import { PageWrapper } from '../components/ui/PageWrapper';
+import { UiButton } from '../components/ui/UiButton';
 
 type FallbackProps = {
   error: Error;
   resetErrorBoundary: () => void;
 };
 
-function FallbackPage({ error, resetErrorBoundary }: FallbackProps) {
+export function FallbackPage({ error, resetErrorBoundary }: FallbackProps) {
   return (
     <PageWrapper>
       <h1>Something went wrong</h1>
@@ -18,5 +18,3 @@ function FallbackPage({ error, resetErrorBoundary }: FallbackProps) {
     </PageWrapper>
   );
 }
-
-export default FallbackPage;

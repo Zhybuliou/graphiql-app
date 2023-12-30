@@ -1,14 +1,14 @@
 import React from 'react';
 import { PropsWithChildren } from '../../types/utilityTypes';
-import cn from '../../utils/cn';
-import IconArrowRight from './icons/IconArrowRight';
+import { cn } from '../../utils/cn';
+import { IconArrowRight } from './icons/IconArrowRight';
 
 type UiListItemProps = {
   onClick: () => void;
   className?: string;
 };
 
-function UiListItem({
+export function UiListItem({
   children,
   onClick,
   className = '',
@@ -26,5 +26,3 @@ function UiListItem({
     </li>
   );
 }
-
-export default UiListItem;

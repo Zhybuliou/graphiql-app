@@ -2,7 +2,7 @@ import React from 'react';
 import { LocaleActions, useLocale } from '../../context/local';
 import { REGIONS } from '../../context/local/constants';
 
-export default function LocalToggle() {
+export function LocalToggle() {
   const { state, dispatch } = useLocale();
 
   const handleRegionChange = (

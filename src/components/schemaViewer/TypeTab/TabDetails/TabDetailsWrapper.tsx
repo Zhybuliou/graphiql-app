@@ -1,8 +1,8 @@
 import React from 'react';
 import { PropsWithChildren } from '../../../../types/utilityTypes';
-import SectionTitle from '../../ui/SectionTitle';
+import { SectionTitle } from '../../ui/SectionTitle';
 
-export default function TabDetailsWrapper({
+export function TabDetailsWrapper({
   children,
   typeName,
 }: PropsWithChildren<{ typeName: string }>) {

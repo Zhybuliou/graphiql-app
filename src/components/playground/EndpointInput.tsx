@@ -5,13 +5,15 @@ type EndpointInputProps = {
   setEndpoint: (newEndpoint: string) => void;
 };
 
-function EndpointInput({ endpoint, setEndpoint }: EndpointInputProps) {
+const DEBOUNCE_TIMEOUT = 1000;
+
+export function EndpointInput({ endpoint, setEndpoint }: EndpointInputProps) {
   const [inputText, setInputText] = useState<string>(endpoint);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setEndpoint(inputText);
-    }, 1000);
+    }, DEBOUNCE_TIMEOUT);
     return () => clearTimeout(timeoutId);
   }, [inputText, setEndpoint]);
 
@@ -24,5 +26,3 @@ function EndpointInput({ endpoint, setEndpoint }: EndpointInputProps) {
     />
   );
 }
-
-export default EndpointInput;

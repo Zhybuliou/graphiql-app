@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from '../../utils/cn';
+import { cn } from '../../utils/cn';
 
 type SchemaViewerLayoutProps = {
   isOpen: boolean;
@@ -8,7 +8,7 @@ type SchemaViewerLayoutProps = {
   openedTypeTabs: React.ReactElement[];
 };
 
-function SchemaViewerLayout({
+export function SchemaViewerLayout({
   isOpen,
   queriesTab,
   openedTypeTabs,
@@ -31,5 +31,3 @@ function SchemaViewerLayout({
     </div>
   );
 }
-
-export default SchemaViewerLayout;

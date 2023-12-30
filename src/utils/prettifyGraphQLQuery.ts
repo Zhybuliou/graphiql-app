@@ -1,4 +1,4 @@
-function prettifyGraphQLQuery(query: string) {
+export function prettifyGraphQLQuery(query: string) {
   let newQuery = query;
   let prettyQuery = '';
   let indentLevel = 0;
@@ -35,5 +35,3 @@ function prettifyGraphQLQuery(query: string) {
 
   return prettyQuery;
 }
-
-export default prettifyGraphQLQuery;

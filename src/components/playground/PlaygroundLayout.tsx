@@ -7,7 +7,7 @@ type PlaygroundLayoutProps = {
   codeViewer: React.ReactElement;
 };
 
-function PlaygroundLayout({
+export function PlaygroundLayout({
   controls,
   requestEditor,
   buttonExecute,
@@ -26,5 +26,3 @@ function PlaygroundLayout({
     </div>
   );
 }
-
-export default PlaygroundLayout;

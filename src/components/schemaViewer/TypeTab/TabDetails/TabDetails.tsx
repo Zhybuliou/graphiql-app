@@ -5,12 +5,12 @@ import {
   isScalarType,
   isInputObjectType,
 } from 'graphql';
-import UiListItem from '../../../ui/UiListItem';
-import FieldInfo from '../../ui/FieldInfo';
+import { UiListItem } from '../../../ui/UiListItem';
+import { FieldInfo } from '../../ui/FieldInfo';
 import { TypeToDisplay } from '../../types';
 import { getPureType } from '../../utils';
-import TabDetailsWrapper from './TabDetailsWrapper';
-import TabDetailsScalar from './TabDetailsScalar';
+import { TabDetailsWrapper } from './TabDetailsWrapper';
+import { TabDetailsScalar } from './TabDetailsScalar';
 
 type TabDetailsProps = {
   typeToDisplay: TypeToDisplay;
@@ -18,7 +18,7 @@ type TabDetailsProps = {
   setOpenedTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
-export default function TabDetails({
+export function TabDetails({
   typeToDisplay,
   tabIndex,
   setOpenedTypes,

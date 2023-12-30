@@ -2,14 +2,13 @@
 
 import React from 'react';
 import { GraphQLSchema } from 'graphql';
-
-import QueriesTab from './QueriesTab';
-import TypeTab from './TypeTab/TypeTab';
+import { QueriesTab } from './QueriesTab';
+import { TypeTab } from './TypeTab/TypeTab';
 import { useSchemaViewer } from './useSchemaViewer';
-import SchemaViewerLayout from './SchemaViewerLayout';
-import UiButton from '../ui/UiButton';
+import { SchemaViewerLayout } from './SchemaViewerLayout';
+import { UiButton } from '../ui/UiButton';
 
-function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
+export function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
   const { isOpen, setIsOpen, queries, openedTypes, setOpenedTypes } =
     useSchemaViewer(schema);
 
@@ -41,5 +40,3 @@ function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
     />
   );
 }
-
-export default SchemaViewer;

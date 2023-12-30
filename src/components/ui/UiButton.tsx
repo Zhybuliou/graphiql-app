@@ -1,8 +1,8 @@
 import React from 'react';
 import { PropsWithChildren } from '../../types/utilityTypes';
-import cn from '../../utils/cn';
+import { cn } from '../../utils/cn';
 
-function UiButton({
+export function UiButton({
   children,
   type = 'button',
   className = '',
@@ -24,5 +24,3 @@ function UiButton({
     </button>
   );
 }
-
-export default UiButton;

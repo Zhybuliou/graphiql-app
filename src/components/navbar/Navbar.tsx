@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { logout, useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 
-import RoutePaths from '../../types/enums/routePaths';
-import LocalToggle from '../local/LocalToggle';
+import { RoutePaths } from '../../types/enums/routePaths';
+import { LocalToggle } from '../local/LocalToggle';
 
-import UiButton from '../ui/UiButton';
+import { UiButton } from '../ui/UiButton';
 
 function Navbar() {
   const { state } = useLocale();
