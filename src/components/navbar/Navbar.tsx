@@ -8,7 +8,7 @@ import { LocalToggle } from '../local/LocalToggle';
 
 import { UiButton } from '../ui/UiButton';
 
-function Navbar() {
+export function Navbar() {
   const { state } = useLocale();
   const user = useUser();
 
@@ -35,5 +35,3 @@ function Navbar() {
     </div>
   );
 }
-
-export default Navbar;

@@ -13,7 +13,7 @@ import { RoutePaths } from '../types/enums/routePaths';
 import { SkeletonPage } from '../components/skeletons/SkeletonPage';
 import { FallbackPage } from '../pages/FallbackPage';
 
-function AppRouter() {
+export function AppRouter() {
   const user = useUser();
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,5 +45,3 @@ function AppRouter() {
     </ErrorBoundary>
   );
 }
-
-export default AppRouter;
