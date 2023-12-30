@@ -44,7 +44,7 @@ export function Params({
   }
 
   return (
-    <div className="w-full bg-sky-950">
+    <div className="w-full bg-gray-50">
       <div className="text-sm font-medium text-center text-gray-500 ">
         <div
           className={cn('flex cursor-row-resize', {
@@ -60,9 +60,9 @@ export function Params({
                 type="button"
                 onClick={() => handleChangeTab(tabParams)}
                 className={cn(
-                  `uppercase inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300`,
+                  `inline-block p-4 uppercase text-gray-400 hover:text-gray-600 border-b-[3px] hover:border-gray-300`,
                   {
-                    'border-blue-600 text-gray-600 hover:border-blue-600':
+                    'text-blue-controls hover:text-blue-controls border-blue-controls hover:border-blue-controls':
                       activeTab === tabParams,
                   }
                 )}

@@ -13,7 +13,7 @@ export function Navbar() {
   const user = useUser();
 
   return (
-    <div className="flex justify-end gap-1 p-2 shadow">
+    <div className="flex justify-end gap-1 p-2 shadow bg-gray-50">
       <LocalToggle />
       {!user ? (
         <>
@@ -29,7 +29,7 @@ export function Navbar() {
           {state.strings.logOut}
         </UiButton>
       )}
-      <Link to={RoutePaths.WELCOME}>
+      <Link to={RoutePaths.WELCOME} className="">
         <UiButton type="button"> {state.strings.mainPage}</UiButton>
       </Link>
     </div>

@@ -37,7 +37,7 @@ export default function Playground() {
               type="button"
               onClick={prettify}
               title="Prettify"
-              className="p-2"
+              className="p-2 bg-red-600 hover:bg-red-500"
             >
               <IconSparkles className="w-4 h-4" />
             </UiButton>
@@ -48,7 +48,7 @@ export default function Playground() {
           <UiButton
             type="button"
             onClick={executeQuery}
-            className="p-2 rounded-full"
+            className="p-2 bg-red-600 rounded-full hover:bg-red-500"
             title="Execute query"
             disabled={isLoading || !schema}
           >
@@ -70,7 +70,7 @@ export default function Playground() {
             }
           />
         }
-        codeViewer={
+        responseEditor={
           <ResponseEditor
             value={response}
             error={error}

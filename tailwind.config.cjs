@@ -6,6 +6,10 @@ module.exports = {
       colors: {
         'blue-li-hover': '#4256D0',
         'blue-bg-aside': '#4658AC',
+        'blue-controls': '#4763E4',
+      },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
       },
       backgroundImage: {
         'schema-gradient':

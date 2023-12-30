@@ -21,7 +21,7 @@ export function EndpointInput({ endpoint, setEndpoint }: EndpointInputProps) {
     <input
       value={inputText}
       onChange={(event) => setInputText(event.target.value)}
-      className="w-full py-1 px-2 outline-none rounded"
+      className="w-full py-3 px-5 outline-none rounded-[10px]"
       type="text"
     />
   );

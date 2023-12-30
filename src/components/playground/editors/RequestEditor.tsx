@@ -21,7 +21,7 @@ export function RequestEditor({
   const editorConfigs: EditorConfigs = {
     value: queryString,
     onChange: setQueryString,
-    theme: 'dark',
+    theme: 'light',
     className: 'h-full text-balance',
     extensions: schema
       ? [graphql(schema), EditorView.lineWrapping]

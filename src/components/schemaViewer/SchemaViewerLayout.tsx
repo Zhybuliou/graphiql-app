@@ -17,7 +17,7 @@ export function SchemaViewerLayout({
   return (
     <div
       className={cn(
-        'absolute right-0 top-0 z-20 flex h-full w-0 max-w-[95vw] bg-blue-bg-aside shadow',
+        'absolute right-px top-0 z-20 flex h-full w-0 max-w-[95vw] bg-blue-bg-aside shadow',
         {
           'w-auto': isOpen,
         }

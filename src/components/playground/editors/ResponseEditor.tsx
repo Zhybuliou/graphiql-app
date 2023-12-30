@@ -32,9 +32,6 @@ export function ResponseEditor({
       ) : (
         <Editor configs={editorConfigs} />
       )}
-      <div className="h-[56px] flex justify-end items-center px-3 bg-sky-950 text-gray-400">
-        Footer
-      </div>
       {!dataToDisplay && !isLoading && (
         <div className="absolute flex items-center justify-center w-[calc(100%-16px)] h-[calc(100%-16px)]">
           No data! Make a request!

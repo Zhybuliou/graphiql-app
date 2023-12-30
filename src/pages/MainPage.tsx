@@ -1,11 +1,7 @@
 import Playground from '../components/playground/Playground';
 
 function MainPage() {
-  return (
-    <div className="relative">
-      <Playground />
-    </div>
-  );
+  return <Playground />;
 }
 
 export default MainPage;
