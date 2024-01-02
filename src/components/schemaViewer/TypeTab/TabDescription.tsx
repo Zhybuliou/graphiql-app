@@ -1,6 +1,6 @@
 import React from 'react';
-import { TypeToDisplay } from '../../types';
-import { isOutputFieldType } from '../../utils';
+import { TypeToDisplay } from '../types';
+import { isOutputFieldType } from '../utils';
 
 type TabDescriptionProps = {
   typeToDisplay: TypeToDisplay;

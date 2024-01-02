@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { GraphQLArgument } from 'graphql/type';
-import { TypeToDisplay } from '../../types';
-import { UiListItem } from '../../../ui/UiListItem';
-import { FieldInfo } from '../../ui/FieldInfo';
-import { isOutputFieldType, isScalarFieldType } from '../../utils';
-import { SectionTitle } from '../../ui/SectionTitle';
+import { TypeToDisplay } from '../types';
+import { UiListItem } from '../../ui/UiListItem';
+import { FieldInfo } from '../ui/FieldInfo';
+import { isOutputFieldType, isScalarFieldType } from '../utils';
+import { SectionTitle } from '../ui/SectionTitle';
 
 type TabArgumentsProps = {
   typeToDisplay: TypeToDisplay;

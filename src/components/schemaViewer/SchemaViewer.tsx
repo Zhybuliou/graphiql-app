@@ -3,10 +3,14 @@
 import React from 'react';
 import { GraphQLSchema } from 'graphql';
 import { QueriesTab } from './QueriesTab';
-import { TypeTab } from './TypeTab/TypeTab';
+import { TypeTabLayout } from './TypeTab/TypeTabLayout';
 import { useSchemaViewer } from './useSchemaViewer';
 import { SchemaViewerLayout } from './SchemaViewerLayout';
 import { UiButton } from '../ui/UiButton';
+import { TabHeader } from './TypeTab/TabHeader';
+import { TabDescription } from './TypeTab/TabDescription';
+import { TabDetails } from './TypeTab/TabDetails';
+import { TabArguments } from './TypeTab/TabArguments';
 
 export function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
   const { isOpen, setIsOpen, queries, openedTypes, setOpenedTypes } =
@@ -29,11 +33,24 @@ export function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
       }
       openedTypeTabs={openedTypes.map((typeToDisplay, index) => {
         return (
-          <TypeTab
+          <TypeTabLayout
             key={index}
-            typeToDisplay={typeToDisplay}
-            tabIndex={index}
-            setOpenedTypes={setOpenedTypes}
+            tabHeader={<TabHeader typeToDisplay={typeToDisplay} />}
+            tabDescription={<TabDescription typeToDisplay={typeToDisplay} />}
+            tabDetails={
+              <TabDetails
+                typeToDisplay={typeToDisplay}
+                tabIndex={index}
+                setOpenedTypes={setOpenedTypes}
+              />
+            }
+            tabArguments={
+              <TabArguments
+                typeToDisplay={typeToDisplay}
+                tabIndex={index}
+                setOpenedTypes={setOpenedTypes}
+              />
+            }
           />
         );
       })}

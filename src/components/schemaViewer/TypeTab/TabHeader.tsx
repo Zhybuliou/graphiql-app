@@ -1,8 +1,8 @@
 import React from 'react';
-import { TypeToDisplay } from '../../types';
-import { isOutputFieldType, isScalarFieldType } from '../../utils';
-import { FieldInfo } from '../../ui/FieldInfo';
-import { TypeInfo } from '../../ui/TypeInfo';
+import { TypeToDisplay } from '../types';
+import { isOutputFieldType, isScalarFieldType } from '../utils';
+import { FieldInfo } from '../ui/FieldInfo';
+import { TypeInfo } from '../ui/TypeInfo';
 
 type TabHeaderProps = {
   typeToDisplay: TypeToDisplay;

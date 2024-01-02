@@ -8,8 +8,8 @@ import {
 } from 'graphql';
 import { TypeToDisplay } from './types';
 
-export function getPureType(typeToExplorer: TypeToDisplay) {
-  let currentType = typeToExplorer.type;
+export function getPureType(typeToDisplay: TypeToDisplay) {
+  let currentType = typeToDisplay.type;
 
   while (true) {
     const typeWithoutNonNull = isNonNullType(currentType)
@@ -25,11 +25,11 @@ export function getPureType(typeToExplorer: TypeToDisplay) {
 }
 
 export function isOutputFieldType(
-  typeToExplorer: TypeToDisplay
-): typeToExplorer is GraphQLField<unknown, unknown, unknown> {
-  return isOutputType(getPureType(typeToExplorer));
+  typeToDisplay: TypeToDisplay
+): typeToDisplay is GraphQLField<unknown, unknown, unknown> {
+  return isOutputType(getPureType(typeToDisplay));
 }
 
-export function isScalarFieldType(typeToExplorer: TypeToDisplay) {
-  return isScalarType(getPureType(typeToExplorer));
+export function isScalarFieldType(typeToDisplay: TypeToDisplay) {
+  return isScalarType(getPureType(typeToDisplay));
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { PropsWithChildren } from '../../../../types/utilityTypes';
-import { SectionTitle } from '../../ui/SectionTitle';
+import { PropsWithChildren } from '../../../types/utilityTypes';
+import { SectionTitle } from '../ui/SectionTitle';
 
 export function TabDetailsWrapper({
   children,
