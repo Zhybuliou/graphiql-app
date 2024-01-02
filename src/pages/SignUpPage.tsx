@@ -89,7 +89,11 @@ function SignUpPage() {
             error={errors.confirmPassword?.message}
             required
           />
-          <UiButton type="submit" disabled={!isValid}>
+          <UiButton
+            type="submit"
+            disabled={!isValid}
+            data-testid="button-signUp"
+          >
             {state.strings.signUp}
           </UiButton>
           <div className="mt-4">
