@@ -7,7 +7,12 @@ function PageWrapper({
   children,
 }: PropsWithChildren<{ className?: string }>) {
   return (
-    <div className={cn('flex flex-col items-center text-center', className)}>
+    <div
+      className={cn(
+        'flex flex-col items-center text-center min-h-screen',
+        className
+      )}
+    >
       {children}
     </div>
   );

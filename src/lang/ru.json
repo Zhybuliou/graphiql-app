@@ -19,5 +19,16 @@
   "name": "Имя",
   "dontHaveAccount": "Нет аккаунта? ",
   "haveAccount": "Уже есть аккаунт? ",
-  "register": "Зарегистрироваться"
+  "register": "Зарегистрироваться",
+  "welcomePagePresentationTitle": "Проект GraphiQL",
+  "welcomePagePresentationDescriptionPartFirst": "Это заключительный проект курса RS School React 2023 Q4, посвященный в основном редактору запросов GraphQl. Используя его, вы можете практиковать различные запросы GraphQl, получать ответы от API, схему API проводника, устанавливать переменные и заголовки.",
+  "welcomePagePresentationDescriptionPartSecond": "Приложение имеет липкий заголовок. Также поддерживается локализация на русский и английский языки. Аутентификация и авторизация выполняются с помощью Firebase с опциями электронной почты. Проверка на стороне клиента обеспечивает безопасный ввод. В нижнем колонтитуле содержатся ссылки на профили авторов на GitHub и ссылку на курс.",
+  "welcomePageTechnologiesTittle": "Технологии, которые мы использовали в проекте",
+  "welcomePageOurTeamTittle": "Наша команда",
+  "welcomePageOurTeamAlexName": "Александр",
+  "welcomePageOurTeamAlexDescription": "Front-end разработчик",
+  "welcomePageOurTeamTvaExpertsName": "Виктор Траченко",
+  "welcomePageOurTeamTvaExpertsDescription": "Front-end разработчик",
+  "welcomePageOurTeamZhybuliouName": "Виталий Жибулёв",
+  "welcomePageOurTeamZhybuliouDescription": "Front-end разработчик"
 }

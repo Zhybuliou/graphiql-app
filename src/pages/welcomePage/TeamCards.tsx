@@ -1,25 +1,27 @@
+import { useLocale } from '../../context/local';
 import TeamCard from './TeamCard';
 
 export default function TeamCards() {
+  const { state } = useLocale();
   const cards = [
     {
-      image: '/public/spacepocket1985.png',
-      name: 'spacepocket1985',
-      description: 'Description 1',
+      image: '/spacepocket1985.png',
+      name: state.strings.welcomePageOurTeamAlexName,
+      description: state.strings.welcomePageOurTeamAlexDescription,
     },
     {
-      image: '/public/TvaExperts.png',
-      name: 'TvaExperts',
-      description: 'Description 2',
+      image: '/TvaExperts.png',
+      name: state.strings.welcomePageOurTeamTvaExpertsName,
+      description: state.strings.welcomePageOurTeamTvaExpertsDescription,
     },
     {
-      image: '/public/zhybuliou.jpg',
-      name: 'Zhybuliou',
-      description: 'Description 3',
+      image: '/zhybuliou.jpg',
+      name: state.strings.welcomePageOurTeamZhybuliouName,
+      description: state.strings.welcomePageOurTeamZhybuliouDescription,
     },
   ];
   return (
-    <div className="flex flex-wrap justify-center">
+    <div className="flex flex-wrap justify-center gap-3">
       {cards.map((card) => (
         <TeamCard key={card.name} {...card} />
       ))}
