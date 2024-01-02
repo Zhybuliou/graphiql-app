@@ -23,6 +23,7 @@ export function usePlayground() {
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [schema, setSchema] = useState<GraphQLSchema | undefined>();
+  const [isOpenSchema, setIsOpenSchema] = useState<boolean>(false);
 
   function handleError(caughtError: unknown, errorTitle: string) {
     const errorMessage =
@@ -120,9 +121,11 @@ export function usePlayground() {
     setHeaders,
     setQueryString,
     prettify,
+    isOpenSchema,
     ...state,
     schema,
     error,
     isLoading,
+    setIsOpenSchema,
   };
 }

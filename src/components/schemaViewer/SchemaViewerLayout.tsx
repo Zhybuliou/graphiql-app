@@ -23,7 +23,7 @@ export function SchemaViewerLayout({
         }
       )}
     >
-      <div className="absolute -left-12 -rotate-90 top-1/3">{buttonOpen}</div>
+      <div className="absolute -left-6 top-0">{buttonOpen}</div>
       <div className="flex overflow-x-auto">
         {queriesTab}
         {openedTypeTabs}

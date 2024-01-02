@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Params } from './Params';
 import { IconPlay } from '../ui/icons/IconPlay';
 import { IconSparkles } from '../ui/icons/IconSparkles';
@@ -7,7 +7,6 @@ import { RequestEditor } from './editors/RequestEditor';
 import { ResponseEditor } from './editors/ResponseEditor';
 import { usePlayground } from './usePlayground';
 import { PlaygroundLayout } from './PlaygroundLayout';
-import { SchemaViewer } from '../schemaViewer/SchemaViewer';
 import { EndpointInput } from './EndpointInput';
 
 export default function Playground() {
@@ -20,6 +19,8 @@ export default function Playground() {
     response,
     error,
     isLoading,
+    isOpenSchema,
+    setIsOpenSchema,
     setEndpoint,
     setHeaders,
     setVariables,
@@ -27,6 +28,8 @@ export default function Playground() {
     prettify,
     executeQuery,
   } = usePlayground();
+
+  const SchemaViewer = lazy(() => import('../schemaViewer/SchemaViewer'));
 
   return (
     <>
@@ -37,6 +40,15 @@ export default function Playground() {
               type="button"
               onClick={prettify}
               title="Prettify"
+              className="p-2 bg-red-600 hover:bg-red-500"
+            >
+              <IconSparkles className="w-4 h-4" />
+            </UiButton>
+            <UiButton
+              type="button"
+              onClick={() => setIsOpenSchema((o) => !o)}
+              disabled={!schema}
+              title="Schema"
               className="p-2 bg-red-600 hover:bg-red-500"
             >
               <IconSparkles className="w-4 h-4" />
@@ -78,7 +90,16 @@ export default function Playground() {
           />
         }
       />
-      {schema && <SchemaViewer schema={schema} />}
+
+      {schema && isOpenSchema && (
+        <Suspense fallback={<p>Loading...</p>}>
+          <SchemaViewer
+            schema={schema}
+            isOpen={isOpenSchema}
+            setIsOpen={setIsOpenSchema}
+          />
+        </Suspense>
+      )}
     </>
   );
 }

@@ -1,20 +1,31 @@
 /* eslint-disable react/no-array-index-key */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { GraphQLSchema } from 'graphql';
 import { QueriesTab } from './QueriesTab';
 import { TypeTabLayout } from './TypeTab/TypeTabLayout';
-import { useSchemaViewer } from './useSchemaViewer';
 import { SchemaViewerLayout } from './SchemaViewerLayout';
 import { UiButton } from '../ui/UiButton';
 import { TabHeader } from './TypeTab/TabHeader';
 import { TabDescription } from './TypeTab/TabDescription';
 import { TabDetails } from './TypeTab/TabDetails';
 import { TabArguments } from './TypeTab/TabArguments';
+import { IconSparkles } from '../ui/icons/IconSparkles';
+import { TypeToDisplay } from './types';
 
-export function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
-  const { isOpen, setIsOpen, queries, openedTypes, setOpenedTypes } =
-    useSchemaViewer(schema);
+export default function SchemaViewer({
+  schema,
+  isOpen,
+  setIsOpen,
+}: {
+  schema: GraphQLSchema;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const [openedTypes, setOpenedTypes] = useState<TypeToDisplay[]>([]);
+
+  const queryType = schema.getQueryType();
+  const queries = queryType ? Object.values(queryType.getFields()) : [];
 
   return (
     <SchemaViewerLayout
@@ -23,9 +34,9 @@ export function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
         <UiButton
           type="button"
           onClick={() => setIsOpen((o) => !o)}
-          className="p-1 text-sm tracking-widest rounded-none rounded-t-lg"
+          className="p-1 text-sm tracking-widest rounded-none rounded-l-lg"
         >
-          Schema
+          <IconSparkles className="w-4 h-4" />
         </UiButton>
       }
       queriesTab={
