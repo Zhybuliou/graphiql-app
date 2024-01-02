@@ -1,23 +1,4 @@
-import { Extension } from '@codemirror/state';
-import { BasicSetupOptions } from '@uiw/codemirror-extensions-basic-setup';
-
-type BasicSetup = boolean | BasicSetupOptions;
-
-export type EditorConfigs = {
-  value: string;
-  className?: string;
-  basicSetup: BasicSetup;
-  onChange?: (newValue: string) => void;
-  theme?: 'light' | 'dark' | 'none' | Extension;
-  width?: string;
-  height?: string;
-  extensions?: Extension[];
-  minHeight?: string;
-};
-
-type TypesOfEditor = 'request' | 'response' | 'params';
-
-type BasicSetups = { [K in TypesOfEditor]: BasicSetup };
+import { BasicSetup, BasicSetups } from './types';
 
 const editableBasicSetup: BasicSetup = {
   highlightActiveLine: true,

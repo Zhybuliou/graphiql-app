@@ -1,6 +1,6 @@
 import React from 'react';
 import CodeMirror from '@uiw/react-codemirror';
-import { EditorConfigs } from './editorConfigs';
+import { EditorConfigs } from './types';
 
 export function Editor({ configs }: { configs: EditorConfigs }) {
   const { width = '100%', height = '100%' } = configs;

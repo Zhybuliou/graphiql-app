@@ -1,7 +1,9 @@
 import React from 'react';
 import { cn } from '../../../utils/cn';
 import { Editor } from './Editor';
-import { BASIC_SETUPS, EditorConfigs } from './editorConfigs';
+import { EditorConfigs } from './types';
+import { THEMES } from './themes';
+import { BASIC_SETUPS } from './basicSetups';
 
 type ResponseEditorProps = {
   error: Error | null;
@@ -22,7 +24,7 @@ export function ResponseEditor({
     value: dataToDisplay,
     className: cn('h-full pl-4', { 'bg-red-200': !!error }),
     basicSetup: BASIC_SETUPS.response,
-    theme: 'none',
+    theme: THEMES.response,
   };
 
   return (

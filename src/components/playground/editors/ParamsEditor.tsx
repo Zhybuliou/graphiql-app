@@ -1,8 +1,10 @@
 import React from 'react';
 import { EditorView } from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
-import { BASIC_SETUPS, EditorConfigs } from './editorConfigs';
+import { EditorConfigs } from './types';
 import { Editor } from './Editor';
+import { THEMES } from './themes';
+import { BASIC_SETUPS } from './basicSetups';
 
 type ParamsEditorProps = {
   value: string;
@@ -13,7 +15,7 @@ export function ParamsEditor({ value, onChange }: ParamsEditorProps) {
   const editorConfigs: EditorConfigs = {
     value,
     onChange,
-    theme: 'light',
+    theme: THEMES.params,
     className: 'text-balance',
     extensions: [json(), EditorView.lineWrapping],
     basicSetup: BASIC_SETUPS.params,

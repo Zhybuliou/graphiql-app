@@ -3,7 +3,9 @@ import { EditorView } from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
 import { GraphQLSchema } from 'graphql';
 import { Editor } from './Editor';
-import { BASIC_SETUPS, EditorConfigs } from './editorConfigs';
+import { EditorConfigs } from './types';
+import { BASIC_SETUPS } from './basicSetups';
+import { THEMES } from './themes';
 
 type RequestEditorProps = {
   schema: GraphQLSchema | undefined;
@@ -21,7 +23,7 @@ export function RequestEditor({
   const editorConfigs: EditorConfigs = {
     value: queryString,
     onChange: setQueryString,
-    theme: 'light',
+    theme: THEMES.request,
     className: 'h-full text-balance',
     extensions: schema
       ? [graphql(schema), EditorView.lineWrapping]
