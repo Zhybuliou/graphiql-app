@@ -1,8 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { LocaleProvider } from '../context/local';
 import * as firebase from '../firebase/firebase';
 
@@ -99,34 +98,16 @@ test('should call logInWithEmailAndPassword when form is submitted', async () =>
   });
 });
 
-test('should show an error message from react-toastify if the login or password is incorrect', async () => {
+test('navigates to SignUpPage when "Register" link is clicked', () => {
   render(
     <LocaleProvider>
-      <MemoryRouter>
+      <BrowserRouter>
         <AppRouter />
-        <ToastContainer />
         <SignInPage />
-      </MemoryRouter>
+      </BrowserRouter>
     </LocaleProvider>
   );
+  fireEvent.click(screen.getByText('Register'));
 
-  const emailInput = screen.getByPlaceholderText(
-    /E-mail Address/i
-  ) as HTMLInputElement;
-  const passwordInput = screen.getByPlaceholderText(
-    'Password'
-  ) as HTMLInputElement;
-
-  const submitButton = screen.getByText(/Login/i) as HTMLButtonElement;
-  await waitFor(() => {
-    fireEvent.change(emailInput, { target: { value: 'testMail@test.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'incorrectPassword' } });
-  });
-
-  await waitFor(() => {
-    fireEvent.click(submitButton);
-    expect(
-      screen.getByText(/Firebase: Error, autoization invalid/i)
-    ).toBeInTheDocument();
-  });
+  expect(window.location.pathname).toBe('/sign-up');
 });

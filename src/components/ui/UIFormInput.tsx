@@ -3,6 +3,7 @@ import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import React, { useState } from 'react';
 import IconView from './icons/IconView';
 import IconNoView from './icons/IconNoView';
+import cn from '../../utils/cn';
 
 type UiFormInputProps<T extends FieldValues> = {
   type: React.HTMLInputTypeAttribute;
@@ -31,9 +32,10 @@ function UIFormInput<T extends FieldValues>({
       <input
         type={showPassword ? 'text' : type}
         id={name}
-        className={`p-4 text-base w-full rounded-xl border border-gray-200 focus:outline-none focus:border-blue-500 ${
-          error ? ' border-red-400' : 'border-gray-200'
-        }`}
+        className={cn(
+          'p-4 text-base w-full rounded-xl border border-gray-200 focus:outline-none focus:border-blue-500',
+          error ? 'border-red-400' : 'border-gray-200'
+        )}
         {...register(name, { required })}
         placeholder={placeholder}
       />
