@@ -4,7 +4,7 @@ import { RoutePaths } from '../types/enums/routePaths';
 export const publicRoutes = [
   {
     path: RoutePaths.WELCOME,
-    Page: lazy(() => import('../pages/WelcomePage')),
+    Page: lazy(() => import('../pages/welcomePage/WelcomePage')),
   },
 
   {

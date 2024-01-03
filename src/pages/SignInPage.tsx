@@ -27,8 +27,8 @@ function SignInPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, loading]);
 
-  const onError = (err: Error) => {
-    toast.error(err.message, {
+  const onError = () => {
+    toast.error('Firebase: Error, autoization invalid', {
       position: toast.POSITION.TOP_LEFT,
     });
   };
@@ -48,7 +48,9 @@ function SignInPage() {
 
   return (
     <PageWrapper>
-      <h1>{state.strings.signInPlease}</h1>
+      <h1 className="text-black font-inter text-xl font-medium">
+        {state.strings.signInPlease}
+      </h1>
       <form onSubmit={handleSubmit(logInUser)}>
         <FormWrapper>
           <UIFormInput

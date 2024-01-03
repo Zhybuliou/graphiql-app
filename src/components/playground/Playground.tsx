@@ -9,7 +9,7 @@ import { usePlayground } from './usePlayground';
 import { PlaygroundLayout } from './PlaygroundLayout';
 import { EndpointInput } from './EndpointInput';
 
-export default function Playground() {
+export function Playground() {
   const {
     endpoint,
     schema,

@@ -3,8 +3,8 @@ import * as Yup from 'yup';
 const passwordValidation = Yup.string()
   .required('Password is required')
   .matches(
-    /^[a-zA-Z0-9!@#$%^&*]*$/,
-    'Password must only contain Latin symbols, digits, and special characters'
+    /^[a-zA-Z0-9!@#$%^&*\p{L}\p{N}\p{S}\p{P}]*$/u,
+    'Password must only contain Latin symbols, digits, special characters adnd unicode symbols'
   )
   .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
   .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
