@@ -19,5 +19,16 @@
   "name": "Name",
   "haveAccount": "Already have an account? ",
   "dontHaveAccount": "Dont have an account? ",
-  "register": "Register"
+  "register": "Register",
+  "welcomePagePresentationTitle": "GraphiQL Project",
+  "welcomePagePresentationDescriptionPartFirst": "This is a final project of RS School React 2023 Q4 course and generally dedicated to editor of GraphQl requests. Using it, you can try and practice different GraphQl requests, get responses from API, explorer API schema, set variables and headers.",
+  "welcomePagePresentationDescriptionPartSecond": "The app has a sticky header. It also supports localization in Russian and English. Authentication and authorization are handled using Firebase with email options. Client-side validation ensures secure input. The footer contains links to the authors GitHub profiles and the course reference.",
+  "welcomePageTechnologiesTittle": "Technologies we used in the project",
+  "welcomePageOurTeamTittle": "Our team",
+  "welcomePageOurTeamAlexName": "Alex",
+  "welcomePageOurTeamAlexDescription": "Front-end Developer",
+  "welcomePageOurTeamTvaExpertsName": "Viktor Trachenko",
+  "welcomePageOurTeamTvaExpertsDescription": "Front-end Developer",
+  "welcomePageOurTeamZhybuliouName": "Vitali Zhybuliou",
+  "welcomePageOurTeamZhybuliouDescription": "Front-end Developer"
 }

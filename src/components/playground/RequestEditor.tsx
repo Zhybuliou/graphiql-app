@@ -1,6 +1,9 @@
-import React from 'react';
-import CodeMirror, { EditorView } from '@uiw/react-codemirror';
-import { graphql } from 'cm6-graphql';
+import React, { useEffect, useRef } from 'react';
+import CodeMirror, {
+  EditorView,
+  ReactCodeMirrorRef,
+} from '@uiw/react-codemirror';
+import { graphql, updateSchema } from 'cm6-graphql';
 import { GraphQLSchema } from 'graphql';
 
 type RequestEditorProps = {
@@ -16,11 +19,17 @@ function RequestEditor({
   setQueryString,
   params,
 }: RequestEditorProps) {
+  const codeMirrorRef = useRef<ReactCodeMirrorRef | null>(null);
+  useEffect(() => {
+    if (codeMirrorRef.current?.view && schema)
+      updateSchema(codeMirrorRef.current?.view, schema);
+  }, [schema]);
   return (
     <div className="flex flex-col bg-pink-300 p-4 w-6/12 h-full">
       {schema ? (
         <div className="flex-1">
           <CodeMirror
+            ref={codeMirrorRef}
             style={{
               textAlign: 'start',
               whiteSpace: 'pre-wrap',
