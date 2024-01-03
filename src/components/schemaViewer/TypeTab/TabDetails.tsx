@@ -9,8 +9,7 @@ import { UiListItem } from '../../ui/UiListItem';
 import { FieldInfo } from '../ui/FieldInfo';
 import { TypeToDisplay } from '../types';
 import { getPureType } from '../utils';
-import { TabDetailsWrapper } from './TabDetailsWrapper';
-import { TabDetailsScalar } from './TabDetailsScalar';
+import { SectionTitle } from '../ui/SectionTitle';
 
 type TabDetailsProps = {
   typeToDisplay: TypeToDisplay;
@@ -26,7 +25,13 @@ export function TabDetails({
   const pureType = getPureType(typeToDisplay);
 
   if (isScalarType(pureType)) {
-    return <TabDetailsScalar scalarType={pureType} />;
+    return (
+      <div>
+        <SectionTitle>Type Details</SectionTitle>
+        <p className="my-2">{pureType.description}</p>
+        <FieldInfo name="scalar" type={pureType.name} />
+      </div>
+    );
   }
 
   if (!isObjectType(pureType) && !isInputObjectType(pureType)) {
@@ -47,7 +52,13 @@ export function TabDetails({
   }
 
   return (
-    <TabDetailsWrapper typeName={pureType.toString()}>
+    <div>
+      <SectionTitle>Type Details</SectionTitle>
+      <p>
+        <span className="text-blue-600">type</span>{' '}
+        <span className="text-red-700">{pureType.toString()}</span>
+        {'{'}
+      </p>
       <ul>
         {fields.map((field) => {
           const { name, type } = field;
@@ -58,6 +69,7 @@ export function TabDetails({
           );
         })}
       </ul>
-    </TabDetailsWrapper>
+      {'}'}
+    </div>
   );
 }

@@ -22,7 +22,7 @@ const emailValidation = Yup.string()
   )
   .matches(
     /^[\w!#$%&'*+\-/=?^_`{|}~]+(?:\.[\w!#$%&'*+\-/=?^_`{|}~]+)*@[\w-]+(?:\.[\w-]+)*(?:\.[a-zA-Z]{2,})?$/,
-    'Invalid local-part format'
+    'Invalid localToggle-part format'
   );
 
 const nameValidation = Yup.string()

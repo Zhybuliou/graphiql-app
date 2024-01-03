@@ -4,6 +4,7 @@ import { UiListItem } from '../ui/UiListItem';
 import { TypeToDisplay } from './types';
 import { SectionTitle } from './ui/SectionTitle';
 import { TypeInfo } from './ui/TypeInfo';
+import { TabLayout } from './TabLayout';
 
 type QueriesTabProps = {
   queries: GraphQLField<unknown, unknown, unknown>[];
@@ -16,7 +17,7 @@ export function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
   }
 
   return (
-    <div className="relative flex flex-col gap-4 w-80 overflow-y-scroll shrink-0 p-2 text-left bg-schema-gradient">
+    <TabLayout>
       <SectionTitle>Queries</SectionTitle>
       <ul>
         {queries.map((field) => {
@@ -36,7 +37,6 @@ export function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
           );
         })}
       </ul>
-      <div className="absolute -z-10 top-0 left-0 h-full w-full opacity-25 bg-schema-pattern" />
-    </div>
+    </TabLayout>
   );
 }

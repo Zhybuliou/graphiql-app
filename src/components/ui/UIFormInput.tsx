@@ -3,7 +3,7 @@ import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import React, { useState } from 'react';
 import IconView from './icons/IconView';
 import IconNoView from './icons/IconNoView';
-import cn from '../../utils/cn';
+import { cn } from '../../utils/cn';
 
 type UiFormInputProps<T extends FieldValues> = {
   type: React.HTMLInputTypeAttribute;

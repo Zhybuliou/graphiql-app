@@ -4,7 +4,7 @@ import { logout, useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 
 import { RoutePaths } from '../../types/enums/routePaths';
-import { LocalToggle } from '../local/LocalToggle';
+import { LocalToggle } from '../localToggle/LocalToggle';
 
 import { UiButton } from '../ui/UiButton';
 

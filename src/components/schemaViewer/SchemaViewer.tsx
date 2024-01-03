@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { GraphQLSchema } from 'graphql';
 import { QueriesTab } from './QueriesTab';
-import { TypeTabLayout } from './TypeTab/TypeTabLayout';
+import { TabLayout } from './TabLayout';
 import { SchemaViewerLayout } from './SchemaViewerLayout';
 import { UiButton } from '../ui/UiButton';
 import { TabHeader } from './TypeTab/TabHeader';
@@ -44,25 +44,20 @@ export default function SchemaViewer({
       }
       openedTypeTabs={openedTypes.map((typeToDisplay, index) => {
         return (
-          <TypeTabLayout
-            key={index}
-            tabHeader={<TabHeader typeToDisplay={typeToDisplay} />}
-            tabDescription={<TabDescription typeToDisplay={typeToDisplay} />}
-            tabDetails={
-              <TabDetails
-                typeToDisplay={typeToDisplay}
-                tabIndex={index}
-                setOpenedTypes={setOpenedTypes}
-              />
-            }
-            tabArguments={
-              <TabArguments
-                typeToDisplay={typeToDisplay}
-                tabIndex={index}
-                setOpenedTypes={setOpenedTypes}
-              />
-            }
-          />
+          <TabLayout key={index}>
+            <TabHeader typeToDisplay={typeToDisplay} />
+            <TabDescription typeToDisplay={typeToDisplay} />
+            <TabDetails
+              typeToDisplay={typeToDisplay}
+              tabIndex={index}
+              setOpenedTypes={setOpenedTypes}
+            />
+            <TabArguments
+              typeToDisplay={typeToDisplay}
+              tabIndex={index}
+              setOpenedTypes={setOpenedTypes}
+            />
+          </TabLayout>
         );
       })}
     />
