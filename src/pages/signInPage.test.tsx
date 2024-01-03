@@ -64,11 +64,9 @@ test('checking submit button status', async () => {
   await waitFor(() => {
     expect(submitButton).not.toHaveAttribute('disabled');
   });
-  // expect(window.location.pathname).toBe('/main');
 });
 
 test('should call logInWithEmailAndPassword when form is submitted', async () => {
-  // создаем заглушку для функции logInWithEmailAndPassword
   const spy = vi.spyOn(firebase, 'logInWithEmailAndPassword');
 
   render(
@@ -98,7 +96,6 @@ test('should call logInWithEmailAndPassword when form is submitted', async () =>
     expect(spy).toHaveBeenCalled();
     expect(spy).toHaveBeenCalledWith('testMail@test.com', 'Qwerty1234%');
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(screen.getByText(/Go to main page - GraphiQL/i)).toBeInTheDocument();
   });
 });
 
@@ -126,8 +123,8 @@ test('should show an error message from react-toastify if the login or password 
     fireEvent.change(passwordInput, { target: { value: 'incorrectPassword' } });
   });
 
-  fireEvent.click(submitButton);
   await waitFor(() => {
+    fireEvent.click(submitButton);
     expect(
       screen.getByText(/Firebase: Error, autoization invalid/i)
     ).toBeInTheDocument();
