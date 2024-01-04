@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import UiButton from '../ui/UiButton';
-import tempFetch from '../../utils/tempFetch';
+import React, { useState } from 'react';
+import { UiButton } from '../ui/UiButton';
+import { tempFetch } from '../../utils/tempFetch';
 
 export interface IDataFromFetch {
   name: string;

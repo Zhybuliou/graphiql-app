@@ -1,6 +1,6 @@
 import React from 'react';
 
-function IconArrowRight({ className }: { className: string }) {
+export function IconArrowRight({ className }: { className: string }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" className={className}>
       <path
@@ -10,5 +10,3 @@ function IconArrowRight({ className }: { className: string }) {
     </svg>
   );
 }
-
-export default IconArrowRight;

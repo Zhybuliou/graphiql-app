@@ -6,7 +6,7 @@ import { LocaleProvider } from '../context/local';
 import * as firebase from '../firebase/firebase';
 
 import SignInPage from './SignInPage';
-import AppRouter from '../routes/AppRouter';
+import { AppRouter } from '../routes/AppRouter';
 
 test('renders sign in page', () => {
   render(

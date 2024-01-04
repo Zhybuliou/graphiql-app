@@ -1,22 +1,23 @@
 import React from 'react';
 import { GraphQLField } from 'graphql';
-import UiListItem from '../ui/UiListItem';
+import { UiListItem } from '../ui/UiListItem';
 import { TypeToDisplay } from './types';
-import SectionTitle from './ui/SectionTitle';
-import TypeInfo from './ui/TypeInfo';
+import { SectionTitle } from './ui/SectionTitle';
+import { TypeInfo } from './ui/TypeInfo';
+import { TabLayout } from './TabLayout';
 
 type QueriesTabProps = {
   queries: GraphQLField<unknown, unknown, unknown>[];
   setOpenedTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
-function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
+export function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
   function handleClickEndpoint(field: GraphQLField<unknown, unknown, unknown>) {
     setOpenedTypes([field]);
   }
 
   return (
-    <div className="flex flex-col gap-4 w-80 p-2 text-left">
+    <TabLayout>
       <SectionTitle>Queries</SectionTitle>
       <ul>
         {queries.map((field) => {
@@ -36,8 +37,6 @@ function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
           );
         })}
       </ul>
-    </div>
+    </TabLayout>
   );
 }
-
-export default QueriesTab;

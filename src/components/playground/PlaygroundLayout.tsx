@@ -4,29 +4,25 @@ type PlaygroundLayoutProps = {
   controls: React.ReactElement;
   requestEditor: React.ReactElement;
   buttonExecute: React.ReactElement;
-  codeViewer: React.ReactElement;
+  responseEditor: React.ReactElement;
 };
 
-function PlaygroundLayout({
+export function PlaygroundLayout({
   controls,
   requestEditor,
   buttonExecute,
-  codeViewer,
+  responseEditor,
 }: PlaygroundLayoutProps) {
   return (
-    <div className="flex flex-col w-full h-[calc(100vh-56px)]">
-      <div className="w-full flex items-center justify-center gap-4 bg-fuchsia-900 p-5">
+    <div className="relative flex flex-col w-full flex-1 bg-gray-50">
+      <div className="w-full flex items-center justify-center gap-4 p-2">
         {controls}
       </div>
-      <div className="flex w-full h-full relative">
+      <div className="flex justify-center w-full h-full relative">
         {requestEditor}
-        <div className="absolute z-10 flex justify-center w-full top-6">
-          {buttonExecute}
-        </div>
-        {codeViewer}
+        {responseEditor}
+        <div className="absolute z-10 top-6">{buttonExecute}</div>
       </div>
     </div>
   );
 }
-
-export default PlaygroundLayout;

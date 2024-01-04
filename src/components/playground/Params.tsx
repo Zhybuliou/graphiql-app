@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import ParamsEditor from './ParamsEditor';
-import TabButton from './TabButton';
-import cn from '../../utils/cn';
+import { ParamsEditor } from './editors/ParamsEditor';
+import { cn } from '../../utils/cn';
 
 enum TabsParams {
   variables = 'query variables',
@@ -15,17 +14,18 @@ type ParamsProps = {
   setVariables: (newVariables: string) => void;
 };
 
-function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
+export function Params({
+  headers,
+  variables,
+  setHeaders,
+  setVariables,
+}: ParamsProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<TabsParams>(TabsParams.variables);
 
-  const editor = {
-    [TabsParams.variables]: (
-      <ParamsEditor value={headers} onChange={setHeaders} />
-    ),
-    [TabsParams.headers]: (
-      <ParamsEditor value={variables} onChange={setVariables} />
-    ),
+  const { value, onChange } = {
+    [TabsParams.headers]: { value: headers, onChange: setHeaders },
+    [TabsParams.variables]: { value: variables, onChange: setVariables },
   }[activeTab];
 
   function handleChangeTab(newTab: TabsParams) {
@@ -36,7 +36,7 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
   }
 
   function handleClickHeader(
-    event: React.MouseEvent<HTMLUListElement, MouseEvent>
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
     if (!(event.target as Element).closest('[data-id=tab-button]')) {
       setIsOpen((o) => !o);
@@ -44,9 +44,9 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-gray-50">
       <div className="text-sm font-medium text-center text-gray-500 ">
-        <ul
+        <div
           className={cn('flex cursor-row-resize', {
             'cursor-s-resize': isOpen,
           })}
@@ -54,19 +54,26 @@ function Params({ headers, variables, setHeaders, setVariables }: ParamsProps) {
         >
           {Object.entries(TabsParams).map(([, tabParams]) => {
             return (
-              <TabButton
+              <button
                 key={tabParams}
+                data-id="tab-button"
+                type="button"
                 onClick={() => handleChangeTab(tabParams)}
-                text={tabParams}
-                isActive={activeTab === tabParams}
-              />
+                className={cn(
+                  `inline-block p-4 uppercase text-gray-400 hover:text-gray-600 border-b-[3px] hover:border-gray-300`,
+                  {
+                    'text-blue-controls hover:text-blue-controls border-blue-controls hover:border-blue-controls':
+                      activeTab === tabParams,
+                  }
+                )}
+              >
+                {tabParams}
+              </button>
             );
           })}
-        </ul>
+        </div>
       </div>
-      {isOpen && editor}
+      {isOpen && <ParamsEditor value={value} onChange={onChange} />}
     </div>
   );
 }
-
-export default Params;

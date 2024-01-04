@@ -1,17 +1,31 @@
 /* eslint-disable react/no-array-index-key */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { GraphQLSchema } from 'graphql';
+import { QueriesTab } from './QueriesTab';
+import { TabLayout } from './TabLayout';
+import { SchemaViewerLayout } from './SchemaViewerLayout';
+import { UiButton } from '../ui/UiButton';
+import { TabHeader } from './TypeTab/TabHeader';
+import { TabDescription } from './TypeTab/TabDescription';
+import { TabDetails } from './TypeTab/TabDetails';
+import { TabArguments } from './TypeTab/TabArguments';
+import { IconSparkles } from '../ui/icons/IconSparkles';
+import { TypeToDisplay } from './types';
 
-import QueriesTab from './QueriesTab';
-import TypeTab from './TypeTab/TypeTab';
-import { useSchemaViewer } from './useSchemaViewer';
-import SchemaViewerLayout from './SchemaViewerLayout';
-import UiButton from '../ui/UiButton';
+export default function SchemaViewer({
+  schema,
+  isOpen,
+  setIsOpen,
+}: {
+  schema: GraphQLSchema;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const [openedTypes, setOpenedTypes] = useState<TypeToDisplay[]>([]);
 
-function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
-  const { isOpen, setIsOpen, queries, openedTypes, setOpenedTypes } =
-    useSchemaViewer(schema);
+  const queryType = schema.getQueryType();
+  const queries = queryType ? Object.values(queryType.getFields()) : [];
 
   return (
     <SchemaViewerLayout
@@ -20,9 +34,9 @@ function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
         <UiButton
           type="button"
           onClick={() => setIsOpen((o) => !o)}
-          className="p-1 text-sm tracking-widest rounded-none rounded-t-lg"
+          className="p-1 text-sm tracking-widest rounded-none rounded-l-lg"
         >
-          Schema
+          <IconSparkles className="w-4 h-4" />
         </UiButton>
       }
       queriesTab={
@@ -30,16 +44,22 @@ function SchemaViewer({ schema }: { schema: GraphQLSchema }) {
       }
       openedTypeTabs={openedTypes.map((typeToDisplay, index) => {
         return (
-          <TypeTab
-            key={index}
-            typeToDisplay={typeToDisplay}
-            tabIndex={index}
-            setOpenedTypes={setOpenedTypes}
-          />
+          <TabLayout key={index}>
+            <TabHeader typeToDisplay={typeToDisplay} />
+            <TabDescription typeToDisplay={typeToDisplay} />
+            <TabDetails
+              typeToDisplay={typeToDisplay}
+              tabIndex={index}
+              setOpenedTypes={setOpenedTypes}
+            />
+            <TabArguments
+              typeToDisplay={typeToDisplay}
+              tabIndex={index}
+              setOpenedTypes={setOpenedTypes}
+            />
+          </TabLayout>
         );
       })}
     />
   );
 }
-
-export default SchemaViewer;

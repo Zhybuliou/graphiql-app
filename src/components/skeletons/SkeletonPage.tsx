@@ -1,7 +1,7 @@
-import Skeleton from './Skeleton';
-import PageWrapper from '../ui/PageWrapper';
+import { Skeleton } from './Skeleton';
+import { PageWrapper } from '../ui/PageWrapper';
 
-function SkeletonPage() {
+export function SkeletonPage() {
   return (
     <PageWrapper>
       <Skeleton className="h-12 w-1/6 mb-8" />
@@ -13,5 +13,3 @@ function SkeletonPage() {
     </PageWrapper>
   );
 }
-
-export default SkeletonPage;

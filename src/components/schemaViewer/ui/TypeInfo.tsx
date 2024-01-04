@@ -7,7 +7,12 @@ type TypeInfoProps = {
   split?: string;
 };
 
-function TypeInfo({ name, type, className = '', split = ': ' }: TypeInfoProps) {
+export function TypeInfo({
+  name,
+  type,
+  className = '',
+  split = ': ',
+}: TypeInfoProps) {
   return (
     <p className={className}>
       <span className="text-red-700">{name}</span>
@@ -21,5 +26,3 @@ TypeInfo.defaultProps = {
   split: ': ',
   className: '',
 };
-
-export default TypeInfo;

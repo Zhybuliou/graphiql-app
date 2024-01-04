@@ -1,8 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
+
+/*:root {*/
+/*  --primary: rebeccapurple;*/
+/*  --secondary: cornflowerblue;*/
+/*}*/
+
+/** {*/
+/*  scrollbar-width: thin;*/
+/*  scrollbar-color: rgba(0, 0, 0, 0.2) rgba(255, 255, 255, 0.2);*/
+/*  outline: none !important;*/
+/*}*/
+
+/*!* Chrome, Edge, and Safari *!*/
+/**::-webkit-scrollbar {*/
+/*  width: 15px;*/
+/*}*/
+
+/**::-webkit-scrollbar-track {*/
+/*  background-color: rgba(255,255,255,0.2);*/
+/*  border-radius: 6px;*/
+/*}*/
+
+/**::-webkit-scrollbar-thumb {*/
+/*  background-color: rgba(0,0,0,0.2);*/
+/*  border-radius: 14px;*/
+/*}*/
+
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply text-sm font-inter;
+  }
   h1 {
     @apply text-3xl font-bold my-5;
   }
@@ -10,10 +42,12 @@
     @apply text-xl;
   }
   a {
-    @apply text-blue-600;
+    @apply text-blue-controls;
   }
 }
 
-html {
-  overflow-y: scroll;
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

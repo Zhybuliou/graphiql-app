@@ -15,7 +15,7 @@ export default function PresentationSection() {
       </div>
       <img
         className="h-auto md:w-[50%]"
-        src="/GraphQL.jpg"
+        src="/images/GraphQL.jpg"
         alt="graphql playground"
       />
     </div>

@@ -1,11 +1,15 @@
 import React from 'react';
-import { isObjectType, GraphQLField, isScalarType } from 'graphql';
-import UiListItem from '../../../ui/UiListItem';
-import FieldInfo from '../../ui/FieldInfo';
-import { TypeToDisplay } from '../../types';
-import { getPureType } from '../../utils';
-import TabDetailsWrapper from './TabDetailsWrapper';
-import TabDetailsScalar from './TabDetailsScalar';
+import {
+  isObjectType,
+  GraphQLField,
+  isScalarType,
+  isInputObjectType,
+} from 'graphql';
+import { UiListItem } from '../../ui/UiListItem';
+import { FieldInfo } from '../ui/FieldInfo';
+import { TypeToDisplay } from '../types';
+import { getPureType } from '../utils';
+import { SectionTitle } from '../ui/SectionTitle';
 
 type TabDetailsProps = {
   typeToDisplay: TypeToDisplay;
@@ -13,7 +17,7 @@ type TabDetailsProps = {
   setOpenedTypes: React.Dispatch<React.SetStateAction<TypeToDisplay[]>>;
 };
 
-export default function TabDetails({
+export function TabDetails({
   typeToDisplay,
   tabIndex,
   setOpenedTypes,
@@ -21,17 +25,23 @@ export default function TabDetails({
   const pureType = getPureType(typeToDisplay);
 
   if (isScalarType(pureType)) {
-    return <TabDetailsScalar scalarType={pureType} />;
+    return (
+      <div>
+        <SectionTitle>Type Details</SectionTitle>
+        <p className="my-2">{pureType.description}</p>
+        <FieldInfo name="scalar" type={pureType.name} />
+      </div>
+    );
   }
 
-  if (!isObjectType(pureType)) {
-    return <p>!isObjectType</p>;
+  if (!isObjectType(pureType) && !isInputObjectType(pureType)) {
+    throw new Error('!isObjectType');
   }
 
   const fields = Object.values(pureType.getFields());
 
   if (fields.length === 0) {
-    return <p>fields.length===0</p>;
+    throw new Error('fields.length === 0');
   }
 
   function handleAddNewType(newField: GraphQLField<unknown, unknown, unknown>) {
@@ -42,7 +52,13 @@ export default function TabDetails({
   }
 
   return (
-    <TabDetailsWrapper typeName={pureType.toString()}>
+    <div>
+      <SectionTitle>Type Details</SectionTitle>
+      <p>
+        <span className="text-blue-600">type</span>{' '}
+        <span className="text-red-700">{pureType.toString()}</span>
+        {'{'}
+      </p>
       <ul>
         {fields.map((field) => {
           const { name, type } = field;
@@ -53,6 +69,7 @@ export default function TabDetails({
           );
         })}
       </ul>
-    </TabDetailsWrapper>
+      {'}'}
+    </div>
   );
 }

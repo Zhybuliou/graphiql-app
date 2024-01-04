@@ -1,15 +1,15 @@
-import React from 'react';
-import Params from '../params/Params';
+import React, { lazy, Suspense } from 'react';
+import { Params } from './Params';
 import { IconPlay } from '../ui/icons/IconPlay';
 import { IconSparkles } from '../ui/icons/IconSparkles';
-import UiButton from '../ui/UiButton';
-import RequestEditor from './RequestEditor';
-import CodeViewer from './CodeViewer';
+import { UiButton } from '../ui/UiButton';
+import { RequestEditor } from './editors/RequestEditor';
+import { ResponseEditor } from './editors/ResponseEditor';
 import { usePlayground } from './usePlayground';
-import PlaygroundLayout from './PlaygroundLayout';
-import SchemaViewer from '../schemaViewer/SchemaViewer';
+import { PlaygroundLayout } from './PlaygroundLayout';
+import { EndpointInput } from './EndpointInput';
 
-export default function Playground() {
+export function Playground() {
   const {
     endpoint,
     schema,
@@ -18,6 +18,9 @@ export default function Playground() {
     queryString,
     response,
     error,
+    isLoading,
+    isOpenSchema,
+    setIsOpenSchema,
     setEndpoint,
     setHeaders,
     setVariables,
@@ -25,6 +28,8 @@ export default function Playground() {
     prettify,
     executeQuery,
   } = usePlayground();
+
+  const SchemaViewer = lazy(() => import('../schemaViewer/SchemaViewer'));
 
   return (
     <>
@@ -35,24 +40,29 @@ export default function Playground() {
               type="button"
               onClick={prettify}
               title="Prettify"
-              className="p-2"
+              className="p-2 bg-red-600 hover:bg-red-500"
             >
               <IconSparkles className="w-4 h-4" />
             </UiButton>
-            <input
-              value={endpoint}
-              onChange={(event) => setEndpoint(event.target.value)}
-              className="w-full"
-              type="text"
-            />
+            <UiButton
+              type="button"
+              onClick={() => setIsOpenSchema((o) => !o)}
+              disabled={!schema}
+              title="Schema"
+              className="p-2 bg-red-600 hover:bg-red-500"
+            >
+              <IconSparkles className="w-4 h-4" />
+            </UiButton>
+            <EndpointInput endpoint={endpoint} setEndpoint={setEndpoint} />
           </>
         }
         buttonExecute={
           <UiButton
             type="button"
             onClick={executeQuery}
-            className="p-2 rounded-full"
+            className="p-2 bg-red-600 rounded-full hover:bg-red-500"
             title="Execute query"
+            disabled={isLoading || !schema}
           >
             <IconPlay className="w-10 h-10" />
           </UiButton>
@@ -72,9 +82,24 @@ export default function Playground() {
             }
           />
         }
-        codeViewer={<CodeViewer value={response} error={error} />}
+        responseEditor={
+          <ResponseEditor
+            value={response}
+            error={error}
+            isLoading={isLoading}
+          />
+        }
       />
-      {schema && <SchemaViewer schema={schema} />}
+
+      {schema && isOpenSchema && (
+        <Suspense fallback={<p>Loading...</p>}>
+          <SchemaViewer
+            schema={schema}
+            isOpen={isOpenSchema}
+            setIsOpen={setIsOpenSchema}
+          />
+        </Suspense>
+      )}
     </>
   );
 }

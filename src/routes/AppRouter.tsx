@@ -9,11 +9,11 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { Suspense } from 'react';
 import { useUser } from '../firebase/firebase';
 import { privateRoutes, publicRoutes } from './routes';
-import RoutePaths from '../types/enums/routePaths';
-import SkeletonPage from '../components/skeletons/SkeletonPage';
-import FallbackPage from '../pages/FallbackPage';
+import { RoutePaths } from '../types/enums/routePaths';
+import { SkeletonPage } from '../components/skeletons/SkeletonPage';
+import { FallbackPage } from '../pages/FallbackPage';
 
-function AppRouter() {
+export function AppRouter() {
   const user = useUser();
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,5 +45,3 @@ function AppRouter() {
     </ErrorBoundary>
   );
 }
-
-export default AppRouter;

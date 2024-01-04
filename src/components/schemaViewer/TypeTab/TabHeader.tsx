@@ -1,14 +1,10 @@
 import React from 'react';
-import { TypeToDisplay } from '../../types';
-import { isOutputFieldType, isScalarFieldType } from '../../utils';
-import FieldInfo from '../../ui/FieldInfo';
-import TypeInfo from '../../ui/TypeInfo';
+import { TypeToDisplay } from '../types';
+import { isOutputFieldType, isScalarFieldType } from '../utils';
+import { FieldInfo } from '../ui/FieldInfo';
+import { TypeInfo } from '../ui/TypeInfo';
 
-type TabHeaderProps = {
-  typeToDisplay: TypeToDisplay;
-};
-
-function TabHeader({ typeToDisplay }: TabHeaderProps) {
+export function TabHeader({ typeToDisplay }: { typeToDisplay: TypeToDisplay }) {
   const tabHeaderWithoutArgs = (
     <TypeInfo name={typeToDisplay.name} type={typeToDisplay.type.toString()} />
   );
@@ -47,5 +43,3 @@ function TabHeader({ typeToDisplay }: TabHeaderProps) {
     </div>
   );
 }
-
-export default TabHeader;

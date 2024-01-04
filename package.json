@@ -18,8 +18,12 @@
   },
   "dependencies": {
     "@codemirror/lang-json": "^6.0.1",
+    "@codemirror/state": "^6.2.0",
     "@hookform/resolvers": "^3.3.2",
+    "@lezer/highlight": "^1.2.0",
+    "@uiw/codemirror-extensions-basic-setup": "^4.21.21",
     "@uiw/codemirror-extensions-langs": "^4.21.21",
+    "@uiw/codemirror-themes": "^4.21.21",
     "@uiw/react-codemirror": "^4.21.21",
     "clsx": "^2.0.0",
     "cm6-graphql": "^0.0.12",

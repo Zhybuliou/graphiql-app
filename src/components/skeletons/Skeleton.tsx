@@ -1,6 +1,6 @@
-import cn from '../../utils/cn';
+import { cn } from '../../utils/cn';
 
-function Skeleton({ className }: { className: string }) {
+export function Skeleton({ className }: { className: string }) {
   return (
     <div
       className={cn(
@@ -10,4 +10,3 @@ function Skeleton({ className }: { className: string }) {
     />
   );
 }
-export default Skeleton;

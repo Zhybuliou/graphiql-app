@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from '../../utils/cn';
+import { cn } from '../../utils/cn';
 
 type SchemaViewerLayoutProps = {
   isOpen: boolean;
@@ -8,7 +8,7 @@ type SchemaViewerLayoutProps = {
   openedTypeTabs: React.ReactElement[];
 };
 
-function SchemaViewerLayout({
+export function SchemaViewerLayout({
   isOpen,
   queriesTab,
   openedTypeTabs,
@@ -17,19 +17,17 @@ function SchemaViewerLayout({
   return (
     <div
       className={cn(
-        'absolute z-20 flex h-full right-0 top-0 bg-white shadow w-0',
+        'absolute right-px top-0 z-20 flex h-full w-0 max-w-[95vw] bg-blue-bg-aside shadow',
         {
           'w-auto': isOpen,
         }
       )}
     >
-      <div className="absolute -left-12 -rotate-90 top-1/3">{buttonOpen}</div>
-      <div className="flex overflow-hidden">
+      <div className="absolute -left-6 top-0">{buttonOpen}</div>
+      <div className="flex overflow-x-auto">
         {queriesTab}
         {openedTypeTabs}
       </div>
     </div>
   );
 }
-
-export default SchemaViewerLayout;
