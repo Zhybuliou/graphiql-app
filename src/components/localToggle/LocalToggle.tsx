@@ -26,6 +26,7 @@ export function LocalToggle() {
         htmlFor="localToggle"
       >
         <input
+          data-testid="localToggle"
           type="checkbox"
           value=""
           className="sr-only peer"
