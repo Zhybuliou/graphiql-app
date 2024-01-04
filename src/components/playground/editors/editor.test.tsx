@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { vitest } from 'vitest';
-// import { json } from '@codemirror/lang-json';
-// import { EditorView } from '@uiw/react-codemirror';
+import { EditorView } from '@uiw/react-codemirror';
+import { langs } from '@uiw/codemirror-extensions-langs';
 import { EditorConfigs } from './types';
 import { THEMES } from './themes';
 import { BASIC_SETUPS } from './basicSetups';
@@ -16,7 +16,7 @@ test('CodeMirror should display our text', () => {
     theme: THEMES.params,
     basicSetup: BASIC_SETUPS.params,
     className: 'text-balance',
-    // extensions: [json(), EditorView.lineWrapping],
+    extensions: [langs.json(), EditorView.lineWrapping],
     height: '1px',
     minHeight: '100px',
   };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { EditorView } from '@uiw/react-codemirror';
-import { json } from '@codemirror/lang-json';
+import { langs } from '@uiw/codemirror-extensions-langs';
 import { EditorConfigs } from './types';
 import { Editor } from './Editor';
 import { THEMES } from './themes';
@@ -17,7 +17,7 @@ export function ParamsEditor({ value, onChange }: ParamsEditorProps) {
     onChange,
     theme: THEMES.params,
     className: 'text-balance',
-    extensions: [json(), EditorView.lineWrapping],
+    extensions: [langs.json(), EditorView.lineWrapping],
     basicSetup: BASIC_SETUPS.params,
     height: '1px',
     minHeight: '100px',
