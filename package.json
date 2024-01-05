@@ -80,7 +80,7 @@
     }
   },
   "lint-staged-pre-push": {
-    "!(*test).{ts,tsx}": [
+    "*/!(*test).{ts,tsx}": [
       "vitest related --run"
     ]
   },
