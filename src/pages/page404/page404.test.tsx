@@ -7,7 +7,7 @@ describe('Check render page 404', () => {
   it('check show text Not Found', () => {
     render(<Page404 />);
     waitFor(() => {
-      expect(screen.getByText(/154ed/i)).toBeInTheDocument();
+      expect(screen.getByText(/154edd/i)).toBeInTheDocument();
     });
   });
 });
