@@ -50,6 +50,7 @@ export function Playground() {
               disabled={!schema}
               title="Schema"
               className="p-2 bg-red-600 hover:bg-red-500"
+              data-testid="schema-button"
             >
               <IconSparkles className="w-4 h-4" />
             </UiButton>
