@@ -1,4 +1,4 @@
-import { PageWrapper } from '../components/ui/PageWrapper';
+import { PageWrapper } from '../../components/ui/PageWrapper';
 
 function Page404() {
   return (

@@ -75,8 +75,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-staged-pre-push"
     }
+  },
+  "lint-staged-pre-push": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "vitest related --run"
+    ]
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
