@@ -6,6 +6,6 @@ import Page404 from './Page404';
 describe('Check render page 404', () => {
   it('check show text Not Found', () => {
     render(<Page404 />);
-    expect(screen.getByText(/Not Founddddddd/i)).toBeInTheDocument();
+    expect(screen.getByText(/Not Foundddddddd/i)).toBeInTheDocument();
   });
 });
