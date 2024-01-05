@@ -11,7 +11,7 @@ type UiFormInputProps<T extends FieldValues> = {
   register: UseFormRegister<T>;
   required: boolean;
   placeholder: string;
-  error: string | undefined;
+  error: string | null;
 };
 
 export function UIFormInput<T extends FieldValues>({

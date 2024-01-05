@@ -1,41 +1,41 @@
 import * as Yup from 'yup';
 
 const passwordValidation = Yup.string()
-  .required('Password is required')
+  .required('errorValidationPasswordRequired')
   .matches(
     /^[a-zA-Z0-9!@#$%^&*\p{L}\p{N}\p{S}\p{P}]*$/u,
-    'Password must only contain Latin symbols, digits, special characters adnd unicode symbols'
+    'errorValidationPasswordValidSetOfCharacters'
   )
-  .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-  .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
-  .matches(/[0-9]/, 'Password must contain at least one digit')
-  .matches(/[!@#$%^&*]/, 'Password must contain at least one special character')
-  .matches(/^\S*$/, 'Password must not contain whitespace')
-  .min(8, 'Must be at least 8 characters');
+  .matches(/[A-Z]/, 'errorValidationPasswordUpperCaseLetter')
+  .matches(/[a-z]/, 'errorValidationPasswordLowerCaseLetter')
+  .matches(/[0-9]/, 'errorValidationPasswordDigit')
+  .matches(/[!@#$%^&*]/, 'errorValidationPasswordSpecialChar')
+  .matches(/^\S*$/, 'errorValidationPasswordWhitespace')
+  .min(8, 'errorValidationPasswordSize');
 
 const emailValidation = Yup.string()
-  .required('Email is required')
-  .email('Invalid email address')
+  .required('errorValidationEmailRequired')
+  .email('errorValidationEmailInvalid')
   .matches(
     /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/,
-    'Invalid email format or missing domain'
+    'errorValidationEmailInvalidOrDomain'
   )
   .matches(
     /^[\w!#$%&'*+\-/=?^_`{|}~]+(?:\.[\w!#$%&'*+\-/=?^_`{|}~]+)*@[\w-]+(?:\.[\w-]+)*(?:\.[a-zA-Z]{2,})?$/,
-    'Invalid localToggle-part format'
+    'errorValidationEmailInvalidLocalToggle'
   );
 
 const nameValidation = Yup.string()
-  .required('Name is required')
-  .min(2, 'Name must be at least 2 characters');
+  .required('errorValidationNameRequired')
+  .min(2, 'errorValidationName2Characters');
 
 const signUpValidationSchema = Yup.object({
   name: nameValidation,
   email: emailValidation,
   password: passwordValidation,
   confirmPassword: Yup.string()
-    .required('Confirm Password is required')
-    .oneOf([Yup.ref('password')], 'Confirm Password does not match'),
+    .required('errorValidationConfirmPasswordRequired')
+    .oneOf([Yup.ref('password')], 'errorValidationConfirmPasswordDoestMatch'),
 });
 
 const signInValidationSchema = Yup.object({
