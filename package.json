@@ -14,7 +14,8 @@
     "test": "vitest",
     "coverage": "vitest --coverage",
     "postinstall": "cd .. && husky install react-components/.husky",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pre-push-test": "vitest --watchAll=false"
   },
   "dependencies": {
     "@codemirror/lang-json": "^6.0.1",
