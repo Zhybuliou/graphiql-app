@@ -80,7 +80,7 @@
     }
   },
   "lint-staged-pre-push": {
-    "src/**/*.{js,jsx,ts,tsx}": [
+    "*.{ts,tsx}": [
       "vitest related --run"
     ]
   },
