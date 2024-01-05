@@ -37,7 +37,7 @@ function SignUpPage() {
   });
 
   const onError = () => {
-    toast.error('Firebase: Error!', {
+    toast.error(state.strings.signUpPageFirebaseError, {
       position: toast.POSITION.TOP_LEFT,
     });
   };
@@ -53,7 +53,7 @@ function SignUpPage() {
   return (
     <PageWrapper>
       <h1 className="text-black font-inter text-xl font-medium">
-        {state.strings.signUpPlease}
+        {state.strings.signUpPageTitle}
       </h1>
       <form onSubmit={handleSubmit(registerUser)}>
         <FormWrapper>
@@ -62,7 +62,9 @@ function SignUpPage() {
             name="name"
             register={register}
             placeholder={state.strings.name}
-            error={errors.name?.message}
+            error={
+              errors.name?.message ? state.strings[errors.name.message] : null
+            }
             required
           />
           <UIFormInput
@@ -70,7 +72,9 @@ function SignUpPage() {
             name="email"
             register={register}
             placeholder={state.strings.eMailAddress}
-            error={errors.email?.message}
+            error={
+              errors.email?.message ? state.strings[errors.email.message] : null
+            }
             required
           />
           <UIFormInput
@@ -78,7 +82,11 @@ function SignUpPage() {
             name="password"
             register={register}
             placeholder={state.strings.password}
-            error={errors.password?.message}
+            error={
+              errors.password?.message
+                ? state.strings[errors.password.message]
+                : null
+            }
             required
           />
           <UIFormInput
@@ -86,7 +94,11 @@ function SignUpPage() {
             name="confirmPassword"
             register={register}
             placeholder={state.strings.confirmPassword}
-            error={errors.confirmPassword?.message}
+            error={
+              errors.confirmPassword?.message
+                ? state.strings[errors.confirmPassword.message]
+                : null
+            }
             required
           />
           <UiButton
@@ -96,8 +108,8 @@ function SignUpPage() {
           >
             {state.strings.signUp}
           </UiButton>
-          <div className="mt-4">
-            {state.strings.haveAccount}
+          <div className="mt-4 mb-4">
+            {state.strings.signUpPageHaveAccount}
             <Link to={RoutePaths.SIGNIN}>{state.strings.signIn}</Link>
           </div>
         </FormWrapper>

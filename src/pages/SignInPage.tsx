@@ -28,7 +28,7 @@ function SignInPage() {
   }, [user, loading]);
 
   const onError = () => {
-    toast.error('Firebase: Error, autoization invalid', {
+    toast.error(state.strings.signInPageFirebaseError, {
       position: toast.POSITION.TOP_LEFT,
     });
   };
@@ -49,7 +49,7 @@ function SignInPage() {
   return (
     <PageWrapper>
       <h1 className="text-black font-inter text-xl font-medium">
-        {state.strings.signInPlease}
+        {state.strings.signInPageTitle}
       </h1>
       <form onSubmit={handleSubmit(logInUser)}>
         <FormWrapper>
@@ -58,7 +58,9 @@ function SignInPage() {
             name="email"
             register={register}
             placeholder={state.strings.eMailAddress}
-            error={errors.email?.message}
+            error={
+              errors.email?.message ? state.strings[errors.email.message] : null
+            }
             required
           />
           <UIFormInput
@@ -66,15 +68,21 @@ function SignInPage() {
             name="password"
             register={register}
             placeholder={state.strings.password}
-            error={errors.password?.message}
+            error={
+              errors.password?.message
+                ? state.strings[errors.password.message]
+                : null
+            }
             required
           />
           <UiButton type="submit" disabled={!isValid}>
             {state.strings.login}
           </UiButton>
-          <div className="mt-2">
-            {state.strings.dontHaveAccount}
-            <Link to={RoutePaths.SIGNUP}>{state.strings.register}</Link>
+          <div className="mt-2 mb-4">
+            {state.strings.signInPageDontHaveAccount}
+            <Link to={RoutePaths.SIGNUP}>
+              {state.strings.signInPageRegister}
+            </Link>
           </div>
         </FormWrapper>
       </form>
