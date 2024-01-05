@@ -77,9 +77,10 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run test"
+      "pre-push": "lint-staged-pre-push"
     }
   },
+  "lint-staged-pre-push":  "vitest related --run",
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint  --max-warnings=0"
