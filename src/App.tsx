@@ -7,12 +7,15 @@ import { AppRouter } from './routes/AppRouter';
 
 import { LocaleProvider } from './context/local';
 import Footer from './components/footer/Footer';
+import StickyHeader from './components/header/header';
 
 export function App() {
   return (
     <LocaleProvider>
       <BrowserRouter>
-        <Navbar />
+        <StickyHeader>
+          <Navbar />
+        </StickyHeader>
         <AppRouter />
         <Footer />
         <ToastContainer />
