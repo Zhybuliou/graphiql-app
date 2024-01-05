@@ -48,5 +48,6 @@
   "errorValidationPasswordWhitespace": "Пароль не должен содержать пробелов",
   "errorValidationPasswordSize": "Должно быть не менее 8 символов",
   "errorValidationConfirmPasswordRequired": "Требуется подтверждение пароля",
-  "errorValidationConfirmPasswordDoestMatch": "Пароли не совпадает"
+  "errorValidationConfirmPasswordDoestMatch": "Пароли не совпадает",
+  "page404Tittle": "Не найдено"
 }

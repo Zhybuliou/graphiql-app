@@ -19,7 +19,7 @@ export const publicRoutes = [
 
   {
     path: RoutePaths.PAGE404,
-    Page: lazy(() => import('../pages/Page404')),
+    Page: lazy(() => import('../pages/page404/Page404')),
   },
 ];
 
@@ -30,6 +30,6 @@ export const privateRoutes = [
   },
   {
     path: RoutePaths.PAGE404,
-    Page: lazy(() => import('../pages/Page404')),
+    Page: lazy(() => import('../pages/page404/Page404')),
   },
 ];

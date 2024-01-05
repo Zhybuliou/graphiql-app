@@ -4,7 +4,7 @@ import FooterAuthorLink from './FooterAuthorLink';
 
 function Footer() {
   return (
-    <footer className="bg-blue-500 p-4 w-full flex justify-center">
+    <footer className="bg-blue-500 mt-[auto] p-2 w-full flex justify-center items-end">
       <div className="xl:w-[1280px] font-bold text-white flex lg:justify-between justify-center items-center flex-wrap">
         <Link to="https://rs.school/react/">
           <IconRSSchool className="w-40 h-10 hover:fill-white transition-all" />
