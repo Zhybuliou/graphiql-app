@@ -15,7 +15,7 @@
     "coverage": "vitest --coverage",
     "postinstall": "cd .. && husky install react-components/.husky",
     "prepare": "husky install",
-    "pre-push-test": "vitest -- --watchAll=false"
+    "pre-push-test": "vitest"
   },
   "dependencies": {
     "@codemirror/lang-json": "^6.0.1",
@@ -81,9 +81,7 @@
     }
   },
   "lint-staged-pre-push": {
-    "*.test.{ts,tsx}": [
-      "vitest related --run"
-    ]
+    "*.{ts,tsx}": "vitest related --run"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
