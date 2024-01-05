@@ -48,5 +48,6 @@
   "errorValidationPasswordWhitespace": "Password must not contain whitespace",
   "errorValidationPasswordSize": "Must be at least 8 characters",
   "errorValidationConfirmPasswordRequired": "Confirm Password is required",
-  "errorValidationConfirmPasswordDoestMatch": "Confirm Password does not match"
+  "errorValidationConfirmPasswordDoestMatch": "Confirm Password does not match",
+  "page404Tittle": "Not Found"
 }
