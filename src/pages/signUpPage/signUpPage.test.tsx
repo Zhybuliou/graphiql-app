@@ -2,11 +2,11 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import { LocaleProvider } from '../context/local';
-import * as firebase from '../firebase/firebase';
+import { LocaleProvider } from '../../context/local';
+import * as firebase from '../../firebase/firebase';
 
 import SignUpPage from './SignUpPage';
-import { AppRouter } from '../routes/AppRouter';
+import { AppRouter } from '../../routes/AppRouter';
 
 test('renders sign up page', () => {
   render(

@@ -5,15 +5,21 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { toast } from 'react-toastify';
-import { auth, registerWithEmailAndPassword } from '../firebase/firebase';
-import { useLocale } from '../context/local';
-import { RoutePaths } from '../types/enums/routePaths';
-import { ISignUpForm } from '../types/interfaces/ISignUpForm';
-import { signUpValidationSchema } from '../utils/validationSchemes';
-import { PageWrapper } from '../components/ui/PageWrapper';
-import { FormWrapper } from '../components/ui/FormWrapper';
-import { UIFormInput } from '../components/ui/UIFormInput';
-import { UiButton } from '../components/ui/UiButton';
+import { auth, registerWithEmailAndPassword } from '../../firebase/firebase';
+import { useLocale } from '../../context/local';
+import { RoutePaths } from '../../types/enums/routePaths';
+import { signUpValidationSchema } from '../../utils/validationSchemes';
+import { PageWrapper } from '../../components/ui/PageWrapper';
+import { FormWrapper } from '../../components/ui/FormWrapper';
+import { UIFormInput } from '../../components/ui/UIFormInput';
+import { UiButton } from '../../components/ui/UiButton';
+
+interface ISignUpForm {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 function SignUpPage() {
   const { state } = useLocale();

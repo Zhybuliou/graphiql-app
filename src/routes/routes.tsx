@@ -9,12 +9,12 @@ export const publicRoutes = [
 
   {
     path: RoutePaths.SIGNIN,
-    Page: lazy(() => import('../pages/SignInPage')),
+    Page: lazy(() => import('../pages/signInPage/SignInPage')),
   },
 
   {
     path: RoutePaths.SIGNUP,
-    Page: lazy(() => import('../pages/SignUpPage')),
+    Page: lazy(() => import('../pages/signUpPage/SignUpPage')),
   },
 
   {
