@@ -1,9 +1,9 @@
 import React from 'react';
 import { EditorState } from '@uiw/react-codemirror';
+import { noctisLilac } from '@uiw/codemirror-theme-noctis-lilac';
 import { cn } from '../../../utils/cn';
 import { Editor } from './Editor';
 import { EditorConfigs } from './types';
-import { THEMES } from './themes';
 import { BASIC_SETUPS } from './basicSetups';
 
 type ResponseEditorProps = {
@@ -25,7 +25,7 @@ export function ResponseEditor({
     value: dataToDisplay,
     className: cn('h-full pl-4', { 'bg-red-200': !!error }),
     basicSetup: BASIC_SETUPS.response,
-    theme: THEMES.response,
+    theme: noctisLilac,
     extensions: [EditorState.readOnly.of(true)],
   };
 
