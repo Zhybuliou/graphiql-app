@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { RoutePaths } from '../types/enums/routePaths';
+import { RoutePaths } from './routePaths';
 
 export const publicRoutes = [
   {
@@ -9,17 +9,17 @@ export const publicRoutes = [
 
   {
     path: RoutePaths.SIGNIN,
-    Page: lazy(() => import('../pages/SignInPage')),
+    Page: lazy(() => import('../pages/signInPage/SignInPage')),
   },
 
   {
     path: RoutePaths.SIGNUP,
-    Page: lazy(() => import('../pages/SignUpPage')),
+    Page: lazy(() => import('../pages/signUpPage/SignUpPage')),
   },
 
   {
     path: RoutePaths.PAGE404,
-    Page: lazy(() => import('../pages/Page404')),
+    Page: lazy(() => import('../pages/page404/Page404')),
   },
 ];
 
@@ -30,6 +30,6 @@ export const privateRoutes = [
   },
   {
     path: RoutePaths.PAGE404,
-    Page: lazy(() => import('../pages/Page404')),
+    Page: lazy(() => import('../pages/page404/Page404')),
   },
 ];

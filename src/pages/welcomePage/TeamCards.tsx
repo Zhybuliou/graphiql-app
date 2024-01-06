@@ -5,17 +5,17 @@ export default function TeamCards() {
   const { state } = useLocale();
   const cards = [
     {
-      image: '/spacepocket1985.png',
+      image: '/images/spacepocket1985.png',
       name: state.strings.welcomePageOurTeamAlexName,
       description: state.strings.welcomePageOurTeamAlexDescription,
     },
     {
-      image: '/TvaExperts.png',
+      image: '/images/TvaExperts.png',
       name: state.strings.welcomePageOurTeamTvaExpertsName,
       description: state.strings.welcomePageOurTeamTvaExpertsDescription,
     },
     {
-      image: '/zhybuliou.jpg',
+      image: '/images/zhybuliou.jpg',
       name: state.strings.welcomePageOurTeamZhybuliouName,
       description: state.strings.welcomePageOurTeamZhybuliouDescription,
     },
