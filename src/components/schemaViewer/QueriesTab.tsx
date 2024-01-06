@@ -18,25 +18,27 @@ export function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
 
   return (
     <TabLayout>
-      <SectionTitle>Queries</SectionTitle>
-      <ul>
-        {queries.map((field) => {
-          return (
-            <UiListItem
-              onClick={() => {
-                handleClickEndpoint(field);
-              }}
-              key={field.name}
-            >
-              <TypeInfo
-                name={field.name}
-                type={field.type.toString()}
-                split="(...): "
-              />
-            </UiListItem>
-          );
-        })}
-      </ul>
+      <div>
+        <SectionTitle>Queries</SectionTitle>
+        <ul>
+          {queries.map((field) => {
+            return (
+              <UiListItem
+                onClick={() => {
+                  handleClickEndpoint(field);
+                }}
+                key={field.name}
+              >
+                <TypeInfo
+                  name={field.name}
+                  type={field.type.toString()}
+                  split="(...): "
+                />
+              </UiListItem>
+            );
+          })}
+        </ul>
+      </div>
     </TabLayout>
   );
 }
