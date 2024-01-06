@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
-import { RoutePaths } from '../../types/enums/routePaths';
+import { RoutePaths } from '../../routes/routePaths';
 import { PageWrapper } from '../../components/ui/PageWrapper';
 import { UiButton } from '../../components/ui/UiButton';
 import PresentationSection from './PresentationSection';

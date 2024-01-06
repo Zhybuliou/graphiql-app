@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 import { auth, registerWithEmailAndPassword } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
-import { RoutePaths } from '../../types/enums/routePaths';
+import { RoutePaths } from '../../routes/routePaths';
 import { signUpValidationSchema } from '../../utils/validationSchemes';
 import { PageWrapper } from '../../components/ui/PageWrapper';
 import { FormWrapper } from '../../components/ui/FormWrapper';

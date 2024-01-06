@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { RoutePaths } from '../types/enums/routePaths';
+import { RoutePaths } from './routePaths';
 
 export const publicRoutes = [
   {

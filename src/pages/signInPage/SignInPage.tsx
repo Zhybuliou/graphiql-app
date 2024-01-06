@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { auth, logInWithEmailAndPassword } from '../../firebase/firebase';
-import { RoutePaths } from '../../types/enums/routePaths';
+import { RoutePaths } from '../../routes/routePaths';
 import { useLocale } from '../../context/local';
 import { PageWrapper } from '../../components/ui/PageWrapper';
 import { FormWrapper } from '../../components/ui/FormWrapper';

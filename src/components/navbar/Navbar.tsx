@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { logout, useUser } from '../../firebase/firebase';
 import { useLocale } from '../../context/local';
 
-import { RoutePaths } from '../../types/enums/routePaths';
+import { RoutePaths } from '../../routes/routePaths';
 import { LocalToggle } from '../localToggle/LocalToggle';
 
 import { UiButton } from '../ui/UiButton';
@@ -55,9 +55,11 @@ export function Navbar() {
           {state.strings.logOut}
         </UiButton>
       )}
-      <Link to={RoutePaths.WELCOME} className="">
+      <Link to={RoutePaths.WELCOME}>
         <UiButton type="button"> {state.strings.mainPage}</UiButton>
       </Link>
     </div>
   );
 }
+
+export default Navbar;
