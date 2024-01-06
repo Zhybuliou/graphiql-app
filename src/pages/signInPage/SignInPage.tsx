@@ -4,15 +4,19 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { auth, logInWithEmailAndPassword } from '../firebase/firebase';
-import { RoutePaths } from '../types/enums/routePaths';
-import { useLocale } from '../context/local';
-import { PageWrapper } from '../components/ui/PageWrapper';
-import { FormWrapper } from '../components/ui/FormWrapper';
-import { UiButton } from '../components/ui/UiButton';
-import { UIFormInput } from '../components/ui/UIFormInput';
-import { signInValidationSchema } from '../utils/validationSchemes';
-import { ISignInForm } from '../types/interfaces/ISignInForm';
+import { auth, logInWithEmailAndPassword } from '../../firebase/firebase';
+import { RoutePaths } from '../../types/enums/routePaths';
+import { useLocale } from '../../context/local';
+import { PageWrapper } from '../../components/ui/PageWrapper';
+import { FormWrapper } from '../../components/ui/FormWrapper';
+import { UiButton } from '../../components/ui/UiButton';
+import { UIFormInput } from '../../components/ui/UIFormInput';
+import { signInValidationSchema } from '../../utils/validationSchemes';
+
+export interface ISignInForm {
+  email: string;
+  password: string;
+}
 
 function SignInPage() {
   const [user, loading] = useAuthState(auth);
