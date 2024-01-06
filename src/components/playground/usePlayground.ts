@@ -25,13 +25,25 @@ export function usePlayground() {
   const [schema, setSchema] = useState<GraphQLSchema | undefined>();
   const [isOpenSchema, setIsOpenSchema] = useState<boolean>(false);
 
-  function handleError(caughtError: unknown, errorTitle: string) {
-    const errorMessage =
-      caughtError instanceof Error ? caughtError.message : '';
-    const fullErrorMessage = JSON.stringify(`${errorTitle} - ${errorMessage}`);
-    setIsLoading(false);
-    setError(new Error(fullErrorMessage));
+  interface IMessage {
+    message: string;
   }
+
+  const handleErrorCallback = useCallback(
+    (caughtError: unknown, errorTitle: string) => {
+      function hasMessage(obj: unknown): obj is IMessage {
+        return (obj as IMessage)?.message !== undefined;
+      }
+
+      const errorMessage = hasMessage(caughtError)
+        ? caughtError.message
+        : JSON.stringify(caughtError, null, 2);
+      const fullErrorMessage = `${errorTitle} \n\n ${errorMessage}`;
+      setIsLoading(false);
+      setError(new Error(fullErrorMessage));
+    },
+    []
+  );
 
   function clearResponseData() {
     dispatch({
@@ -60,12 +72,12 @@ export function usePlayground() {
         const clientSchema = buildClientSchema(schemaData.data);
         setSchema(clientSchema);
       } catch (caughtError) {
-        handleError(caughtError, "Error. We can't get the schema.");
+        handleErrorCallback(caughtError, "Error. We can't get the schema.");
       }
     }
 
     getSchema();
-  }, [endpoint]);
+  }, [endpoint, handleErrorCallback]);
 
   const setEndpoint = useCallback((newUrl: string) => {
     dispatch({
@@ -97,12 +109,17 @@ export function usePlayground() {
       const requestBody = createBodyOfRequest(variables, queryString);
       const data = await makeRequest(endpoint, requestHeaders, requestBody);
       setIsLoading(false);
+
+      if (data.errors) {
+        handleErrorCallback(data, 'Error. Bad Request');
+      }
+
       dispatch({
         type: PlaygroundActions.SET_RESPONSE,
         payload: JSON.stringify(data),
       });
     } catch (caughtError) {
-      handleError(caughtError, "Error. We can't get data");
+      handleErrorCallback(caughtError, "Error. We can't get data");
     }
   }
 

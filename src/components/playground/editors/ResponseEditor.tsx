@@ -1,6 +1,6 @@
 import React from 'react';
-import { EditorState } from '@uiw/react-codemirror';
-import { noctisLilac } from '@uiw/codemirror-theme-noctis-lilac';
+import { EditorState, EditorView } from '@uiw/react-codemirror';
+import { noctisLilacInit } from '@uiw/codemirror-theme-noctis-lilac';
 import { cn } from '../../../utils/cn';
 import { Editor } from './Editor';
 import { EditorConfigs } from './types';
@@ -24,10 +24,14 @@ export function ResponseEditor({
 
   const editorConfigs: EditorConfigs = {
     value: dataToDisplay,
-    className: cn('h-full pl-4', { 'bg-red-200': !!error }),
+    className: 'h-full pl-4',
     basicSetup: BASIC_SETUPS.response,
-    theme: noctisLilac,
-    extensions: [EditorState.readOnly.of(true)],
+    theme: noctisLilacInit({
+      settings: {
+        background: error ? '#fed7d7' : '#f2f1f8',
+      },
+    }),
+    extensions: [EditorState.readOnly.of(true), EditorView.lineWrapping],
   };
 
   return (
