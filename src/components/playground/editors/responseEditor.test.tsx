@@ -11,10 +11,10 @@ test('CodeMirror should display our text', () => {
 
 test('CodeMirror should display loading status', () => {
   const textToDisplay = Date.now().toString();
-  const { queryByText } = render(
+  const { queryByTestId } = render(
     <ResponseEditor value={textToDisplay} error={null} isLoading />
   );
-  expect(queryByText('Spinner')).toBeInTheDocument();
+  expect(queryByTestId('skeleton-editor')).toBeInTheDocument();
 });
 
 test('CodeMirror should display loading status', () => {
