@@ -5,6 +5,7 @@ type PlaygroundLayoutProps = {
   requestEditor: React.ReactElement;
   buttonExecute: React.ReactElement;
   responseEditor: React.ReactElement;
+  schemaViewer: React.ReactElement | false | undefined;
 };
 
 export function PlaygroundLayout({
@@ -12,17 +13,19 @@ export function PlaygroundLayout({
   requestEditor,
   buttonExecute,
   responseEditor,
+  schemaViewer,
 }: PlaygroundLayoutProps) {
   return (
     <div className="relative flex flex-col w-full flex-1 bg-gray-50">
       <div className="w-full flex items-center justify-center gap-4 p-2">
         {controls}
       </div>
-      <div className="flex justify-center w-full h-full relative">
+      <div className="flex justify-center w-full h-full flex-1 relative">
         {requestEditor}
         {responseEditor}
         <div className="absolute z-10 top-6">{buttonExecute}</div>
       </div>
+      {schemaViewer}
     </div>
   );
 }

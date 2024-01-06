@@ -30,7 +30,7 @@ export function ResponseEditor({
   };
 
   return (
-    <div className={cn('relative flex flex-col w-6/12 h-full', className)}>
+    <div className={cn('relative flex flex-col w-6/12 basis-full', className)}>
       {isLoading ? (
         <div className="h-full w-full">Spinner</div>
       ) : (

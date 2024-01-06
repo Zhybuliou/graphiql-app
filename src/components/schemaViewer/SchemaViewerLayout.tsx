@@ -3,7 +3,7 @@ import { cn } from '../../utils/cn';
 
 type SchemaViewerLayoutProps = {
   isOpen: boolean;
-  buttonOpen: React.ReactElement;
+  buttonClose: React.ReactElement;
   queriesTab: React.ReactElement;
   openedTypeTabs: React.ReactElement[];
 };
@@ -12,19 +12,19 @@ export function SchemaViewerLayout({
   isOpen,
   queriesTab,
   openedTypeTabs,
-  buttonOpen,
+  buttonClose,
 }: SchemaViewerLayoutProps) {
   return (
     <div
       className={cn(
-        'absolute right-px top-0 z-20 flex h-full w-0 max-w-[95vw] bg-blue-bg-aside shadow',
+        'absolute right-px top-0 z-20 flex h-full w-0 max-w-[95vw] bg-white shadow',
         {
           'w-auto': isOpen,
         }
       )}
     >
-      <div className="absolute -left-6 top-0">{buttonOpen}</div>
-      <div className="flex overflow-x-auto">
+      <div className="absolute -left-6 top-0">{buttonClose}</div>
+      <div className="flex overflow-x-auto scroll-smooth">
         {queriesTab}
         {openedTypeTabs}
       </div>

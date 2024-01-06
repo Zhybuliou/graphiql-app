@@ -10,8 +10,8 @@ import { TabHeader } from './TypeTab/TabHeader';
 import { TabDescription } from './TypeTab/TabDescription';
 import { TabDetails } from './TypeTab/TabDetails';
 import { TabArguments } from './TypeTab/TabArguments';
-import { IconSparkles } from '../ui/icons/IconSparkles';
 import { TypeToDisplay } from './types';
+import { IconClose } from '../ui/icons/IconClose';
 
 export default function SchemaViewer({
   schema,
@@ -30,13 +30,13 @@ export default function SchemaViewer({
   return (
     <SchemaViewerLayout
       isOpen={isOpen}
-      buttonOpen={
+      buttonClose={
         <UiButton
           type="button"
           onClick={() => setIsOpen((o) => !o)}
-          className="p-1 text-sm tracking-widest rounded-none rounded-l-lg"
+          className="p-1 rounded-none rounded-l-lg"
         >
-          <IconSparkles className="w-4 h-4" />
+          <IconClose className="w-4 h-4 text-white" />
         </UiButton>
       }
       queriesTab={

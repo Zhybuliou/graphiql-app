@@ -79,7 +79,11 @@ function SignInPage() {
             }
             required
           />
-          <UiButton type="submit" disabled={!isValid}>
+          <UiButton
+            type="submit"
+            disabled={!isValid}
+            className="w-full text-lg py-2 px-4 rounded-xl"
+          >
             {state.strings.login}
           </UiButton>
           <div className="mt-2 mb-4">

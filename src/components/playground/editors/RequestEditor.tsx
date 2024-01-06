@@ -32,7 +32,7 @@ export function RequestEditor({
   };
 
   return (
-    <div className="flex flex-col w-6/12 h-full">
+    <div className="flex flex-col w-6/12 basis-full">
       <div className="flex-1">
         <Editor configs={editorConfigs} />
       </div>
