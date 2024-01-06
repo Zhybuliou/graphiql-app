@@ -5,6 +5,7 @@ import { cn } from '../../../utils/cn';
 import { Editor } from './Editor';
 import { EditorConfigs } from './types';
 import { BASIC_SETUPS } from './basicSetups';
+import { SkeletonEditor } from '../../skeletons/SkeletonEditor';
 
 type ResponseEditorProps = {
   error: Error | null;
@@ -32,7 +33,9 @@ export function ResponseEditor({
   return (
     <div className={cn('relative flex flex-col w-6/12 basis-full', className)}>
       {isLoading ? (
-        <div className="h-full w-full">Spinner</div>
+        <div className="h-full w-full">
+          <SkeletonEditor />
+        </div>
       ) : (
         <Editor configs={editorConfigs} />
       )}
