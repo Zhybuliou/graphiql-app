@@ -56,7 +56,7 @@ export function Navbar() {
         </UiButton>
       )}
       <Link to={RoutePaths.WELCOME}>
-        <UiButton type="button">{state.strings.mainPage}</UiButton>
+        <UiButton type="button">{state.strings.welcomePage}</UiButton>
       </Link>
     </div>
   );
