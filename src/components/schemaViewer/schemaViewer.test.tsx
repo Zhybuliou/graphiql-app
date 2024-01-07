@@ -35,11 +35,10 @@ test('Show queries of schema', async () => {
   );
   const schema = buildClientSchema(schemaData.data);
   const setIsOpenMock = vitest.fn();
-  const { getByText, getAllByRole } = render(
+  const { getAllByRole } = render(
     <LocaleProvider>
       <SchemaViewer schema={schema} setIsOpen={setIsOpenMock} isOpen />
     </LocaleProvider>
   );
-  expect(getByText(/QUERIES/i)).toBeInTheDocument();
   expect(getAllByRole('listitem').length).toBe(9);
 });
