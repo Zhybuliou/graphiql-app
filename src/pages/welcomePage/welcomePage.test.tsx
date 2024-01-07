@@ -1,11 +1,11 @@
 import '@testing-library/jest-dom';
 import { expect } from 'vitest';
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import WelcomePage from './WelcomePage';
 import { LocaleProvider } from '../../context/local';
 
-const setup = () =>
+const setup = async () =>
   act(() => {
     render(
       <LocaleProvider>
@@ -19,6 +19,8 @@ const setup = () =>
 describe('Check render WelcomePage', () => {
   it('check show welcome page description Section', () => {
     setup();
-    expect(screen.getByText(/GraphiQL Project/i)).toBeInTheDocument();
+    waitFor(() => {
+      expect(screen.getByText(/GraphiQL Project/i)).toBeInTheDocument();
+    });
   });
 });
