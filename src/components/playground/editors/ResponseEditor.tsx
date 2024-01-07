@@ -46,7 +46,10 @@ export function ResponseEditor({
         <Editor configs={editorConfigs} />
       )}
       {!dataToDisplay && !isLoading && (
-        <div className="absolute flex items-center justify-center w-[calc(100%-16px)] h-[calc(100%-16px)] text-gray-400">
+        <div
+          data-testid="no-data"
+          className="absolute flex items-center justify-center w-[calc(100%-16px)] h-[calc(100%-16px)] text-gray-400"
+        >
           {state.strings.playgroundResponseNoData}
         </div>
       )}
