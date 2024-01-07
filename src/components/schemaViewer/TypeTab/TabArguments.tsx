@@ -6,6 +6,7 @@ import { UiListItem } from '../../ui/UiListItem';
 import { FieldInfo } from '../ui/FieldInfo';
 import { isOutputFieldType, isScalarFieldType } from '../utils';
 import { SectionTitle } from '../ui/SectionTitle';
+import { useLocale } from '../../../context/local';
 
 type TabArgumentsProps = {
   typeToDisplay: TypeToDisplay;
@@ -18,6 +19,8 @@ export function TabArguments({
   tabIndex,
   setOpenedTypes,
 }: TabArgumentsProps) {
+  const { state } = useLocale();
+
   if (!isOutputFieldType(typeToDisplay)) {
     return null;
   }
@@ -39,7 +42,7 @@ export function TabArguments({
 
   return (
     <div>
-      <SectionTitle>Type Arguments</SectionTitle>
+      <SectionTitle>{state.strings.schemaTabTypeArgumentsTitle}</SectionTitle>
       <ul>
         {typeToDisplay.args.map((argument) => {
           const { name, type } = argument;

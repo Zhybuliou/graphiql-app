@@ -24,7 +24,7 @@ export function SchemaViewerLayout({
       )}
     >
       <div className="absolute -left-6 top-0">{buttonClose}</div>
-      <div className="flex overflow-x-auto scroll-smooth">
+      <div className="flex overflow-x-auto">
         {queriesTab}
         {openedTypeTabs}
       </div>

@@ -12,6 +12,7 @@ import {
   PlaygroundActions,
   playgroundReducer,
 } from '../reducers/playground';
+import { useLocale } from '../../context/local';
 
 export function usePlayground() {
   const [state, dispatch] = useReducer(
@@ -20,6 +21,7 @@ export function usePlayground() {
   );
   const { headers, variables, endpoint, queryString } = state;
 
+  const { state: locale } = useLocale();
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [schema, setSchema] = useState<GraphQLSchema | undefined>();
@@ -72,11 +74,14 @@ export function usePlayground() {
         const clientSchema = buildClientSchema(schemaData.data);
         setSchema(clientSchema);
       } catch (caughtError) {
-        handleErrorCallback(caughtError, "Error. We can't get the schema.");
+        handleErrorCallback(
+          caughtError,
+          locale.strings.playgroundErrorCantGetSchema
+        );
       }
     }
-
     getSchema();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endpoint, handleErrorCallback]);
 
   const setEndpoint = useCallback((newUrl: string) => {
@@ -111,7 +116,7 @@ export function usePlayground() {
       setIsLoading(false);
 
       if (data.errors) {
-        handleErrorCallback(data, 'Error. Bad Request');
+        handleErrorCallback(data, locale.strings.playgroundErrorBadRequest);
       }
 
       dispatch({
@@ -119,7 +124,7 @@ export function usePlayground() {
         payload: JSON.stringify(data),
       });
     } catch (caughtError) {
-      handleErrorCallback(caughtError, "Error. We can't get data");
+      handleErrorCallback(caughtError, locale.strings.playgroundErrorHTTP);
     }
   }
 

@@ -5,6 +5,7 @@ import { TypeToDisplay } from './types';
 import { SectionTitle } from './ui/SectionTitle';
 import { TypeInfo } from './ui/TypeInfo';
 import { TabLayout } from './TabLayout';
+import { useLocale } from '../../context/local';
 
 type QueriesTabProps = {
   queries: GraphQLField<unknown, unknown, unknown>[];
@@ -12,6 +13,7 @@ type QueriesTabProps = {
 };
 
 export function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
+  const { state } = useLocale();
   function handleClickEndpoint(field: GraphQLField<unknown, unknown, unknown>) {
     setOpenedTypes([field]);
   }
@@ -19,7 +21,7 @@ export function QueriesTab({ queries, setOpenedTypes }: QueriesTabProps) {
   return (
     <TabLayout>
       <div>
-        <SectionTitle>Queries</SectionTitle>
+        <SectionTitle>{state.strings.schemaTabQueriesTitle}</SectionTitle>
         <ul>
           {queries.map((field) => {
             return (

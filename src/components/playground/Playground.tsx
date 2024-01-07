@@ -9,6 +9,7 @@ import { usePlayground } from './usePlayground';
 import { PlaygroundLayout } from './PlaygroundLayout';
 import { EndpointInput } from './EndpointInput';
 import { IconSchema } from '../ui/icons/IconSchema';
+import { useLocale } from '../../context/local';
 
 export function Playground() {
   const {
@@ -30,6 +31,8 @@ export function Playground() {
     executeQuery,
   } = usePlayground();
 
+  const { state } = useLocale();
+
   const SchemaViewer = lazy(() => import('../schemaViewer/SchemaViewer'));
 
   return (
@@ -39,7 +42,7 @@ export function Playground() {
           <UiButton
             type="button"
             onClick={prettify}
-            title="Prettify"
+            title={state.strings.playgroundButtonPrettifyTitle}
             className="p-2"
           >
             <IconSparkles className="w-4 h-4" />
@@ -48,7 +51,7 @@ export function Playground() {
             type="button"
             onClick={() => setIsOpenSchema((o) => !o)}
             disabled={!schema}
-            title="Schema"
+            title={state.strings.playgroundButtonSchemaTitle}
             className="p-2"
             data-testid="schema-button"
           >
@@ -62,7 +65,7 @@ export function Playground() {
           type="button"
           onClick={executeQuery}
           className="p-2 bg-red-600 rounded-full hover:bg-red-500"
-          title="Execute query"
+          title={state.strings.playgroundButtonExecuteTitle}
           disabled={isLoading || !schema}
         >
           <IconPlay className="w-10 h-10" />
@@ -91,7 +94,9 @@ export function Playground() {
         isOpenSchema && (
           <Suspense
             fallback={
-              <p className="absolute right-px top-0 z-20">Loading...</p>
+              <p className="absolute right-px top-0 z-20">
+                {state.strings.playgroundIsLoading}
+              </p>
             }
           >
             <SchemaViewer

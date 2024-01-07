@@ -6,6 +6,7 @@ import { Editor } from './Editor';
 import { EditorConfigs } from './types';
 import { BASIC_SETUPS } from './basicSetups';
 import { SkeletonEditor } from '../../skeletons/SkeletonEditor';
+import { useLocale } from '../../../context/local';
 
 type ResponseEditorProps = {
   error: Error | null;
@@ -20,6 +21,7 @@ export function ResponseEditor({
   isLoading,
   className = '',
 }: ResponseEditorProps) {
+  const { state } = useLocale();
   const dataToDisplay = error ? error.message : value;
 
   const editorConfigs: EditorConfigs = {
@@ -44,8 +46,8 @@ export function ResponseEditor({
         <Editor configs={editorConfigs} />
       )}
       {!dataToDisplay && !isLoading && (
-        <div className="absolute flex items-center justify-center w-[calc(100%-16px)] h-[calc(100%-16px)]">
-          No data! Make a request!
+        <div className="absolute flex items-center justify-center w-[calc(100%-16px)] h-[calc(100%-16px)] text-gray-400">
+          {state.strings.playgroundResponseNoData}
         </div>
       )}
     </div>
