@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply text-sm font-inter;
+  }
+  h1 {
+    @apply text-3xl font-bold my-5;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  a {
+    @apply text-blue-600;
+  }
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
