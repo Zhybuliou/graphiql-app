@@ -26,7 +26,7 @@ export function ResponseEditor({
 
   const editorConfigs: EditorConfigs = {
     value: dataToDisplay,
-    className: 'h-full pl-4',
+    className: 'h-full',
     basicSetup: BASIC_SETUPS.response,
     theme: noctisLilacInit({
       settings: {
