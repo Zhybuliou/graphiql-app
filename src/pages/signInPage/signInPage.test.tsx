@@ -1,4 +1,10 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
@@ -8,32 +14,43 @@ import * as firebase from '../../firebase/firebase';
 import SignInPage from './SignInPage';
 import { AppRouter } from '../../routes/AppRouter';
 
-test('renders sign in page', () => {
-  render(
-    <LocaleProvider>
-      <MemoryRouter>
-        <SignInPage />
-      </MemoryRouter>
-    </LocaleProvider>
-  );
+test('renders sign in page', async () => {
+  act(() => {
+    render(
+      <LocaleProvider>
+        <MemoryRouter>
+          <SignInPage />
+        </MemoryRouter>
+      </LocaleProvider>
+    );
+  });
   const signInHeader = screen.getByText(/Sign In, please/i);
-  expect(signInHeader).toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(signInHeader).toBeInTheDocument();
+  });
 });
 
 test('displays an error message if the email is incorrect', async () => {
-  render(
-    <LocaleProvider>
-      <MemoryRouter>
-        <SignInPage />
-      </MemoryRouter>
-    </LocaleProvider>
-  );
+  act(() => {
+    render(
+      <LocaleProvider>
+        <MemoryRouter>
+          <SignInPage />
+        </MemoryRouter>
+      </LocaleProvider>
+    );
+  });
 
   const emailInput = screen.getByPlaceholderText(
     /E-mail Address/i
   ) as HTMLInputElement;
 
-  fireEvent.change(emailInput, { target: { value: 'invalidMailexample.com' } });
+  act(() => {
+    fireEvent.change(emailInput, {
+      target: { value: 'invalidMailexample.com' },
+    });
+  });
 
   await waitFor(() => {
     expect(screen.getByText(/Invalid email address/i)).toBeInTheDocument();
@@ -41,13 +58,15 @@ test('displays an error message if the email is incorrect', async () => {
 });
 
 test('checking submit button status', async () => {
-  render(
-    <LocaleProvider>
-      <MemoryRouter>
-        <SignInPage />
-      </MemoryRouter>
-    </LocaleProvider>
-  );
+  act(() => {
+    render(
+      <LocaleProvider>
+        <MemoryRouter>
+          <SignInPage />
+        </MemoryRouter>
+      </LocaleProvider>
+    );
+  });
 
   const emailInput = screen.getByPlaceholderText(
     /E-mail Address/i
@@ -57,8 +76,10 @@ test('checking submit button status', async () => {
   ) as HTMLInputElement;
   const submitButton = screen.getByText(/Login/i) as HTMLButtonElement;
 
-  fireEvent.change(emailInput, { target: { value: 'testMail@test.com' } });
-  fireEvent.change(passwordInput, { target: { value: 'Qwerty1234%' } });
+  act(() => {
+    fireEvent.change(emailInput, { target: { value: 'testMail@test.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'Qwerty1234%' } });
+  });
 
   await waitFor(() => {
     expect(submitButton).not.toHaveAttribute('disabled');
@@ -68,14 +89,16 @@ test('checking submit button status', async () => {
 test('should call logInWithEmailAndPassword when form is submitted', async () => {
   const spy = vi.spyOn(firebase, 'logInWithEmailAndPassword');
 
-  render(
-    <LocaleProvider>
-      <MemoryRouter>
-        <AppRouter />
-        <SignInPage />
-      </MemoryRouter>
-    </LocaleProvider>
-  );
+  act(() => {
+    render(
+      <LocaleProvider>
+        <MemoryRouter>
+          <AppRouter />
+          <SignInPage />
+        </MemoryRouter>
+      </LocaleProvider>
+    );
+  });
 
   const emailInput = screen.getByPlaceholderText(
     /E-mail Address/i
@@ -86,11 +109,15 @@ test('should call logInWithEmailAndPassword when form is submitted', async () =>
 
   const submitButton = screen.getByText(/Login/i) as HTMLButtonElement;
   await waitFor(() => {
-    fireEvent.change(emailInput, { target: { value: 'testMail@test.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'Qwerty1234%' } });
+    act(() => {
+      fireEvent.change(emailInput, { target: { value: 'testMail@test.com' } });
+      fireEvent.change(passwordInput, { target: { value: 'Qwerty1234%' } });
+    });
   });
 
-  fireEvent.click(submitButton);
+  act(() => {
+    fireEvent.click(submitButton);
+  });
   await waitFor(() => {
     expect(spy).toHaveBeenCalled();
     expect(spy).toHaveBeenCalledWith('testMail@test.com', 'Qwerty1234%');
@@ -98,16 +125,21 @@ test('should call logInWithEmailAndPassword when form is submitted', async () =>
   });
 });
 
-test('navigates to SignUpPage when "Register" link is clicked', () => {
-  render(
-    <LocaleProvider>
-      <BrowserRouter>
-        <AppRouter />
-        <SignInPage />
-      </BrowserRouter>
-    </LocaleProvider>
-  );
-  fireEvent.click(screen.getByText('Register'));
-
-  expect(window.location.pathname).toBe('/sign-up');
+test('navigates to SignUpPage when "Register" link is clicked', async () => {
+  act(() => {
+    render(
+      <LocaleProvider>
+        <BrowserRouter>
+          <AppRouter />
+          <SignInPage />
+        </BrowserRouter>
+      </LocaleProvider>
+    );
+  });
+  act(() => {
+    fireEvent.click(screen.getByText('Register'));
+  });
+  await waitFor(() => {
+    expect(window.location.pathname).toBe('/sign-up');
+  });
 });

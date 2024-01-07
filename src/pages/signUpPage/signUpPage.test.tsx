@@ -8,7 +8,7 @@ import * as firebase from '../../firebase/firebase';
 import SignUpPage from './SignUpPage';
 import { AppRouter } from '../../routes/AppRouter';
 
-test('renders sign up page', () => {
+test('renders sign up page', async () => {
   render(
     <LocaleProvider>
       <MemoryRouter>
@@ -17,7 +17,9 @@ test('renders sign up page', () => {
     </LocaleProvider>
   );
   const signInHeader = screen.getByText(/Sign Up, please/i);
-  expect(signInHeader).toBeInTheDocument();
+  await waitFor(() => {
+    expect(signInHeader).toBeInTheDocument();
+  });
 });
 
 test('displays error messages if input fields are invalid', async () => {
@@ -129,7 +131,7 @@ test('checking submit button status', async () => {
   });
 });
 
-test('navigates to SignInPage when "Sign In" link is clicked', () => {
+test('navigates to SignInPage when "Sign In" link is clicked', async () => {
   render(
     <LocaleProvider>
       <BrowserRouter>
@@ -140,5 +142,7 @@ test('navigates to SignInPage when "Sign In" link is clicked', () => {
   );
   fireEvent.click(screen.getByText('Sign in'));
 
-  expect(window.location.pathname).toBe('/sign-in');
+  await waitFor(() => {
+    expect(window.location.pathname).toBe('/sign-in');
+  });
 });

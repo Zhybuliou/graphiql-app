@@ -19,7 +19,9 @@ const setup = () =>
 describe('Check render LocalToggle', () => {
   it('check show App', () => {
     render(<App />);
-    expect(screen.getByText(/2024/i)).toBeInTheDocument();
+    waitFor(() => {
+      expect(screen.getByText(/2024/i)).toBeInTheDocument();
+    });
   });
   it('check work LocalToggle', () => {
     setup();
