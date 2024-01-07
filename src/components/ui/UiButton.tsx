@@ -12,7 +12,7 @@ export function UiButton({
   return (
     <button
       className={cn(
-        'text-white p-2 leading-[21px] rounded-[10px]  bg-blue-500 hover:bg-blue-700',
+        'text-white p-1 leading-4 rounded-[10px] text-sm bg-blue-500 hover:bg-blue-700 sm:text-base sm:p-2',
         className,
         { 'bg-slate-300 select-none pointer-events-none': disabled }
       )}

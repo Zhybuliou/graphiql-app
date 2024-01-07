@@ -34,7 +34,7 @@ export function Navbar() {
   return (
     <div
       className={cn(
-        'sticky top-0 z-50 flex lg:justify-end gap-1 p-2 shadow bg-gray-50 flex-wrap justify-center',
+        'sticky top-0 z-50 flex sm:justify-end gap-2 p-1 sm:p-2 shadow bg-gray-50 flex-wrap justify-center',
         {
           'opacity-70 transition-all': isScroll,
         }
