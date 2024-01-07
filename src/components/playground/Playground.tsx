@@ -57,19 +57,17 @@ export function Playground() {
           >
             <IconSchema className="w-4 h-4" />
           </UiButton>
+          <UiButton
+            type="button"
+            onClick={executeQuery}
+            className="p-2 bg-red-500 rounded-full hover:bg-red-600"
+            title={state.strings.playgroundButtonExecuteTitle}
+            disabled={isLoading || !schema}
+          >
+            <IconPlay className="w-4 h-4" />
+          </UiButton>
           <EndpointInput endpoint={endpoint} setEndpoint={setEndpoint} />
         </>
-      }
-      buttonExecute={
-        <UiButton
-          type="button"
-          onClick={executeQuery}
-          className="p-2 bg-red-600 rounded-full hover:bg-red-500"
-          title={state.strings.playgroundButtonExecuteTitle}
-          disabled={isLoading || !schema}
-        >
-          <IconPlay className="w-10 h-10" />
-        </UiButton>
       }
       requestEditor={
         <RequestEditor

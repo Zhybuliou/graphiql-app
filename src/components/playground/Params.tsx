@@ -74,7 +74,7 @@ export function Params({
                 type="button"
                 onClick={() => handleChangeTab(tabParams)}
                 className={cn(
-                  `inline-block p-4 uppercase text-gray-400 hover:text-gray-600 border-b-[3px] hover:border-gray-300`,
+                  `inline-block text-xs sm:text-sm p-2 sm:p-4 uppercase text-gray-400 hover:text-gray-600 border-b-[2px] sm:border-b-[3px] hover:border-gray-300`,
                   {
                     'text-blue-600 hover:text-blue-600 border-blue-600 hover:border-blue-600':
                       activeTab === tabParams,

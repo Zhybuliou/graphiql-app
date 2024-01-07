@@ -3,7 +3,6 @@ import React from 'react';
 type PlaygroundLayoutProps = {
   controls: React.ReactElement;
   requestEditor: React.ReactElement;
-  buttonExecute: React.ReactElement;
   responseEditor: React.ReactElement;
   schemaViewer: React.ReactElement | false | undefined;
 };
@@ -11,7 +10,6 @@ type PlaygroundLayoutProps = {
 export function PlaygroundLayout({
   controls,
   requestEditor,
-  buttonExecute,
   responseEditor,
   schemaViewer,
 }: PlaygroundLayoutProps) {
@@ -20,10 +18,9 @@ export function PlaygroundLayout({
       <div className="w-full flex items-center justify-center gap-4 p-2">
         {controls}
       </div>
-      <div className="flex justify-center w-full h-full flex-1 relative">
+      <div className="flex flex-wrap justify-center gap-4 w-full h-full flex-1 relative sm:flex-nowrap">
         {requestEditor}
         {responseEditor}
-        <div className="absolute z-10 top-6">{buttonExecute}</div>
       </div>
       {schemaViewer}
     </div>
