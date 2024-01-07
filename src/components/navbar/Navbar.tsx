@@ -51,15 +51,13 @@ export function Navbar() {
           </Link>
         </>
       ) : (
-        <>
-          <UiButton type="button" onClick={logout}>
-            {state.strings.logOut}
-          </UiButton>
-          <Link to={RoutePaths.MAIN}>
-            <UiButton type="button">{state.strings.mainPage}</UiButton>
-          </Link>
-        </>
+        <UiButton type="button" onClick={logout}>
+          {state.strings.logOut}
+        </UiButton>
       )}
+      <Link to={RoutePaths.WELCOME}>
+        <UiButton type="button">{state.strings.welcomePage}</UiButton>
+      </Link>
     </div>
   );
 }
