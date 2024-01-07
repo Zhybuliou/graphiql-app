@@ -49,5 +49,19 @@
   "errorValidationPasswordSize": "Must be at least 8 characters",
   "errorValidationConfirmPasswordRequired": "Confirm Password is required",
   "errorValidationConfirmPasswordDoestMatch": "Confirm Password does not match",
-  "page404Tittle": "Not Found"
+  "page404Tittle": "Not Found",
+  "playgroundButtonSchemaTitle": "Schema",
+  "playgroundButtonPrettifyTitle": "Prettify",
+  "playgroundIsLoading": "Loading...",
+  "playgroundButtonExecuteTitle": "Execute query",
+  "playgroundParamsTabVariablesTitle": "query variables",
+  "playgroundParamsTabHeadersTitle": "headers html",
+  "playgroundResponseNoData": "No data! Make a request!",
+  "playgroundErrorBadRequest": "Error. Bad Request",
+  "playgroundErrorHTTP": "Error. We can't get data",
+  "playgroundErrorCantGetSchema": "Error. We can't get the schema.",
+  "schemaTabQueriesTitle": "queries",
+  "schemaTabTypeArgumentsTitle": "Type Arguments",
+  "schemaTabTypeDetailsTitle": "Type Details",
+  "schemaTabTypeDetailsType": "type"
 }

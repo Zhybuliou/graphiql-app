@@ -1,9 +1,9 @@
 import React from 'react';
 import { EditorView } from '@uiw/react-codemirror';
 import { langs } from '@uiw/codemirror-extensions-langs';
+import { noctisLilac } from '@uiw/codemirror-theme-noctis-lilac';
 import { EditorConfigs } from './types';
 import { Editor } from './Editor';
-import { THEMES } from './themes';
 import { BASIC_SETUPS } from './basicSetups';
 
 type ParamsEditorProps = {
@@ -15,7 +15,7 @@ export function ParamsEditor({ value, onChange }: ParamsEditorProps) {
   const editorConfigs: EditorConfigs = {
     value,
     onChange,
-    theme: THEMES.params,
+    theme: noctisLilac,
     className: 'text-balance',
     extensions: [langs.json(), EditorView.lineWrapping],
     basicSetup: BASIC_SETUPS.params,

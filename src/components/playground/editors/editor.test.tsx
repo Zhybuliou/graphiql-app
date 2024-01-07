@@ -2,8 +2,8 @@ import { render } from '@testing-library/react';
 import { vitest } from 'vitest';
 import { EditorView } from '@uiw/react-codemirror';
 import { langs } from '@uiw/codemirror-extensions-langs';
+import { noctisLilac } from '@uiw/codemirror-theme-noctis-lilac';
 import { EditorConfigs } from './types';
-import { THEMES } from './themes';
 import { BASIC_SETUPS } from './basicSetups';
 import { Editor } from './Editor';
 
@@ -13,7 +13,7 @@ test('CodeMirror should display our text', () => {
   const editorConfigs: EditorConfigs = {
     value: textToDisplay,
     onChange: handleUpdate,
-    theme: THEMES.params,
+    theme: noctisLilac,
     basicSetup: BASIC_SETUPS.params,
     className: 'text-balance',
     extensions: [langs.json(), EditorView.lineWrapping],

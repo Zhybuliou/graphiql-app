@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ParamsEditor } from './editors/ParamsEditor';
 import { cn } from '../../utils/cn';
+import { useLocale } from '../../context/local';
 
 enum TabsParams {
   variables = 'query variables',
@@ -23,10 +24,23 @@ export function Params({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<TabsParams>(TabsParams.variables);
 
+  const { state } = useLocale();
+
   const { value, onChange } = {
-    [TabsParams.headers]: { value: headers, onChange: setHeaders },
-    [TabsParams.variables]: { value: variables, onChange: setVariables },
+    [TabsParams.headers]: {
+      value: headers,
+      onChange: setHeaders,
+    },
+    [TabsParams.variables]: {
+      value: variables,
+      onChange: setVariables,
+    },
   }[activeTab];
+
+  const tabTitles = {
+    [TabsParams.headers]: state.strings.playgroundParamsTabHeadersTitle,
+    [TabsParams.variables]: state.strings.playgroundParamsTabVariablesTitle,
+  };
 
   function handleChangeTab(newTab: TabsParams) {
     if (!isOpen) {
@@ -62,12 +76,12 @@ export function Params({
                 className={cn(
                   `inline-block p-4 uppercase text-gray-400 hover:text-gray-600 border-b-[3px] hover:border-gray-300`,
                   {
-                    'text-blue-controls hover:text-blue-controls border-blue-controls hover:border-blue-controls':
+                    'text-blue-600 hover:text-blue-600 border-blue-600 hover:border-blue-600':
                       activeTab === tabParams,
                   }
                 )}
               >
-                {tabParams}
+                {tabTitles[tabParams]}
               </button>
             );
           })}

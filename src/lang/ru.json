@@ -49,5 +49,19 @@
   "errorValidationPasswordSize": "Должно быть не менее 8 символов",
   "errorValidationConfirmPasswordRequired": "Требуется подтверждение пароля",
   "errorValidationConfirmPasswordDoestMatch": "Пароли не совпадает",
-  "page404Tittle": "Не найдено"
+  "page404Tittle": "Не найдено",
+  "playgroundButtonSchemaTitle": "Схема",
+  "playgroundButtonPrettifyTitle": "Форматирование",
+  "playgroundIsLoading": "Загрузка...",
+  "playgroundButtonExecuteTitle": "Выполнить запрос",
+  "playgroundParamsTabVariablesTitle": "параметры запроса",
+  "playgroundParamsTabHeadersTitle": "заголовки html",
+  "playgroundResponseNoData": "Нет данных! Сделайте запрос!",
+  "playgroundErrorBadRequest": "Ошибка! Некорректный запрос.",
+  "playgroundErrorHTTP": "Ошибка. Проблема с получением данных.",
+  "playgroundErrorCantGetSchema": "Ошибка. Проблема с получением данных схемы",
+  "schemaTabQueriesTitle": "запросы",
+  "schemaTabTypeArgumentsTitle": "Аргументы",
+  "schemaTabTypeDetailsTitle": "Поля типа",
+  "schemaTabTypeDetailsType": "тип"
 }

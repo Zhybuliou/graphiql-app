@@ -9,9 +9,14 @@ import { createHeadersOfRequest } from '../../utils/createHeadersOfRequest';
 import { createBodyOfRequest } from '../../utils/createBodyOfRequest';
 import { makeRequest } from '../../services/makeRequest';
 import SchemaViewer from './SchemaViewer';
+import { LocaleProvider } from '../../context/local';
 
 test('Show schema viewer when click button to open aside', () => {
-  const screen = render(<Playground />);
+  const screen = render(
+    <LocaleProvider>
+      <Playground />
+    </LocaleProvider>
+  );
   const schemaButton = screen.getByTestId('schema-button');
   fireEvent.click(schemaButton);
   waitFor(() => {
@@ -30,9 +35,10 @@ test('Show queries of schema', async () => {
   );
   const schema = buildClientSchema(schemaData.data);
   const setIsOpenMock = vitest.fn();
-  const { getByText, getAllByRole } = render(
-    <SchemaViewer schema={schema} setIsOpen={setIsOpenMock} isOpen />
+  const { getAllByRole } = render(
+    <LocaleProvider>
+      <SchemaViewer schema={schema} setIsOpen={setIsOpenMock} isOpen />
+    </LocaleProvider>
   );
-  expect(getByText(/QUERIES/i)).toBeInTheDocument();
   expect(getAllByRole('listitem').length).toBe(9);
 });

@@ -10,6 +10,7 @@ import { FieldInfo } from '../ui/FieldInfo';
 import { TypeToDisplay } from '../types';
 import { getPureType } from '../utils';
 import { SectionTitle } from '../ui/SectionTitle';
+import { useLocale } from '../../../context/local';
 
 type TabDetailsProps = {
   typeToDisplay: TypeToDisplay;
@@ -22,12 +23,13 @@ export function TabDetails({
   tabIndex,
   setOpenedTypes,
 }: TabDetailsProps) {
+  const { state } = useLocale();
   const pureType = getPureType(typeToDisplay);
 
   if (isScalarType(pureType)) {
     return (
       <div>
-        <SectionTitle>Type Details</SectionTitle>
+        <SectionTitle>{state.strings.schemaTabTypeDetailsTitle}</SectionTitle>
         <p className="my-2">{pureType.description}</p>
         <FieldInfo name="scalar" type={pureType.name} />
       </div>
@@ -53,9 +55,11 @@ export function TabDetails({
 
   return (
     <div>
-      <SectionTitle>Type Details</SectionTitle>
+      <SectionTitle>{state.strings.schemaTabTypeDetailsTitle}</SectionTitle>
       <p>
-        <span className="text-blue-600">type</span>{' '}
+        <span className="text-blue-600">
+          {state.strings.schemaTabTypeDetailsType}
+        </span>{' '}
         <span className="text-red-700">{pureType.toString()}</span>
         {'{'}
       </p>

@@ -11,5 +11,5 @@ export function TabDescription({ typeToDisplay }: TabDescriptionProps) {
     return null;
   }
 
-  return <p>{typeToDisplay.description}</p>;
+  return typeToDisplay.description && <p>{typeToDisplay.description}</p>;
 }

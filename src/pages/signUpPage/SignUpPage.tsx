@@ -110,6 +110,7 @@ function SignUpPage() {
           <UiButton
             type="submit"
             disabled={!isValid}
+            className="w-full text-lg py-2 px-4 rounded-xl"
             data-testid="button-signUp"
           >
             {state.strings.signUp}

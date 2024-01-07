@@ -8,6 +8,8 @@ import { ResponseEditor } from './editors/ResponseEditor';
 import { usePlayground } from './usePlayground';
 import { PlaygroundLayout } from './PlaygroundLayout';
 import { EndpointInput } from './EndpointInput';
+import { IconSchema } from '../ui/icons/IconSchema';
+import { useLocale } from '../../context/local';
 
 export function Playground() {
   const {
@@ -29,78 +31,82 @@ export function Playground() {
     executeQuery,
   } = usePlayground();
 
+  const { state } = useLocale();
+
   const SchemaViewer = lazy(() => import('../schemaViewer/SchemaViewer'));
 
   return (
-    <>
-      <PlaygroundLayout
-        controls={
-          <>
-            <UiButton
-              type="button"
-              onClick={prettify}
-              title="Prettify"
-              className="p-2"
-            >
-              <IconSparkles className="w-4 h-4" />
-            </UiButton>
-            <UiButton
-              type="button"
-              onClick={() => setIsOpenSchema((o) => !o)}
-              disabled={!schema}
-              title="Schema"
-              className="p-2 bg-red-600 hover:bg-red-500"
-              data-testid="schema-button"
-            >
-              <IconSparkles className="w-4 h-4" />
-            </UiButton>
-            <EndpointInput endpoint={endpoint} setEndpoint={setEndpoint} />
-          </>
-        }
-        buttonExecute={
+    <PlaygroundLayout
+      controls={
+        <>
           <UiButton
             type="button"
-            onClick={executeQuery}
-            className="p-2 bg-red-600 rounded-full hover:bg-red-500"
-            title="Execute query"
-            disabled={isLoading || !schema}
+            onClick={prettify}
+            title={state.strings.playgroundButtonPrettifyTitle}
+            className="p-2"
           >
-            <IconPlay className="w-10 h-10" />
+            <IconSparkles className="w-4 h-4" />
           </UiButton>
-        }
-        requestEditor={
-          <RequestEditor
-            schema={schema}
-            setQueryString={setQueryString}
-            queryString={queryString}
-            params={
-              <Params
-                headers={headers}
-                variables={variables}
-                setVariables={setVariables}
-                setHeaders={setHeaders}
-              />
+          <UiButton
+            type="button"
+            onClick={() => setIsOpenSchema((o) => !o)}
+            disabled={!schema}
+            title={state.strings.playgroundButtonSchemaTitle}
+            className="p-2"
+            data-testid="schema-button"
+          >
+            <IconSchema className="w-4 h-4" />
+          </UiButton>
+          <EndpointInput endpoint={endpoint} setEndpoint={setEndpoint} />
+        </>
+      }
+      buttonExecute={
+        <UiButton
+          type="button"
+          onClick={executeQuery}
+          className="p-2 bg-red-600 rounded-full hover:bg-red-500"
+          title={state.strings.playgroundButtonExecuteTitle}
+          disabled={isLoading || !schema}
+        >
+          <IconPlay className="w-10 h-10" />
+        </UiButton>
+      }
+      requestEditor={
+        <RequestEditor
+          schema={schema}
+          setQueryString={setQueryString}
+          queryString={queryString}
+          params={
+            <Params
+              headers={headers}
+              variables={variables}
+              setVariables={setVariables}
+              setHeaders={setHeaders}
+            />
+          }
+        />
+      }
+      responseEditor={
+        <ResponseEditor value={response} error={error} isLoading={isLoading} />
+      }
+      schemaViewer={
+        schema &&
+        isOpenSchema && (
+          <Suspense
+            fallback={
+              <p className="absolute right-px top-0 z-20">
+                {state.strings.playgroundIsLoading}
+              </p>
             }
-          />
-        }
-        responseEditor={
-          <ResponseEditor
-            value={response}
-            error={error}
-            isLoading={isLoading}
-          />
-        }
-      />
-
-      {schema && isOpenSchema && (
-        <Suspense fallback={<p>Loading...</p>}>
-          <SchemaViewer
-            schema={schema}
-            isOpen={isOpenSchema}
-            setIsOpen={setIsOpenSchema}
-          />
-        </Suspense>
-      )}
-    </>
+          >
+            <SchemaViewer
+              schema={schema}
+              isOpen={isOpenSchema}
+              setIsOpen={setIsOpenSchema}
+            />
+          </Suspense>
+        )
+      }
+    />
   );
 }
